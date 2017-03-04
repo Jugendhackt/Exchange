@@ -13,11 +13,14 @@
 	}
 
 
+angular.module('jhvw', [
+	'ngMaterial',
+	'firebase'
+])
 
-var app = angular.module('Test', [
 
 
-app.controller("AppCtrl", [
+.controller("AppCtrl", [
 	'$scope',
 	'$firebaseArray',
 	'$mdDialog',
@@ -40,8 +43,7 @@ app.controller("AppCtrl", [
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose: true
-			});
+			})
 		}
-
 	}
-]);
+])

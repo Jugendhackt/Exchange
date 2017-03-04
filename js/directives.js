@@ -2,8 +2,6 @@ angular.module('jhvw')
 
 
 
-
-
 // and use it in our controller
 .controller("AuthCtrl", 
 	[
