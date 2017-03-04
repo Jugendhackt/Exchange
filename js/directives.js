@@ -3,38 +3,38 @@ angular.module('jhvw')
 
 
 // and use it in our controller
-.controller("AuthCtrl", 
-	[
-		'$scope', 
-		'Auth',
+// .controller("AuthCtrl", 
+// 	[
+// 		'$scope', 
+// 		'Auth',
 
-		function($scope, Auth) {
-			$scope.createUser = function() {
-				$scope.message 	= null;
-				$scope.error 	= null;
+// 		function($scope, Auth) {
+// 			$scope.createUser = function() {
+// 				$scope.message 	= null;
+// 				$scope.error 	= null;
 
-				// Create a new user
-				Auth.$createUserWithEmailAndPassword($scope.email, $scope.password)
-					.then(function(firebaseUser) {
-						$scope.message = "User created with uid: " + firebaseUser.uid;
-					}).catch(function(error) {
-						$scope.error = error;
-					})
-			}
+// 				// Create a new user
+// 				Auth.$createUserWithEmailAndPassword($scope.email, $scope.password)
+// 					.then(function(firebaseUser) {
+// 						$scope.message = "User created with uid: " + firebaseUser.uid;
+// 					}).catch(function(error) {
+// 						$scope.error = error;
+// 					})
+// 			}
 
-			$scope.deleteUser = function() {
-				$scope.message = null;
-				$scope.error = null;
+// 			$scope.deleteUser = function() {
+// 				$scope.message = null;
+// 				$scope.error = null;
 
-				// Delete the currently signed-in user
-				Auth.$deleteUser().then(function() {
-					$scope.message = "User deleted";
-				}).catch(function(error) {
-					$scope.error = error;
-				})
-			}
-		}
-])
+// 				// Delete the currently signed-in user
+// 				Auth.$deleteUser().then(function() {
+// 					$scope.message = "User deleted";
+// 				}).catch(function(error) {
+// 					$scope.error = error;
+// 				})
+// 			}
+// 		}
+// ])
 
 
 .directive('focusMe', function(){
@@ -42,7 +42,6 @@ angular.module('jhvw')
 		restrict: 'A',
 
 		link: function(scope, element){
-			console.log('ADFADSFFDSADSA')
 			element.focus()
 		}
 	}
@@ -63,19 +62,29 @@ angular.module('jhvw')
 
 			link: function(scope, element){
 
-				scope.step = 0
+				scope.step 		=	0
+				scope.data		=	{
+										email: 		'',
+										password: 	''
+									}
+
+				scope.done		= false
 
 				scope.next = function(){ scope.step ++ }
 				scope.back = function(){ scope.step -- }
 
 				scope.createUser = function(email, password) {
-					scope.message 	= null
-					scope.error 	= null
+
+
+					console.log('createUser! XXXX')
 
 					jhvwAuth.$createUserWithEmailAndPassword(email, password)
 					.then(function(firebaseUser) {
-						scope.message = "User created with uid: " + firebaseUser.uid;
+						console.log('SDf')
+						scope.message = "Benutzer angelegt (" + firebaseUser.uid + ")"
 					}).catch(function(error) {
+						console.log('ERROR')
+						console.log('EMAIL:!!! ', scope.email)
 						scope.error = error;
 					})
 				}

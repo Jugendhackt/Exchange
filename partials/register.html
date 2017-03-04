@@ -1,10 +1,10 @@
-<form ng-submit = "next()">
+<form ng-submit = "step < 1 ? next() : createUser(data.email, data.password)">
 	<md-input-container
 		ng-if = "step == 0"
 	>
 	  	<label>E-Mail</label>
 	  	<input 
-	 		ng-model	= "email" 
+	 		ng-model	= "data.email" 
 	 		type		= "text"
 	 		md-auto-focus
 			focus-me
@@ -14,18 +14,24 @@
 	<md-input-container
 		ng-if = "step == 1"
 	>
-		<label>Password</label>
+		<label>Passwort</label>
 		<input 
-			ng-model	= "password" 
+			ng-model	= "data.password" 
 			type		= "password"
 			focus-me
 		>
 	</md-input-container>
 
+	<div>
+		{{message}}	
+		{{error}}
+	</div>
+
 	<div layout-xs = "column" layout = "row">
 		<md-button 
 			class 	= "md-raised" 
 			flex 	= "grow"
+			ng-if	= "step "
 		>				
 			Zurück	
 		</md-button>
