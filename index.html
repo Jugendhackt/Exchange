@@ -4,11 +4,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Angular Material style sheet -->
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-</head>
-<body ng-app="Test" ng-cloak>
-	<!--
-		Your HTML content here
-	-->  
 	
 	<!-- Angular Material requires Angular.js Libraries -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
@@ -29,19 +24,87 @@
 	<script src="config.js"></script>
 
 	<!-- App.js -->
-	<script src="js/app.js"></script>
+	<script src="/js/app.js"></script>
+	<script src="/js/directives.js"></script>
+	<script src="/js/services.js"></script>
 
 	
-</body>
-<jh-chat></jh-chat>
+</head>
 
-	<div ng-controller = "SampleCtrl">
-			<pre>{{messages|json}}</pre>
+<body ng-app="jhvw" ng-cloak ng-controller = "AppCtrl">
 
-			<form ng-submit = "post()">
-					<input ng-model = "username"></input>
-					<input ng-model = "message"></input>
-					<button type = "submit">submit</button>
-			</form>
+
+	<md-button class="md-primary md-raised" ng-click="register($event)"></md-button>
+
+
+
+
+	<div style="visibility: hidden">
+		<div class="md-dialog-container" id="registerDialog">
+			<md-dialog layout-padding>
+				<jhvw-register></jhvw-register>					
+			</md-dialog>
+		</div>
 	</div>
-</html>
+
+
+
+
+
+
+	<div >
+
+			<div 
+				layout		= "row" 
+				ng-repeat 	= "message in messages"
+			>
+				<div flex = "20"> 
+					{{message.from}} 
+				</div>
+				<div flex = "grow">
+					{{message.content}}
+					<pre>{{message|json}}</pre>
+				</div>
+			</div>
+
+
+			
+			<form ng-submit = "post()">
+				<md-input-container>
+					<label>Color</label>
+					<input ng-model="from" required md-maxlength="10" type="text">
+				</md-input-container>
+
+				<md-input-container>
+					<label>Color</label>
+					<input ng-model="content" required md-maxlength="10" type="text">
+				</md-input-container>
+				<md-button class="md-primary" type = "submit">Submit</md-button>
+			</form>
+
+	</div>
+
+
+
+
+
+
+
+	
+	<div>
+		Email: <input type="text" ng-model="email">
+		Password: <input type="text" ng-model="password">
+
+		<br><br>
+
+		<button ng-click="createUser()">Create User</button>
+
+		<br><br>
+
+		<button ng-click="deleteUser()">Delete User</button>
+
+		<p ng-if="message">Message: <strong>{{ message }}</strong></p>
+		<p ng-if="error">Error: <strong>{{ error }}</strong></p>
+	</div>
+
+</body>

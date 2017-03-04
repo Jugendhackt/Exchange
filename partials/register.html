@@ -1,0 +1,41 @@
+<form ng-submit = "next()">
+	<md-input-container
+		ng-if = "step == 0"
+	>
+	  	<label>E-Mail</label>
+	  	<input 
+	 		ng-model	= "email" 
+	 		type		= "text"
+	 		md-auto-focus
+			focus-me
+	 	>
+	</md-input-container>
+
+	<md-input-container
+		ng-if = "step == 1"
+	>
+		<label>Password</label>
+		<input 
+			ng-model	= "password" 
+			type		= "password"
+			focus-me
+		>
+	</md-input-container>
+
+	<div layout-xs = "column" layout = "row">
+		<md-button 
+			class 	= "md-raised" 
+			flex 	= "grow"
+		>				
+			Zurück	
+		</md-button>
+
+		<md-button 
+			class 	= "md-primary md-raised" 
+			type 	= "submit"
+			flex 	= "grow"
+		>	
+			Okay	
+		</md-button>
+	</div>
+</form>
