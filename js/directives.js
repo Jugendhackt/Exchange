@@ -130,10 +130,8 @@ angular.module('jhvw')
 
 				scope.messages = $firebaseArray(ref)
 
-
-
 				scope.post = function(){
-					scope.messages.$add({content: scope.content, from: jhvwAuth.$getAuth().email, timestamp: firebase.database.ServerValue.TIMESTAMP})
+					scope.messages.$add({content: scope.content, from: jhvwAuth.$getAuth().uid, timestamp: firebase.database.ServerValue.TIMESTAMP})
 				}
 			}
 		}

@@ -1,8 +1,12 @@
 <md-card
 		layout      = "row" 
+		flex		= "80"
 		ng-repeat   = "message in messages"
+		flex-offset = "{{message.from ==  'u8AJAInF8vNX4T4bIk4dqx2zaTH2' ? 20 : 0}}"
+		md-colors	= "{'background-color': 'primary-{{message.from ==  'u8AJAInF8vNX4T4bIk4dqx2zaTH2' ? 400 : 200}}'}"
 >
 
+	
 		<md-card-avatar>
 			<md-icon ng-bind="'account_circle'"></md-icon>
 		</md-card-avatar>
@@ -20,7 +24,7 @@
 <form ng-submit = "post()">
 		<md-input-container>
 				<label>Nachricht</label>
-				<input ng-model="content" required md-maxlength="10" type="text">
+				<input ng-model="content" required md-maxlength="100" type="text">
 		</md-input-container>
 
 		<md-button class="md-primary" type = "submit">Submit</md-button>
