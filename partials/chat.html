@@ -1,0 +1,32 @@
+<md-card
+		layout      = "row" 
+		ng-repeat   = "message in messages"
+>
+
+		<md-card-avatar>
+			<md-icon ng-bind="'account_circle'"></md-icon>
+		</md-card-avatar>
+
+		<md-card-title>
+				<md-card-title-text> {{message.from}} </md-card-title-text>
+		</md-card-title>
+		
+		<md-card-content> {{message.content}} </md-card-content>
+		
+</md-card>
+
+
+
+<form ng-submit = "post()">
+		<md-input-container>
+				<label>Nachricht</label>
+				<input ng-model="content" required md-maxlength="10" type="text">
+		</md-input-container>
+
+		<md-button class="md-primary" type = "submit">Submit</md-button>
+</form>
+
+
+
+
+

@@ -1,6 +1,6 @@
-<form ng-submit = "step < 1 ? next() : createUser(data.email, data.password)">
+<form ng-submit = "submit()">
 	<md-input-container
-		ng-if = "step == 0"
+		ng-if = "step == 'mail'"
 	>
 	  	<label>E-Mail</label>
 	  	<input 
@@ -12,7 +12,7 @@
 	</md-input-container>
 
 	<md-input-container
-		ng-if = "step == 1"
+		ng-if = "step == 'password'"
 	>
 		<label>Passwort</label>
 		<input 
@@ -22,26 +22,31 @@
 		>
 	</md-input-container>
 
-	<div>
+	<div layout-padding>
 		{{message}}	
 		{{error}}
 	</div>
 
 	<div layout-xs = "column" layout = "row">
+
 		<md-button 
-			class 		= "md-raised" 
-			flex 		= "grow"
-			ng-click	= "back()"
+			layout-align	= "center"
+			class 			= "md-raised" 
+			flex 			= "grow"
+			ng-click		= "back()"
+			ng-if			= "step == 'password' || step == 'error'"
 		>				
 			Zurück	
 		</md-button>
 
 		<md-button 
-			class 	= "md-primary md-raised" 
-			type 	= "submit"
-			flex 	= "grow"
+			layout-align	= "center"
+			class 			= "md-primary md-raised" 
+			type 			= "submit"
+			flex 			= "grow"
 		>	
 			Okay	
 		</md-button>
+
 	</div>
 </form>

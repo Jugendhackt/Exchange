@@ -45,5 +45,9 @@ angular.module('jhvw', [
 				clickOutsideToClose: true
 			})
 		}
+
+		$scope.closeRegister = function(ev){
+			$mdDialog.hide()
+		}
 	}
 ])

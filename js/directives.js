@@ -58,37 +58,83 @@ angular.module('jhvw')
 		return {
 			restrict:       'AE',
 			templateUrl:    '/partials/register.html',
-			scope:          true,
+			scope:          {
+								onSuccess : '&',
+							},
 
 			link: function(scope, element){
 
-				scope.step 		=	0
-				scope.data		=	{
+				
+				scope.done		= false
+
+
+				console.log(scope.onSuccess())
+
+				scope.back = function(){ 
+					switch(scope.step){
+						case 'password':	scope.step = 'mail'; 		break
+						case 'error': 		scope.reset(); 				break
+					}
+				}
+
+				scope.reset = function(){
+					scope.step 		=	'mail'
+					scope.data		=	{
 										email: 		'',
 										password: 	''
 									}
-
-				scope.done		= false
-
-				scope.next = function(){ scope.step ++ }
-				scope.back = function(){ scope.step -- }
+				}
 
 				scope.createUser = function(email, password) {
-
-
-					console.log('createUser! XXXX')
-
 					jhvwAuth.$createUserWithEmailAndPassword(email, password)
 					.then(function(firebaseUser) {
-						console.log('SDf')
-						scope.message = "Benutzer angelegt (" + firebaseUser.uid + ")"
+						scope.message 	= "Benutzer angelegt (" + firebaseUser.uid + ")"
+						scope.step 		= 'success'
 					}).catch(function(error) {
-						console.log('ERROR')
-						console.log('EMAIL:!!! ', scope.email)
-						scope.error = error;
+						scope.error 	= error
+						scope.step		= 'error'
 					})
 				}
 
+				scope.submit = function(){
+					switch(scope.step){
+						case 'mail':		scope.step = 'password'; break
+						case 'password': 	scope.createUser(scope.data.email, scope.data.password); break
+						case 'success': 	scope.onSuccess(); break
+					}
+				}
+
+				scope.reset()	
+			}
+		}
+	}
+])
+
+
+
+
+.directive('jhvwChat',[
+
+	'$firebaseArray',
+	'jhvwAuth',
+
+	function($firebaseArray, jhvwAuth){
+		return {
+			restrict:		'E',
+			templateUrl:	'/partials/chat.html',
+			scope:			true,
+
+
+			link: function(scope, element){
+				var ref = firebase.database().ref().child("messages")
+
+				scope.messages = $firebaseArray(ref)
+
+
+
+				scope.post = function(){
+					scope.messages.$add({content: scope.content, from: jhvwAuth.$getAuth().email, timestamp: firebase.database.ServerValue.TIMESTAMP})
+				}
 			}
 		}
 	}
