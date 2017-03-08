@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>Wetter</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+	var key = "1c362da74ba5df2969451af029bffbe5"
+	var basis = "http://api.openweathermap.org/data/2.5/forecast?"
+	var land = "XA-DE"
+	var stadt = "Berlin"
+	var datum = "2017-03-12 15:00:00"
+	var link = basis + "q=" +land + "," + stadt + "&mode=json" + "&APPID=" + key
+	var daten
+	var ergebnis = {}
+	
+	
+
+	function anfordern()
+	{
+	   var req = new XMLHttpRequest();
+	   req.open("get", link, true);
+	   // req.open("get", "ajax_hallo.txt", true);
+	   req.onreadystatechange = auswerten;
+	   req.send();
+	}
+
+	function auswerten(e)
+	{
+	   if(e.target.readyState == 4 && e.target.status == 200)
+	   	speichern(e.target.responseText);
+	     // document.getElementById("idAbsatz").firstChild.nodeValue =
+		 //e.target.responseText;
+	}
+	
+	function speichern(wetter)
+	{
+		daten = wetter;
+		zuListe(daten);
+		
+	}
+	
+	function zuListe(wetter)
+	{
+		var liwetter = JSON.parse(wetter);
+		
+		for (var wvhsage of liwetter["list"])
+		{
+			//console.log(gesDat["dt_txt"]);
+			if (datum == wvhsage["dt_txt"])
+			{
+				ergebnis["beschreibung"] = wvhsage["weather"][0]["description"];
+				ergebnis["stadt"] = stadt;
+				ergebnis["temp"] = (parseInt(wvhsage["main"]["temp"]) - 273.15).toFixed(2)
+			}	
+			
+		}
+		console.log(ergebnis);
+	}
+	
+	
+		
+//console.log(liwetter["list"][0]["weather"][0]["description"]);
+
+    </script>
+</head>
+<body>
+<p id="idAbsatz">&nbsp;</p>
+<script type="text/javascript" src="eh.js"></script>
+<script type="text/javascript">
+   //meinHandler("idLink", "click", anfordern);
+   anfordern();
+</script>
+</body>
+
+</html>
+
