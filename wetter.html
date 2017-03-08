@@ -18,19 +18,17 @@
 
 	function anfordern()
 	{
-	   var req = new XMLHttpRequest();
-	   req.open("get", link, true);
-	   // req.open("get", "ajax_hallo.txt", true);
+	   var req = new XMLHttpRequest()
+	   req.open("get", link, true)
 	   req.onreadystatechange = auswerten;
-	   req.send();
+	   req.send()
 	}
 
 	function auswerten(e)
 	{
 	   if(e.target.readyState == 4 && e.target.status == 200)
 	   	speichern(e.target.responseText);
-	     // document.getElementById("idAbsatz").firstChild.nodeValue =
-		 //e.target.responseText;
+
 	}
 	
 	function speichern(wetter)
@@ -42,14 +40,14 @@
 	
 	function zuListe(wetter)
 	{
-		var liwetter = JSON.parse(wetter);
+		var liwetter = JSON.parse(wetter)
 		
 		for (var wvhsage of liwetter["list"])
 		{
 			if (datum == wvhsage["dt_txt"])
 			{
-				ergebnis["beschreibung"] = wvhsage["weather"][0]["description"];
-				ergebnis["stadt"] = stadt;
+				ergebnis["beschreibung"] = wvhsage["weather"][0]["description"]
+				ergebnis["stadt"] = stadt
 				ergebnis["temp"] = (parseInt(wvhsage["main"]["temp"]) - 273.15).toFixed(2)
 			}	
 			
@@ -65,7 +63,7 @@
 <p id="idAbsatz">&nbsp;</p>
 <script type="text/javascript" src="eh.js"></script>
 <script type="text/javascript">
-   anfordern();
+   anfordern()
 </script>
 </body>
 
