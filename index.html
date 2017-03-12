@@ -7,20 +7,22 @@
 		<link href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" rel="stylesheet" >
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-		<!-- Angular Material requires Angular.js Libraries -->
+		<!-- Roboto -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-messages.min.js"></script>
 
 		<!-- Angular Material Library -->
 		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 		
-		<!-- Firebase -->
-		<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
+		
 
-		<!-- AngularFire -->
-		<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+		<!-- deployd -->
+		<script src="http://localhost:2403/dpd.js"></script>
 
 		<!-- Config -->
 		<script src="config.js"></script>
@@ -29,46 +31,42 @@
 		<script src="/js/app.js"></script>
 		<script src="/js/directives.js"></script>
 		<script src="/js/services.js"></script>
+		<script src="/js/controllers.js"></script>
 
 		
 </head>
 
 <body ng-app="jhvw" ng-cloak ng-controller = "AppCtrl">
+	<md-toolbar layout="row" layout-align="end center">
+		<md-button 
+			ng-if 		= "!jhvwUser.data.username"
+			ng-click	= "register()"
+		>
+			Registrieren
+		</md-button>
 
-	<div style="visibility: hidden">
-			<div class="md-dialog-container" id="registerDialog">
-					<md-dialog layout-padding>
-							<jhvw-register
-									on-success = "closeRegister($event)"
-							></jhvw-register>                   
-					</md-dialog>
-			</div>
-	</div>
+		<md-button
+			ng-if 		= "!jhvwUser.data.username"
+			ng-click	= "login()"
+		>
+			Anmelden
+		</md-button>
 
-	<md-content class="md-padding">
 
-		<md-nav-bar
-			md-selected-nav-item="currentNavItem"
-			nav-bar-aria-label="navigation links">
+		<md-button
+			ng-if 		= "jhvwUser.data.username"
+			ng-click 	= "logout()" 
+		>
+			{{jhvwUser.data.username}} Abmelden
+		</md-button>
 
-			<md-nav-item md-nav-click="register($event)" name="page1">
-				Registrieren
-			</md-nav-item>
 
-			<md-nav-item md-nav-click="" name="page1">
-				Anmelden
-			</md-nav-item>
-
-			<md-nav-item md-nav-click="" name="page1">
-				Abmelden
-			</md-nav-item>
-			
-		</md-nav-bar>
 		
+	</md-toolbar>
 
-		<jhvw-chat></jhvw-chat>
+	<md-content class="md-padding" ng-view>
 
-
+		
 	</md-content>
 
 

@@ -1,53 +1,70 @@
-
-	firebase.initializeApp(_jh_config.firebase)
-
-
-	function writeUserData(userId, name, email, imageUrl) {
-		firebase.database().ref('users/' + userId).set({
-			username: name,
-			email: email,
-			profile_picture : imageUrl
-		})
-
-
-	}
-
-
 angular.module('jhvw', [
 	'ngMaterial',
-	'firebase'
+	'ngRoute',
 ])
 
+
+.config([
+	'$routeProvider',
+
+	function($routeProvider){
+		$routeProvider
+		.when('/r/:room?',{
+			controller:		'chatCtrl',
+			templateUrl: 	'pages/chat.html'
+		})
+		.otherwise({
+			redirectTo: '/r/'
+		})
+	}
+])
 
 
 .controller("AppCtrl", [
 	'$scope',
-	'$firebaseArray',
 	'$mdDialog',
+	'jhvwUser',
 
-	function($scope, $firebaseArray, $mdDialog) {
-		 var ref = firebase.database().ref().child("messages");
-		// create a synchronized array
-		// click on `index.html` above to see it used in the DOM!
-		$scope.messages = $firebaseArray(ref);
-
-		$scope.post = function(){
-			$scope.messages.$add({content: $scope.content, from: $scope.from, timestamp: firebase.database.ServerValue.TIMESTAMP})
-			$scope.content = ''
-		}
-
+	function($scope, $mdDialog, jhvwUser) {
 
 		$scope.register = function(ev){
 			$mdDialog.show({
-				contentElement: '#registerDialog',
-				parent: angular.element(document.body),
-				targetEvent: ev,
-				clickOutsideToClose: true
+				parent: 				angular.element(document.body),
+				targetEvent: 			ev,
+				clickOutsideToClose: 	true,
+				template:				'<jhvw-login-register register = "true" layout-padding></jhvw-login-register>',
+
+				controller:	function($scope,  $mdDialog){
+					$scope.$on('jhvwRegisterLoginDone', $mdDialog.hide)
+				}
 			})
 		}
 
-		$scope.closeRegister = function(ev){
-			$mdDialog.hide()
+		$scope.login = function(ev){
+			$mdDialog.show({
+				parent: 				angular.element(document.body),
+				targetEvent: 			ev,
+				clickOutsideToClose: 	true,
+				template:				'<jhvw-login-register layout-padding></jhvw-login-register>',
+
+				controller:	function($scope,  $mdDialog){
+					$scope.$on('jhvwRegisterLoginDone', $mdDialog.hide)
+				}
+			})
 		}
+
+		$scope.logout = function(){
+			jhvwUser.logout()
+		}
+	}
+])
+
+.run([
+
+	'$rootScope',
+	'jhvwUser',
+
+	function($rootElement, jhvwUser){
+		$rootElement.jhvwUser = jhvwUser
 	}
 ])

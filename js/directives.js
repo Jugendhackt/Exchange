@@ -41,66 +41,99 @@ angular.module('jhvw')
 	return {
 		restrict: 'A',
 
-		link: function(scope, element){
-			element.focus()
+		link: function(scope, element, attrs){
+			if(attrs.focusMe){
+				scope.$watch(attrs.focusMe, function(value){
+					if(value) element.focus()
+				})
+			} else {
+				element.focus()
+			}
 		}
+	}
+})
+
+.filter('underscores', function(){
+	return function(str){
+		return str.replace(/\s/,'_')
 	}
 })
 
 
 
-.directive('jhvwRegister',[
+.directive('jhvwLoginRegister',[
 
-	'jhvwAuth',
+	'$q',
+	'jhvwUser',
 
-	function(jhvwAuth){
+	function($q, jhvwUser){
 		
 		return {
 			restrict:       'AE',
-			templateUrl:    '/partials/register.html',
-			scope:          {
-								onSuccess : '&',
-							},
+			templateUrl:    '/partials/login_register.html',
+			scope:			true,
 
-			link: function(scope, element){
+			link: function(scope, element, attrs){
 
 				
-				scope.done		= false
-
-
-				console.log(scope.onSuccess())
 
 				scope.back = function(){ 
 					switch(scope.step){
-						case 'password':	scope.step = 'mail'; 		break
+						case 'password':	scope.step = 'username'; 	break
 						case 'error': 		scope.reset(); 				break
 					}
 				}
 
 				scope.reset = function(){
-					scope.step 		=	'mail'
+					scope.step 		=	'username'
 					scope.data		=	{
-										email: 		'',
+										username:	'',
 										password: 	''
 									}
+					scope.errors	= undefined
+					scope.message	= undefined
+					scope.user		= undefined
 				}
 
-				scope.createUser = function(email, password) {
-					jhvwAuth.$createUserWithEmailAndPassword(email, password)
-					.then(function(firebaseUser) {
-						scope.message 	= "Benutzer angelegt (" + firebaseUser.uid + ")"
-						scope.step 		= 'success'
-					}).catch(function(error) {
-						scope.error 	= error
-						scope.step		= 'error'
-					})
+				scope.register = function() {
+					jhvwUser.register(scope.data.username, scope.data.password)
+					.then(
+						function(user) {
+							scope.user		= user
+							scope.message 	= "Benutzer angelegt."
+							scope.step 		= 'login'
+						},
+						function(response) {
+							scope.errors 	= response.errors
+							scope.step		= 'error'
+						}
+					)
+
+				}
+
+				scope.login = function(){
+					jhvwUser.login(scope.data.username, scope.data.password)
+					.then(
+						function(){
+							scope.done()
+						},
+						function(response){
+							scope.errors 	= {login: response && response.message}
+							scope.step		= 'error'
+						}
+					)
+				}
+
+				scope.done = function(){
+					scope.$emit('jhvwRegisterLoginDone', scope.success ? true :  false)
 				}
 
 				scope.submit = function(){
 					switch(scope.step){
-						case 'mail':		scope.step = 'password'; break
-						case 'password': 	scope.createUser(scope.data.email, scope.data.password); break
-						case 'success': 	scope.onSuccess(); break
+						case 'username':	scope.step = 'password'; break
+						case 'password': 	attrs.register ? scope.register() : scope.login(); break
+						case 'login':		scope.login(); break;
+						case 'error':		scope.done(); break
 					}
 				}
 
@@ -115,24 +148,21 @@ angular.module('jhvw')
 
 .directive('jhvwChat',[
 
-	'$firebaseArray',
-	'jhvwAuth',
+	'jhvwChat',
 
-	function($firebaseArray, jhvwAuth){
+	function(jhvwChat){
 		return {
 			restrict:		'E',
 			templateUrl:	'/partials/chat.html',
-			scope:			true,
+			scope:			{
+								room: '<'
+							},
 
 
 			link: function(scope, element){
-				var ref = firebase.database().ref().child("messages")
-
-				scope.messages = $firebaseArray(ref)
-
-				scope.post = function(){
-					scope.messages.$add({content: scope.content, from: jhvwAuth.$getAuth().uid, timestamp: firebase.database.ServerValue.TIMESTAMP})
-				}
+				scope.$watch('room', function(){
+					scope.chat = new jhvwChat(scope.room)					
+				})
 			}
 		}
 	}
