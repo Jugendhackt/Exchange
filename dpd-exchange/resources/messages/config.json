@@ -1,0 +1,37 @@
+{
+	"type": "Collection",
+	"properties": {
+		"from": {
+			"name": "from",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "from",
+			"order": 0
+		},
+		"content": {
+			"name": "content",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "content",
+			"order": 1
+		},
+		"room": {
+			"name": "room",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "room",
+			"order": 2
+		},
+		"timestamp": {
+			"name": "timestamp",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "timestamp",
+			"order": 3
+		}
+	}
+}

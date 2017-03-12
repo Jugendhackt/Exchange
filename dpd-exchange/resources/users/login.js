@@ -1,0 +1,1 @@
+emit('user:login', this)
