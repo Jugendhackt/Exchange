@@ -7,6 +7,8 @@
 		<link href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" rel="stylesheet" >
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+		<link href="/styles/styles.css" rel="stylesheet">
+
 		<!-- Roboto -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 
@@ -36,8 +38,16 @@
 		
 </head>
 
-<body ng-app="jhvw" ng-cloak ng-controller = "AppCtrl">
-	<md-toolbar layout="row" layout-align="end center">
+<body 
+	ng-app="jhvw" 
+	ng-controller = "AppCtrl"
+	ng-cloak 
+	layout = "column"
+>
+	<md-toolbar 
+		layout			= "row" 
+		layout-align	= "end center"
+	>
 		<md-button 
 			ng-if 		= "!jhvwUser.data.username"
 			ng-click	= "register()"
@@ -64,9 +74,11 @@
 		
 	</md-toolbar>
 
-	<md-content class="md-padding" ng-view>
-
-		
+	<md-content 
+		ng-view
+		layout	= "column"
+		flex	= "grow"
+	>		
 	</md-content>
 
 

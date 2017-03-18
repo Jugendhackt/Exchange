@@ -1,0 +1,132 @@
+<form
+
+	ng-if 			= "!room"
+	layout			= "column"       
+	layout-align	= "center center"
+	ng-submit 		= "newRoom(room_name)"
+	flex			= "shrink"
+>
+
+	<div
+		layout			= "row"
+		layout-align	= "center center"
+	>
+		<md-input-container>
+				<label>Neuer Raum</label>
+				<input ng-model="room_name" required md-maxlength="100" type="text">
+		</md-input-container>
+	</div>
+	<div
+		layout			= "row"
+		layout-align	= "center center"
+	>
+		<md-button class="md-primary" type = "submit">Anlegen</md-button>
+	</div>
+
+</form>
+
+
+
+
+
+
+<div
+	layout 	= "row"
+	flex	= "grow"
+	ng-if	= "room"
+>
+	
+	<!-- list of participants -->
+
+	<md-content
+		flex		= "none"
+		ng-if		= "room"
+		class		= "participant-list"
+		md-colors	= "{'background-color': 'blue-grey-900'}"
+		layout-padding
+	>
+		<md-list flex>
+			<md-list-item
+				ng-repeat 	= "participant in chat.participants"
+			>
+				<img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+				<div class="md-list-item-text" layout="column">
+					<h3>{{participant.username}}</h3>
+					<!--
+					<h4>{{ item.what }}</h4>
+					<p>{{ item.notes }}</p>
+					-->
+				</div>
+			</md-list-item>
+		</md-list>
+	</md-content>
+
+
+	<!-- chat messages -->
+
+	<md-content
+		layout				= "column"
+		flex				= "grow"
+		scroll-to-bottom 	= "chat.messages"
+		md-colors			= "{'background-color': 'blue-grey-800'}"
+
+	>
+			
+		<md-card
+			ng-repeat   = "message in chat.messages"
+			style 		= "{{message.from == jhvwUser.data.id ? 'margin-left: 20%' : 'margin-right: 20%'}}"
+			flex		= "none"
+			md-colors	= "{'background-color': 'blue-grey-{{message.from == jhvwUser.data.id ? 600 : 400}}'}"
+		>
+
+			
+				<md-card-avatar>
+					<md-icon ng-bind="'account_circle'"></md-icon>
+				</md-card-avatar>
+
+				<md-card-title>
+						<md-card-title-text> {{message.from}} </md-card-title-text>
+				</md-card-title>
+				
+				<md-card-content style ="white-space: pre-wrap"> {{message.content}} </md-card-content>
+				
+		</md-card>
+
+		<br/>
+		<br/>
+
+	</md-content>
+
+</div>
+
+
+
+<!-- new message -->
+
+<form 
+	ng-submit 	= "post()"
+	layout		= "row"
+	flex		= "none"
+	md-colors	= "{'background-color': 'teal-800'}"
+	layout-padding
+>
+	
+			<md-input-container 
+				flex = "grow"
+			>
+					<label>Nachricht</label>
+					<textarea 
+						ng-model		= "message.content" 
+						ng-keypress 	= "postOrLinebreak($event)"
+						md-maxlength	= "600"
+						required 
+					></textarea>
+			</md-input-container>
+
+			<md-button 
+				class	= "md-primary" 
+				type 	= "submit"
+			> Submit </md-button>
+</form>
+
+

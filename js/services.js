@@ -5,16 +5,20 @@ angular.module('jhvw')
 
 	'$rootScope',
 	'$q',
+	'$interval',
 
-	function($rootScope, $q){
+	function($rootScope, $q, $interval){
 		if(!dpd) console.error('jhvwApi: missing dpd.')
 	
 		function jhvwChat(room){
 
 			var self = this
 
-			self.room = room
-			self.messages = []
+			self.room 			= room
+			self.messages 		= []
+			self.participants 	= []
+			self.signinId		= undefined
+			self.updateInterval	= undefined
 
 			self.post = function(content){
 
@@ -24,17 +28,60 @@ angular.module('jhvw')
 				}))
 			}
 
+			self.signIn = function(){
+
+				return 	self.signinId
+
+						?	$q.when(dpd.signins.put(self.signinId))
+							.then(function(signIn){
+								self.signinId = self.signIn.id
+							})
+
+						:	$q.when(dpd.signins.post({
+								room:	self.room
+							}))
+							.then(function(id){
+								self.signinId = id
+
+								self.updateInterval	= 	$interval(function(){
+															self.signIn()
+														}, 60000) 
+								return id
+							})
+			}
+
+			self.signOut = function(){
+
+				self.updateInterval && $interval.cancel(self.updateInterval)
+
+				return 	self.signinId
+						?	$q.when(dpd.signins.del(self.signinId))
+						:	$q.reject()
+
+
+			}
+
+
+			dpd.signins.on('updated', function(result){
+				$q.when(dpd.users.get({room : self.room}))
+				.then(function(participants){				
+					self.participants 	= 	participants
+				})
+			})
+
 			dpd.messages.on('created', function(message){
 				self.messages.push(message)
 				$rootScope.$apply()
 			})
 
+
 			$q.when(dpd.messages.get({
 				room: self.room
 			}))
 			.then(function(messages){
-				messages = messages || []
-				;[].push.apply(self.messages, messages)
+				self.messages = messages
+				// messages = messages || []
+				// ;[].push.apply(self.messages, messages)
 			})
 		}
 

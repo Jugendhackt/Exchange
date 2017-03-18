@@ -11,7 +11,7 @@ angular.module('jhvw', [
 		$routeProvider
 		.when('/r/:room?',{
 			controller:		'chatCtrl',
-			templateUrl: 	'pages/chat.html'
+			templateUrl: 	'pages/chat_room.html'
 		})
 		.otherwise({
 			redirectTo: '/r/'

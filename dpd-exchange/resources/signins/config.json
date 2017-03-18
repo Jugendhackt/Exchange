@@ -1,0 +1,29 @@
+{
+	"type": "Collection",
+	"properties": {
+		"room": {
+			"name": "room",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "room",
+			"order": 0
+		},
+		"timestamp": {
+			"name": "timestamp",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "timestamp",
+			"order": 1
+		},
+		"user": {
+			"name": "user",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "user",
+			"order": 2
+		}
+	}
+}

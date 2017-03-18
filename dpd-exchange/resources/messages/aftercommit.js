@@ -1,0 +1,1 @@
+cancel("Deleting message is not allowed for now", 401)

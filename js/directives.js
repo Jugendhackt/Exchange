@@ -59,6 +59,19 @@ angular.module('jhvw')
 	}
 })
 
+.directive('scrollToBottom', [
+
+	function(){
+		return {
+			restrict: 'A',
+			link: function(scope, element, attrs){
+				scope.$watch(attrs.scrollToBottom, function(){
+					element[0].scrollTop = element[0].scrollHeight
+				}, true)
+			}
+		}
+	}
+])
 
 
 .directive('jhvwLoginRegister',[
@@ -144,26 +157,3 @@ angular.module('jhvw')
 ])
 
 
-
-
-.directive('jhvwChat',[
-
-	'jhvwChat',
-
-	function(jhvwChat){
-		return {
-			restrict:		'E',
-			templateUrl:	'/partials/chat.html',
-			scope:			{
-								room: '<'
-							},
-
-
-			link: function(scope, element){
-				scope.$watch('room', function(){
-					scope.chat = new jhvwChat(scope.room)					
-				})
-			}
-		}
-	}
-])

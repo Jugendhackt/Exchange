@@ -1,39 +1,65 @@
-<md-content>
-		
-	<md-card
-			layout      = "row" 
-			flex		= "80"
-			ng-repeat   = "message in chat.messages"
-			flex-offset = "{{message.from ==  'u8AJAInF8vNX4T4bIk4dqx2zaTH2' ? 20 : 0}}"
-			md-colors	= "{'background-color': 'primary-{{message.from ==  'u8AJAInF8vNX4T4bIk4dqx2zaTH2' ? 400 : 200}}'}"
+<md-content
+	layout	= "column"
+	flex	= "33"
+>
+	yxclkycj
+	sdlkfjsdlkfj
+	<a
+		ng-repeat = "user in paricipants"
 	>
-
-		
-			<md-card-avatar>
-				<md-icon ng-bind="'account_circle'"></md-icon>
-			</md-card-avatar>
-
-			<md-card-title>
-					<md-card-title-text> {{message.from}} </md-card-title-text>
-			</md-card-title>
-			
-			<md-card-content> {{message.content}} </md-card-content>
-			
-	</md-card>
-
+		{{user.name}}
+	<a>
 </md-content>
 
+<div
+	layout = "column"
+>
+	<md-content
+		layout	= "column"
+		flex	= "grow"
+	>
+			
+		<md-card
+				layout      = "row" 
+				flex		= "80"
+				ng-repeat   = "message in chat.messages"
+				flex-offset = "{{message.from ==  'u8AJAInF8vNX4T4bIk4dqx2zaTH2' ? 20 : 0}}"
+				md-colors	= "{'background-color': 'primary-{{message.from ==  'u8AJAInF8vNX4T4bIk4dqx2zaTH2' ? 400 : 200}}'}"
+		>
 
-<form ng-submit = "chat.post(content)">
-		<md-input-container flex = "grow">
-				<label>Nachricht</label>
-				<input ng-model="content" required md-maxlength="600" type="text">
-		</md-input-container>
+			
+				<md-card-avatar>
+					<md-icon ng-bind="'account_circle'"></md-icon>
+				</md-card-avatar>
 
-		<md-button class="md-primary" type = "submit">Submit</md-button>
-</form>
+				<md-card-title>
+						<md-card-title-text> {{message.from}} </md-card-title-text>
+				</md-card-title>
+				
+				<md-card-content> {{message.content}} </md-card-content>
+				
+		</md-card>
 
+	</md-content>
 
+	<form 
+		ng-submit 	= "chat.post(content)"
+		layout		= "row"
+	>
+		
+				<md-input-container 
+					flex = "grow"
+				>
+						<label>Nachricht</label>
+						<input ng-model="content" required md-maxlength="600" type="text">
+				</md-input-container>
 
+				<md-button 
+					class	= "md-primary" 
+					type 	= "submit"
+				> Submit </md-button>
+		</div>	
+	</form>
+</div>
 
 
