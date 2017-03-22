@@ -20,6 +20,22 @@ angular.module('jhvw', [
 ])
 
 
+.config([
+
+	'$mdThemingProvider',
+
+	function($mdThemingProvider) {
+		$mdThemingProvider.theme('jhvwTheme')
+		.primaryPalette('indigo')
+		.accentPalette('amber') 
+		.warnPalette('red')
+		.backgroundPalette('blue-grey')
+		
+		$mdThemingProvider
+		.setDefaultTheme('jhvwTheme')
+	}
+])
+
 .controller("AppCtrl", [
 	'$scope',
 	'$mdDialog',

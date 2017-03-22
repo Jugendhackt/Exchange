@@ -68,7 +68,7 @@
 		layout				= "column"
 		flex				= "grow"
 		scroll-to-bottom 	= "chat.messages"
-		md-colors			= "{'background-color': 'blue-grey-800'}"
+		md-colors			= "{'background-color': 'background-800'}"
 
 	>
 			
@@ -76,7 +76,7 @@
 			ng-repeat   = "message in chat.messages"
 			style 		= "{{message.from == jhvwUser.data.id ? 'margin-left: 20%' : 'margin-right: 20%'}}"
 			flex		= "none"
-			md-colors	= "{'background-color': 'blue-grey-{{message.from == jhvwUser.data.id ? 600 : 400}}'}"
+			md-colors	= "{'background-color': 'background-{{message.from == jhvwUser.data.id ? 600 : 400}}'}"
 		>
 
 			
@@ -107,7 +107,7 @@
 	ng-submit 	= "post()"
 	layout		= "row"
 	flex		= "none"
-	md-colors	= "{'background-color': 'teal-800'}"
+	md-colors	= "{'background-color': 'accent-200'}"
 	layout-padding
 >
 	
@@ -119,6 +119,7 @@
 						ng-model		= "message.content" 
 						ng-keypress 	= "postOrLinebreak($event)"
 						md-maxlength	= "600"
+						md-no-resize
 						required 
 					></textarea>
 			</md-input-container>
