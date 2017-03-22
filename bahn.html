@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>Bahn</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+	
+	var daten
+	var ergebnis = {}
+	var datum = "2017-05-06"
+	var uhrzeit = "02:00"
+	var basis2 = "http://transport.opendata.ch/v1/connections"
+	var von = "Karlsruhe"
+	var nach = "Berlin"
+	var link = anfrage = basis2 + "?from=" + von + "&to=" + nach + "&time=" + uhrzeit + "&date=" + datum
+	var alle_verbindungen = []
+
+	function anfordern()
+	{
+	   var req = new XMLHttpRequest()
+	   req.open("get", link, true)
+	   req.onreadystatechange = auswerten;
+	   req.send()
+	}
+
+	function auswerten(e)
+	{
+	   if(e.target.readyState == 4 && e.target.status == 200)
+	   	speichern(e.target.responseText);
+
+	}
+	
+	function speichern(wetter)
+	{
+		daten = wetter;
+		zuListe(daten);
+		
+	}
+	
+	function zuListe(wetter)
+	{
+		var a_verb = JSON.parse(wetter)
+		
+		for (var verbindung of a_verb["connections"])
+		{
+			var einzel = {}
+			//var abfahrt = datetime.fromtimestamp(int(verbindung["from"]["departureTimestamp"]))
+			var zeit = verbindung["from"]["departureTimestamp"] - verbindung["from"]["arrivalTimestamp"]
+			var lzeit = new Date(zeit)
+			console.log(lzeit) 
+			//var einzel["abfahrtzeit"] = abfahrt.strftime("%Y-%m-%d %H:%M:%S")
+			//var ankunft = datetime.fromtimestamp(int(verbindung["to"]["arrivalTimestamp"]))
+			//var einzel["ankunftszeit"] = ankunft.strftime("%Y-%m-%d %H:%M:%S")
+			einzel["umstiege"] = verbindung["transfers"]
+			einzel["zugart"] = verbindung["products"]
+			//var zeit = ankunft - abfahrt
+			//var zeit = zeit.total_seconds()
+			//var einzel["reisezeit"] = zeit / 60
+			//var einzel["preis"] = einzel["reisezeit"] * 0.5
+			alle_verbindungen.push(einzel)
+			}	
+			
+		
+		console.log(alle_verbindungen);
+	}
+	
+	
+
+    </script>
+</head>
+<body>
+<p id="idAbsatz">&nbsp;</p>
+<script type="text/javascript" src="eh.js"></script>
+<script type="text/javascript">
+   anfordern()
+</script>
+</body>
+
+</html>
+
