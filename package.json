@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Jugendhackt/Exchange/issues"
   },
-  "homepage": "https://github.com/Jugendhackt/Exchange#readme"
+  "homepage": "https://github.com/Jugendhackt/Exchange#readme",
+  "dependencies": {
+    "dpd": "^0.3.0-beta"
+  }
 }
