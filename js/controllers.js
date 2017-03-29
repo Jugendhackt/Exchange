@@ -1,6 +1,6 @@
 angular.module('jhvw')
 
-.controller('chatCtrl', [
+.controller('ChatCtrl', [
 
 	'$scope',
 	'$routeParams',
@@ -10,36 +10,71 @@ angular.module('jhvw')
 
 	function($scope, $routeParams, $location, jhvwChat, jhvwUser){
 
-		
-		$scope.room 	= $routeParams.room
-		$scope.message 	= {content:''}
+		jhvwUser.ready
+		.then(function(){
+			if(!jhvwUser.loggedIn()) $location.path('/login_or_register')
 
-		$scope.newRoom = function(name){
-			$location.path('/r/'+name)
-		}
+			$scope.room 	= $routeParams.room
+			$scope.message 	= {content:''}
 
-		$scope.postOrLinebreak = function(e){
-			if(e.keyCode == 10 || e.keyCode == 13){
-				e.ctrlKey 
-				?	$scope.message.content += '\n'
-				:	$scope.post()
-			} 
-		}
+			$scope.newRoom = function(name){
+				$location.path('/r/'+name)
+			}
 
-		$scope.post = function(){
-			$scope.chat.post($scope.message.content)
-			$scope.message.content = ''
-		}
+			$scope.postOrLinebreak = function(e){
+				if(e.keyCode == 10 || e.keyCode == 13){
+					e.ctrlKey 
+					?	$scope.message.content += '\n'
+					:	$scope.post()
 
-		if($scope.room){
-			$scope.chat = new jhvwChat($scope.room)		
-			$scope.chat.signIn()
-		}
+					e.preventDefault()
+					return false
+				} 
+			}
 
-		$scope.jhvwUser = jhvwUser
+			$scope.post = function(){
+				$scope.chat.post($scope.message.content)
+				$scope.message.content = ''
+			}
+
+			if($scope.room){
+				$scope.chat = new jhvwChat($scope.room)		
+				$scope.chat.signIn()
+			}
+
+			$scope.jhvwUser = jhvwUser
+
+			$scope.$on('$destroy', function(){
+				$scope.chat && $scope.chat.signOut()			
+			})
+		})
+
+
+	}
+])
+
+.controller('RegisterOrLoginCtrl', [
+
+	'$rootScope',
+	'$location',
+	'$scope',
+	'jhvwUser',
+
+	function($rootScope,$location, $scope, jhvwUser){
+
+
+		var stop_watching_rootScope  = 	$rootScope.$watch(
+											function(){
+												return jhvwUser.loggedIn()
+											},
+											function(){
+												console.log('LOR')
+												if(jhvwUser.loggedIn()) $location.path('/')
+											}
+										)
 
 		$scope.$on('$destroy', function(){
-			$scope.chat && $scope.chat.signOut()			
+			stop_watching_rootScope()
 		})
 
 	}

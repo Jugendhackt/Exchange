@@ -1,40 +1,6 @@
+"use strict";
+
 angular.module('jhvw')
-
-
-
-// and use it in our controller
-// .controller("AuthCtrl", 
-// 	[
-// 		'$scope', 
-// 		'Auth',
-
-// 		function($scope, Auth) {
-// 			$scope.createUser = function() {
-// 				$scope.message 	= null;
-// 				$scope.error 	= null;
-
-// 				// Create a new user
-// 				Auth.$createUserWithEmailAndPassword($scope.email, $scope.password)
-// 					.then(function(firebaseUser) {
-// 						$scope.message = "User created with uid: " + firebaseUser.uid;
-// 					}).catch(function(error) {
-// 						$scope.error = error;
-// 					})
-// 			}
-
-// 			$scope.deleteUser = function() {
-// 				$scope.message = null;
-// 				$scope.error = null;
-
-// 				// Delete the currently signed-in user
-// 				Auth.$deleteUser().then(function() {
-// 					$scope.message = "User deleted";
-// 				}).catch(function(error) {
-// 					$scope.error = error;
-// 				})
-// 			}
-// 		}
-// ])
 
 
 .directive('focusMe', function(){
@@ -44,7 +10,9 @@ angular.module('jhvw')
 		link: function(scope, element, attrs){
 			if(attrs.focusMe){
 				scope.$watch(attrs.focusMe, function(value){
-					if(value) element.focus()
+					if(value) window.requestAnimationFrame(function(){
+						element.focus()
+					})
 				})
 			} else {
 				element.focus()
@@ -68,6 +36,7 @@ angular.module('jhvw')
 				scope.$watch(attrs.scrollToBottom, function(){
 					element[0].scrollTop = element[0].scrollHeight
 				}, true)
+				element[0].scrollTop = element[0].scrollHeight
 			}
 		}
 	}
@@ -77,9 +46,10 @@ angular.module('jhvw')
 .directive('jhvwLoginRegister',[
 
 	'$q',
+	'$rootScope',
 	'jhvwUser',
 
-	function($q, jhvwUser){
+	function($q, $rootScope, jhvwUser){
 		
 		return {
 			restrict:       'AE',
@@ -138,7 +108,7 @@ angular.module('jhvw')
 				}
 
 				scope.done = function(){
-					scope.$emit('jhvwRegisterLoginDone', scope.success ? true :  false)
+					$rootScope.$emit('jhvwRegisterLoginDone', scope.success ? true :  false)
 				}
 
 				scope.submit = function(){
@@ -152,6 +122,58 @@ angular.module('jhvw')
 
 				scope.reset()	
 			}
+		}
+	}
+])
+
+
+.directive('jhvwProfile', [
+
+	'jhvwUser',
+
+	function(jhvwUser){
+		return {
+			retsrict:		'E',
+			templateUrl:	'partials/profile.html',
+
+			link : function(scope, element){
+
+				scope.avatarInputId 	= 'avatarInput'
+				scope.avatarFilename	= undefined
+
+				var avatarInput = undefined,
+					stop_looking_for_avatar_input = 	scope.$watch(function(){	
+															avatarInput = document.getElementById(scope.avatarInputId)																				
+															if(avatarInput){
+																setupAvatarInput()
+																stop_looking_for_avatar_input()
+															}
+														})
+
+				function setupAvatarInput(el){
+					angular.element(avatarInput).on('change', function(){
+						scope.avatarFilename = avatarInput.files[0].name
+						scope.$digest()
+					})
+				}
+
+				scope.jhvwUser = jhvwUser
+
+				scope.blur = function(){
+					document.activeElement.blur()
+				}
+
+				scope.updateDisplayName = function(displayName){
+					return jhvwUser.update({ displayName: 	displayName	})
+				}
+
+				scope.updateAvatar = function(id){					
+					jhvwUser.updateAvatar(avatarInput.files[0])					
+				}
+
+
+			}
+
 		}
 	}
 ])

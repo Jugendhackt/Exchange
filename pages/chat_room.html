@@ -13,7 +13,13 @@
 	>
 		<md-input-container>
 				<label>Neuer Raum</label>
-				<input ng-model="room_name" required md-maxlength="100" type="text">
+				<input 
+					type			= "text"
+					ng-model		= "room_name" 
+					md-maxlength	= "100" 
+					focus-me
+					required 
+				/>
 		</md-input-container>
 	</div>
 	<div
@@ -32,26 +38,38 @@
 
 <div
 	layout 	= "row"
-	flex	= "grow"
+	flex	= "shrink"
 	ng-if	= "room"
 >
 	
 	<!-- list of participants -->
 
-	<md-content
-		flex		= "none"
-		ng-if		= "room"
-		class		= "participant-list"
-		md-colors	= "{'background-color': 'blue-grey-900'}"
-		layout-padding
+	<md-sidenav
+		ng-if				= "room"
+		md-is-open			= "true"
+		md-is-locked-open 	= "true"
+		flex				= "none"
+		class				= "participant-list"
 	>
 		<md-list flex>
 			<md-list-item
 				ng-repeat 	= "participant in chat.participants"
 			>
-				<img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+				<img
+					ng-if	= "participant.avatar" 
+					ng-src	= "/dpd-exchange/public/avatars/{{participant.avatar}}" 
+					class	= "md-avatar"
+				/>
+
+				<div 
+					class 	= "md-avatar"
+					ng-if	= "!participant.avatar"
+				>
+					<md-icon class = "md-avatar-icon">face</md-icon>
+				</div>
+
 				<div class="md-list-item-text" layout="column">
-					<h3>{{participant.username}}</h3>
+					<h3>{{participant.displayName}}</h3>
 					<!--
 					<h4>{{ item.what }}</h4>
 					<p>{{ item.notes }}</p>
@@ -59,7 +77,7 @@
 				</div>
 			</md-list-item>
 		</md-list>
-	</md-content>
+	</md-sidenav>
 
 
 	<!-- chat messages -->
@@ -68,34 +86,88 @@
 		layout				= "column"
 		flex				= "grow"
 		scroll-to-bottom 	= "chat.messages"
-		md-colors			= "{'background-color': 'background-800'}"
-
 	>
-			
-		<md-card
-			ng-repeat   = "message in chat.messages"
-			style 		= "{{message.from == jhvwUser.data.id ? 'margin-left: 20%' : 'margin-right: 20%'}}"
-			flex		= "none"
-			md-colors	= "{'background-color': 'background-{{message.from == jhvwUser.data.id ? 600 : 400}}'}"
+
+		<md-list>
+			<md-list-item 
+				class		= "md-3-line md-long-text"
+				ng-repeat   = "message in chat.messages"
+				md-colors	= "{background: message.from.id == jhvwUser.data.id ? 'accent-200' : 'primary-200'}"
+			>
+					<img 
+						ng-src	= "/dpd-exchange/public/avatars/{{message.from.avatar}}" 
+						class	= "md-avatar" 
+						alt		= "{{message.from.displayName}}" 
+					/>
+					<div class="md-list-item-text">
+						<h3>{{message.from.displayName}}</h3>
+						<p style = "white-space: pre-wrap">{{message.content}}</p>
+					</div>
+			</md-list-item>
+		</md-list>
+
+
+
+
+
+
+<!-- 
+		<div
+			ng-repeat   	= "message in chat.messages"
+			class			= "message-container"
+			flex			= "none"
+			layout			= "row"
+			layout-padding
 		>
+			<div 
+				ng-if	= "message.from.id != jhvwUser.data.id "
+				class 	= "avatar"
+				flex	= "10"
+			>
+			</div>
+			<div
+				class		= "message"
+				md-colors	= "{background: message.from.id == jhvwUser.data.id ? 'accent-200' : 'primary-400'}"
+				flex		= "grow"
+			>
+				<div class = "from">
+					<span class = "display-name">{{message.from.displayName}}</span>
+					<span class = "userid">{{message.from.id}})</span></div>
+				<div 
+					class = "content"
+					style = "white-space: pre-wrap"
+				>{{message.content}}</div>
+				<div class = "timestamp">{{message.timestamp}}</div>
+			</div>
 
-			
-				<md-card-avatar>
-					<md-icon ng-bind="'account_circle'"></md-icon>
-				</md-card-avatar>
-
-				<md-card-title>
-						<md-card-title-text> {{message.from}} </md-card-title-text>
-				</md-card-title>
-				
-				<md-card-content style ="white-space: pre-wrap"> {{message.content}} </md-card-content>
-				
-		</md-card>
-
+			<div 
+				ng-if	= "message.from.id == jhvwUser.data.id "
+				class 	= "avatar"
+				flex	= "10"
+			>
+			</div>
+		</div>
+ -->
 		<br/>
 		<br/>
 
 	</md-content>
+
+
+
+
+	<md-sidenav
+		ng-if				= "room"
+		md-is-open			= "true"
+		md-is-locked-open 	= "true"
+		flex				= "none"
+	>
+		<jhvw-profile
+			layout		= "column"
+			layout-padding
+		>
+		</jhvw-profile>
+	</md-sidenav>
 
 </div>
 
@@ -104,21 +176,25 @@
 <!-- new message -->
 
 <form 
+	ng-if		= "room"
 	ng-submit 	= "post()"
 	layout		= "row"
 	flex		= "none"
-	md-colors	= "{'background-color': 'accent-200'}"
+	class		= "chat-input"
 	layout-padding
 >
 	
 			<md-input-container 
-				flex = "grow"
+				flex 		= "grow"
+				class		= "md-primary"
 			>
 					<label>Nachricht</label>
 					<textarea 
 						ng-model		= "message.content" 
 						ng-keypress 	= "postOrLinebreak($event)"
 						md-maxlength	= "600"
+						rows			= "1"
+						focus-me
 						md-no-resize
 						required 
 					></textarea>
@@ -127,6 +203,7 @@
 			<md-button 
 				class	= "md-primary" 
 				type 	= "submit"
+
 			> Submit </md-button>
 </form>
 

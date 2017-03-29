@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Jugendhackt/Exchange#readme",
   "dependencies": {
-    "dpd": "^0.3.0-beta"
+    "deployd": "^0.8.9",
+    "dpd-fileupload": "0.0.17",
+    "material-design-icons": "^3.0.1"
   }
 }

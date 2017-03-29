@@ -18,10 +18,9 @@ angular.module('jhvw')
 			self.messages 		= []
 			self.participants 	= []
 			self.signinId		= undefined
-			self.updateInterval	= undefined
+			self.keepAlive		= undefined
 
 			self.post = function(content){
-
 				return $q.when(dpd.messages.post({
 					room:		self.room,
 					content:	content
@@ -43,7 +42,7 @@ angular.module('jhvw')
 							.then(function(id){
 								self.signinId = id
 
-								self.updateInterval	= 	$interval(function(){
+								self.keepAlive	= 	$interval(function(){
 															self.signIn()
 														}, 60000) 
 								return id
@@ -52,7 +51,7 @@ angular.module('jhvw')
 
 			self.signOut = function(){
 
-				self.updateInterval && $interval.cancel(self.updateInterval)
+				self.keepAlive && $interval.cancel(self.keepAlive)
 
 				return 	self.signinId
 						?	$q.when(dpd.signins.del(self.signinId))
@@ -61,7 +60,6 @@ angular.module('jhvw')
 
 			}
 
-
 			dpd.signins.on('updated', function(result){
 				$q.when(dpd.users.get({room : self.room}))
 				.then(function(participants){				
@@ -69,9 +67,19 @@ angular.module('jhvw')
 				})
 			})
 
+			dpd.users.on('updated', function(updated_user){
+				self.participants.forEach(function(participant, index){
+					if(participant.id == updated_user.id) self.participants[index] = updated_user
+				})
+				
+			})
+
 			dpd.messages.on('created', function(message){
-				self.messages.push(message)
-				$rootScope.$apply()
+				dpd.messages.get({id: message.id})
+				.then(function(message){
+					self.messages.push(message)
+					$rootScope.$apply()
+				})
 			})
 
 
@@ -91,16 +99,19 @@ angular.module('jhvw')
 
 .service('jhvwUser',[
 	'$q',
+	'$http',
 
-	function($q){
+	function($q, $http){
 		if(!dpd) console.error('jhvwApi: missing dpd.')
 
 		var jhvwUser = this
 
-		jhvwUser.update = function(){
-			dpd.users.me(function(result, error){
-				jhvwUser.data = result
-			})
+
+		jhvwUser.refresh = function(){
+			return	$q.when(dpd.users.me())
+					.then(function(result){
+						jhvwUser.data = result
+					})
 		}
 
 		jhvwUser.register = function(username, password){
@@ -111,7 +122,7 @@ angular.module('jhvw')
 						})
 					)
 					.finally(function(){
-						jhvwUser.update()
+						jhvwUser.refresh()
 					})
 		}
 
@@ -123,7 +134,7 @@ angular.module('jhvw')
 						})
 					)
 					.finally(function(){
-						jhvwUser.update()
+						jhvwUser.refresh()
 					})
 		}
 
@@ -137,7 +148,40 @@ angular.module('jhvw')
 
 		}
 
-		jhvwUser.update()
+
+		jhvwUser.loggedIn = function(){
+			return !!jhvwUser.data && jhvwUser.data.username
+		}
+
+		jhvwUser.update = function(data){
+			return	$q.when(dpd.users.put({ id: jhvwUser.data.id }, data))
+					.then(jhvwUser.refresh)
+		}
+
+		jhvwUser.updateAvatar = function(file){
+
+
+			var	fd 	= new FormData()
+
+			fd.append("uploadedFile", file)
+
+			return	$http.post('http://localhost:2403/avatars', fd, {
+						withCredentials: true,
+						headers: {'Content-Type': undefined },
+						transformRequest: angular.identity,
+						params:{
+							uniqueFilename: true
+						}
+					})
+		}
+
+
+
+		jhvwUser.ready = jhvwUser.refresh()
+
+		dpd.users.on('updated', function(user){
+			if(user.id == jhvwUser.data.id) jhvwUser.refresh() 
+		})
 
 	}
 ])

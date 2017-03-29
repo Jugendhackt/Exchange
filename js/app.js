@@ -6,16 +6,25 @@ angular.module('jhvw', [
 
 .config([
 	'$routeProvider',
+	'$locationProvider',
 
-	function($routeProvider){
+	function($routeProvider, $locationProvider){
 		$routeProvider
 		.when('/r/:room?',{
-			controller:		'chatCtrl',
-			templateUrl: 	'pages/chat_room.html'
+			controller:		'ChatCtrl',
+			templateUrl: 	'pages/chat_room.html',
+		})
+		.when('/login_or_register',{
+			controller:		'RegisterOrLoginCtrl',
+			templateUrl:	'pages/login_or_register.html',	
 		})
 		.otherwise({
 			redirectTo: '/r/'
 		})
+		 
+		$locationProvider
+		.html5Mode(true)
+		
 	}
 ])
 
@@ -25,23 +34,26 @@ angular.module('jhvw', [
 	'$mdThemingProvider',
 
 	function($mdThemingProvider) {
-		$mdThemingProvider.theme('jhvwTheme')
+		$mdThemingProvider.theme('jhvw')
 		.primaryPalette('indigo')
-		.accentPalette('amber') 
+		.accentPalette('light-green') 
 		.warnPalette('red')
-		.backgroundPalette('blue-grey')
+		.backgroundPalette('grey')
 		
 		$mdThemingProvider
-		.setDefaultTheme('jhvwTheme')
+		.setDefaultTheme('jhvw')
 	}
 ])
 
 .controller("AppCtrl", [
+
+	'$rootScope',
 	'$scope',
+	'$location',
 	'$mdDialog',
 	'jhvwUser',
 
-	function($scope, $mdDialog, jhvwUser) {
+	function($rootScope, $scope, $location, $mdDialog, jhvwUser) {
 
 		$scope.register = function(ev){
 			$mdDialog.show({
@@ -51,7 +63,7 @@ angular.module('jhvw', [
 				template:				'<jhvw-login-register register = "true" layout-padding></jhvw-login-register>',
 
 				controller:	function($scope,  $mdDialog){
-					$scope.$on('jhvwRegisterLoginDone', $mdDialog.hide)
+					$rootScope.$on('jhvwRegisterLoginDone', $mdDialog.hide)
 				}
 			})
 		}
@@ -64,13 +76,16 @@ angular.module('jhvw', [
 				template:				'<jhvw-login-register layout-padding></jhvw-login-register>',
 
 				controller:	function($scope,  $mdDialog){
-					$scope.$on('jhvwRegisterLoginDone', $mdDialog.hide)
+					$rootScope.$on('jhvwRegisterLoginDone', $mdDialog.hide)
 				}
 			})
 		}
 
 		$scope.logout = function(){
 			jhvwUser.logout()
+			.then(function(){
+				$location.path('/')
+			})
 		}
 	}
 ])

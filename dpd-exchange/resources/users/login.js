@@ -1,1 +1,0 @@
-emit('user:login', this)
