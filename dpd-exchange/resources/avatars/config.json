@@ -1,0 +1,6 @@
+{
+	"type": "Fileupload",
+	"directory": "avatars",
+	"authorization": true,
+	"uniqueFilename": true
+}
