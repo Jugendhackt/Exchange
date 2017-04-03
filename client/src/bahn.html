@@ -9,7 +9,7 @@
 	var daten
 	var ergebnis = {}
 	var datum = "2017-05-06"
-	var uhrzeit = "02:00"
+	var uhrzeit = "07:00"
 	var basis2 = "http://transport.opendata.ch/v1/connections"
 	var von = "Karlsruhe"
 	var nach = "Berlin"
@@ -18,6 +18,7 @@
 
 	function anfordern()
 	{
+	   console.log("hallo")
 	   var req = new XMLHttpRequest()
 	   req.open("get", link, true)
 	   req.onreadystatechange = auswerten;
@@ -41,14 +42,20 @@
 	function zuListe(wetter)
 	{
 		var a_verb = JSON.parse(wetter)
+		var maxzeit = 10000
+		var schnellste
+		
 		
 		for (var verbindung of a_verb["connections"])
 		{
 			var einzel = {}
 			//var abfahrt = datetime.fromtimestamp(int(verbindung["from"]["departureTimestamp"]))
-			var zeit = verbindung["from"]["departureTimestamp"] - verbindung["from"]["arrivalTimestamp"]
-			var lzeit = new Date(zeit)
-			console.log(lzeit) 
+			var zeit = verbindung["to"]["arrivalTimestamp"] - verbindung["from"]["departureTimestamp"] 
+			einzel["dauer"] = zeit / 3600
+			einzel["ankunft"] = new Date(verbindung["to"]["arrivalTimestamp"] * 1000)
+			einzel["abfahrt"] = new Date(verbindung["from"]["departureTimestamp"] * 1000)
+			console.log(einzel["abfahrt"])
+			console.log(einzel["ankunft"])
 			//var einzel["abfahrtzeit"] = abfahrt.strftime("%Y-%m-%d %H:%M:%S")
 			//var ankunft = datetime.fromtimestamp(int(verbindung["to"]["arrivalTimestamp"]))
 			//var einzel["ankunftszeit"] = ankunft.strftime("%Y-%m-%d %H:%M:%S")
@@ -60,10 +67,17 @@
 			//var einzel["preis"] = einzel["reisezeit"] * 0.5
 			alle_verbindungen.push(einzel)
 			}	
-			
+
+		for (var mgk of alle_verbindungen) {
+		if (mgk["dauer"] < maxzeit) {
+		maxzeit = mgk["dauer"]
+		schnellste = mgk}
+		}
+		console.log(schnellste)//die schnellste Verbindung
+		}
 		
-		console.log(alle_verbindungen);
-	}
+		
+	
 	
 	
 
@@ -71,7 +85,7 @@
 </head>
 <body>
 <p id="idAbsatz">&nbsp;</p>
-<script type="text/javascript" src="eh.js"></script>
+<script type="text/javascript"></script>
 <script type="text/javascript">
    anfordern()
 </script>
