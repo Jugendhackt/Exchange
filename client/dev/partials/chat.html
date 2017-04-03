@@ -1,0 +1,84 @@
+<!-- chat messages -->
+
+<md-content
+	layout				= "column"
+	flex				= "grow"
+>
+	<md-list>
+		<md-list-item 
+			class		= "md-3-line md-long-text"
+			ng-repeat   = "message in jhvwRoom.messages"
+			md-colors	= "{background: message.from.id == jhvwUser.data.id ? 'accent-200' : 'primary-200'}"
+			ng-init		= "($last && message.from.id == jhvwUser.data.id) ? scrollToBottom()  : 'null'"
+		>
+				<img 
+					ng-src	= "{{jhvwConfig.backendLocation}}/images/{{message.from.avatar}}" 
+					class	= "md-avatar" 
+					alt		= "{{message.from.displayName}}" 
+					ng-show	= "message.from.avatar"
+				/>
+
+				<md-icon 
+					class 	= "md-avatar-icon"
+					ng-show	= "!message.from.avatar"
+				>
+					face
+				</md-icon>
+
+				<div class="md-list-item-text">
+					<h3>{{message.from.displayName}} <span class ="md-caption">({{::message.timestamp | jhvwDate}})</span></h3>
+					<p style = "white-space: pre-wrap">{{::message.content}}</p>
+				</div>
+		</md-list-item>
+	</md-list>
+
+	<br/>
+	<br/>
+
+</md-content>
+
+
+<!-- new message -->
+
+<form 
+	ng-if		= "jhvwRoom"
+	ng-submit 	= "post()"
+	layout		= "row"
+	flex		= "none"
+	class		= "chat-input"
+>
+	
+	<md-input-container 
+		flex 		= "grow"
+		class		= "md-primary"
+	>
+			<label>Nachricht</label>
+			<textarea 
+				ng-model		= "message.content" 
+				ng-keypress 	= "postOrLinebreak($event)"
+				md-maxlength	= "600"
+				rows			= "1"
+				focus-me
+				md-no-resize
+			></textarea>
+	</md-input-container>
+
+	<div
+		flex			= "none"
+		layout			= "column"
+		layout-align 	= "center center"
+		focus-me
+	>
+		<md-button 
+			class	= "md-icon-button" 
+			type 	= "submit"
+		> 
+			<md-icon>send</md-icon>
+		</md-button>
+	</div>
+
+</form>
+
+
+
+

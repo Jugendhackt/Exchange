@@ -1,4 +1,5 @@
 config.js
-/node_modules
-/dpd-exchange/data
-/dpd-exchange/node_modules/
+/client/node_modules
+/backend/data
+/backend/node_modules/
+/backend/public

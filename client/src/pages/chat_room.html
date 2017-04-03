@@ -1,0 +1,75 @@
+<div
+	layout 	= "row"
+	flex	= "shrink"
+	ng-if	= "room"
+>
+	
+	<!-- profile -->	
+
+	<md-sidenav
+		ng-if				= "room"
+		md-is-open			= "true"
+		md-is-locked-open 	= "true"
+		flex				= "none"
+	>
+		<jhvw-profile
+			layout		= "column"
+			layout-padding
+		>
+		</jhvw-profile>
+	</md-sidenav>
+
+
+
+
+	<jhvw-chat 
+		jhvw-room 	= "room"
+		layout		= "column" 
+		flex		= "grow"
+	>
+	</jhvw-chat>
+
+
+
+	<!-- list of participants -->
+
+	<md-sidenav
+		ng-if				= "room"
+		md-is-open			= "true"
+		md-is-locked-open 	= "true"
+		flex				= "none"
+		class				= "participant-list"
+	>
+		<md-list flex>
+			<md-list-item
+				ng-repeat 	= "participant in room.participants"
+			>
+				<img
+					ng-if	= "participant.avatar" 
+					ng-src	= "/dpd-exchange/public/avatars/{{participant.avatar}}" 
+					class	= "md-avatar"
+				/>
+
+
+				<md-icon 
+					class 	= "md-avatar-icon"
+					ng-if	= "!participant.avatar"
+				>
+					face
+				</md-icon>
+
+				<div 
+					class	= "md-list-item-text" 
+					layout	= "column"
+					flex	= "grow"
+				>
+					{{participant.displayName}}
+				</div>
+			</md-list-item>
+		</md-list>
+	</md-sidenav>
+
+
+</div>
+
+

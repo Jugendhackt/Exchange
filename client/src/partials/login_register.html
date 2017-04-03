@@ -1,0 +1,108 @@
+<form ng-submit = "submit()">
+	<md-input-container
+		ng-if = "step == 'username'"
+	>
+	  	<label>Benutzername</label>
+	  	<input 
+	 		ng-model	= "data.username" 
+	 		type		= "text"
+	 		required
+	 		md-auto-focus
+			focus-me
+	 	>
+	</md-input-container>
+
+	<md-input-container
+		ng-if = "step == 'password'"
+	>
+		<label>Passwort</label>
+		<input 
+			ng-model	= "data.password" 
+			type		= "password"
+			required
+			focus-me
+		>
+	</md-input-container>
+
+	<div layout-padding>
+		<h2 
+			ng-if 			= "user" 
+			md-colors 		= "{color:'primary-600'}"
+			layout			= "row" 
+			layout-align	= "center"
+		>		
+			{{user.username}}	
+		</h2>
+
+		<div 
+			ng-if 			= "user"
+			layout			= "row" 
+			layout-align	= "center"
+		>		
+			({{user.id}})		
+		</div>
+
+		<div 
+			ng-if 			= "message"
+			layout			= "row" 
+			layout-align	= "center"
+		>	
+			{{message}}			
+		</div>
+		
+		<div 
+			ng-repeat 		= "(key, message) in errors"
+			md-colors 		= "{color:'warn-600'}"
+			layout			= "row" 
+			layout-align	= "center"
+		>		
+			{{key|uppercase}}_{{message|uppercase|underscores}}			
+		</div>
+	</div>
+
+	<div layout-xs = "column" layout = "row">
+
+		<md-button 
+			layout-align	= "center"
+			class 			= "md-raised" 
+			flex 			= "grow"
+			ng-click		= "back()"
+			ng-if			= "step == 'password' || step == 'error'"
+			focus-me		= "step == 'error'"
+		>				
+			Zurück	
+		</md-button>
+
+		<md-button 
+			ng-if			= "step == 'username' || step == 'password'"
+			layout-align	= "center"
+			class 			= "md-primary md-raised" 
+			type 			= "submit"
+			flex 			= "grow"
+		>	
+			Weiter
+		</md-button>
+
+		<md-button 
+			ng-if			= "step == 'error'"
+			layout-align	= "center"
+			class 			= "md-raised" 
+			type 			= "submit"
+			flex 			= "grow"
+		>	
+			Abbrechen
+		</md-button>
+
+		<md-button 
+			ng-if			= "step == 'login'"
+			layout-align	= "center"
+			class 			= "md-primary md-raised" 
+			type 			= "submit"
+			flex 			= "grow"
+			focus-me		
+		>	
+			Anmelden
+		</md-button>
+
+	</div>
+</form>

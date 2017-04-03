@@ -1,0 +1,39 @@
+<div 
+	flex = "grow"
+>
+		<md-button
+			ng-if 		= "room"
+			ng-click 	= "gotoRoom()"
+		>
+			#{{room}}
+		</md-button>
+</div>
+
+<md-button 
+	ng-if 		= "!jhvwUser.loggedIn()"
+	ng-click	= "register()"
+>
+	Registrieren
+</md-button>
+
+<md-button
+	ng-if 		= "!jhvwUser.loggedIn()"
+	ng-click	= "login()"
+>
+	Login
+</md-button>
+
+
+<md-button
+	ng-if 		= "jhvwUser.loggedIn()"
+	ng-href		= "/u/{{jhvwUser.data.id}}"
+>
+	{{jhvwUser.data.username}} 
+</md-button>
+
+<md-button
+	ng-if 		= "jhvwUser.loggedIn()"
+	ng-click 	= "logout()" 
+>
+	Logout
+</md-button>

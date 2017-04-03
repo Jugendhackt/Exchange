@@ -1,0 +1,164 @@
+<!-- displayName -->
+
+
+<form
+	layout 		= "column"
+	ng-submit 	= "updateDisplayName(displayName).then(blur)" 
+>
+	<md-input-container
+	>
+		<label>Angezeigter Name</label>
+		<input 
+			ng-model		= "displayName" 
+			md-maxlength	= "60" 
+			type			= "text"
+			required
+		/>
+
+	</md-input-container>
+
+	<div
+		layout 	= "row"
+		ng-show	= "displayName != jhvwUser.data.displayName"
+	>
+		<md-button 
+			class		= "md-raised" 
+			aria-label	= "update display name"
+			ng-click	= "displayName = jhvwUser.data.displayName"
+			flex		= "grow"
+		>
+			undo
+		</md-button>
+
+		<md-button 
+			class		= "md-primary md-raised" 
+			aria-label	= "update display name"
+			type		= "submit"
+			flex		= "grow"
+		>
+			übernehmen
+		</md-button>
+	</div>
+
+</form>
+
+
+
+<!-- profilePic -->
+
+<div
+	layout 		= "column"
+	ng-init		= "displayName = jhvwUser.data.displayName|| jhvwUser.data.username" 
+>
+
+	<md-list>
+		<md-list-item>
+			<img
+				ng-if	= "jhvwUser.data.avatar" 
+				ng-src	= "{{jhvwConfig.backendLocation}}/images/{{jhvwUser.data.avatar}}"
+				class	= "md-avatar"
+			/>
+
+			<md-icon 
+				class 	= "md-avatar-icon"
+				ng-if	= "!jhvwUser.data.avatar"
+			>
+				face
+			</md-icon>
+
+
+
+			<label
+				for			= "{{avatarInputId}}"
+				class		= "md-button md-raised md-jhvw-theme"
+				ng-class	= "{'md-warn': avatarFilename}"
+				md-colors	= "{'background': avatarFilename ? 'warn' : 'background'}"
+				flex		= "grow"
+				ng-click	= "confirmDeletion ? $event.preventDefault() : null"
+				ng-disabled = "confirmDeletion"
+			>
+				ändern
+			</label>
+
+			<md-button 
+				class 		= "md-raised"
+				ng-show		= "jhvwUser.data.avatar"
+				ng-class	= "{'md-warn': confirmDeletion}"
+				ng-click 	= "confirmDeletion = !confirmDeletion" 
+				flex		= "grow"
+				ng-disabled = "avatarFilename"
+			>
+				löschen
+			</md-button>
+
+		</md-list-item>
+	</md-list>
+
+	<input 
+		id				= "{{avatarInputId}}"
+		type			= "file"
+		class			= "ng-hide"
+		required
+	/>
+
+
+
+
+	<!-- confirm deletetion -->
+
+	<div
+		layout	= "row"
+		layout-align = "center center"
+		ng-show	= "confirmDeletion"
+	>
+		<md-button
+			class		= "md-raised"
+			ng-click	= "confirmDeletion = false"
+			flex		= "grow"
+		>
+			abbrechen
+		</md-button>
+
+		<md-button
+			class		= "md-primary md-raised"
+			flex		= "grow"
+			ng-click	= "deleteAvatar(); confirmDeletion = false"
+		>
+			bestätigen
+		</md-button>
+	</div>
+
+
+
+
+	<!-- filename -->
+
+	<div
+		class 	= "md-button md-disabled"
+		ng-show = "avatarFilename"	
+	>
+		{{avatarFilename}}
+	</div>
+
+
+	<div
+		layout 	= "row"
+		ng-show = "avatarFilename"
+	>
+		<md-button
+			class		= "md-raised"
+			ng-click	= "avatarFilename = ''"
+			flex		= "grow"
+		>
+			abbrechen
+		</md-button>
+
+		<md-button
+			class		= "md-primary md-raised"
+			flex		= "grow"
+			ng-click 	= "updateAvatar(); avatarFilename = ''"
+		>
+			hochladen
+		</md-button>
+	</div>
+</div>
