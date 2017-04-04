@@ -1,5 +1,7 @@
-config.js
-/client/node_modules
-/backend/data
-/backend/node_modules/
-/backend/public
+client/config.json
+client/node_modules
+client/dev
+backend/data
+backend/node_modules/
+backend/public
+
