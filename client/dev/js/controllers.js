@@ -8,8 +8,9 @@ angular.module('jhvw')
 	'$location',
 	'jhvwChat',
 	'jhvwUser',
+	'jhvwConfig',
 
-	function($rootScope, $scope, $routeParams, $location, jhvwChat, jhvwUser){
+	function($rootScope, $scope, $routeParams, $location, jhvwChat, jhvwUser, jhvwConfig){
 
 		jhvwUser.ready
 		.then(function(){
@@ -18,7 +19,8 @@ angular.module('jhvw')
 				return null
 			}
 
-			$scope.jhvwUser = jhvwUser
+			$scope.jhvwUser 	= jhvwUser
+			$scope.jhvwConfig	= jhvwConfig
 
 
 			if($routeParams.room){
@@ -30,7 +32,6 @@ angular.module('jhvw')
 
 
 			$scope.$on('$destroy', function(){
-				console.log('signiung out')
 				$scope.room && $scope.room.signOut()			
 			})
 

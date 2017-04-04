@@ -12,6 +12,7 @@ copy("src/styles/**/*.css", "dev/styles", function(){})
 
 copy("vendor.js", "dev/js", function(){})
 copy("config.json", "dev", function(){})
+copy("countries_de.json", "dev", function(){})
 
 // Index:
 var content = fs.readFileSync('src/index.html', 'utf8').replace(/CONFIG\.BACKEND\_LOCATION/g, config.backendLocation)

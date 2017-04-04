@@ -1,15 +1,14 @@
 <!-- displayName -->
 
-
 <form
 	layout 		= "column"
-	ng-submit 	= "updateDisplayName(displayName).then(blur)" 
+	ng-submit 	= "update('displayName', edit.displayName).then(blur)" 
 >
 	<md-input-container
 	>
 		<label>Angezeigter Name</label>
 		<input 
-			ng-model		= "displayName" 
+			ng-model		= "edit.displayName" 
 			md-maxlength	= "60" 
 			type			= "text"
 			required
@@ -19,12 +18,12 @@
 
 	<div
 		layout 	= "row"
-		ng-show	= "displayName != jhvwUser.data.displayName"
+		ng-show	= "edit.displayName != jhvwUser.data.displayName"
 	>
 		<md-button 
 			class		= "md-raised" 
-			aria-label	= "update display name"
-			ng-click	= "displayName = jhvwUser.data.displayName"
+			aria-label	= "undo change to display name"
+			ng-click	= "edit.displayName = jhvwUser.data.displayName"
 			flex		= "grow"
 		>
 			undo
@@ -48,7 +47,6 @@
 
 <div
 	layout 		= "column"
-	ng-init		= "displayName = jhvwUser.data.displayName|| jhvwUser.data.username" 
 >
 
 	<md-list>
@@ -161,4 +159,87 @@
 			hochladen
 		</md-button>
 	</div>
+
+
 </div>
+
+
+
+
+
+<!-- city, zip -->
+
+<form
+	layout 		= "column"
+	ng-submit 	= "update({zip: edit.zip, city: edit.city}).then(blur)" 
+>
+	<div layout = "row">
+		<md-input-container	
+			flex = "33"
+		>
+			<label>{{'zip'|label}}</label>
+			<input 
+				ng-model		= "edit.zip" 
+				md-maxlength	= "5" 
+				type			= "text"
+			/>
+
+		</md-input-container>
+
+		<md-input-container
+			flex = "66"
+		>
+			<label>{{'city'|label}}</label>
+			<input 
+				ng-model		= "edit.city" 
+				md-maxlength	= "60" 
+				type			= "text"
+			/>
+
+		</md-input-container>
+	</div>
+
+	<div
+		layout 	= "row"
+		ng-show	= "(edit.zip != jhvwUser.data.zip) || (edit.city != jhvwUser.data.city)"
+	>
+		<md-button 
+			class		= "md-raised" 
+			aria-label	= "undo changes"
+			ng-click	= "edit.zip = jhvwUser.data.zip; edit.city = jhvwUser.data.city"
+			flex		= "grow"
+		>
+			undo
+		</md-button>
+
+		<md-button 
+			class		= "md-primary md-raised" 
+			aria-label	= "update zip/city"
+			type		= "submit"
+			flex		= "grow"
+		>
+			übernehmen
+		</md-button>
+	</div>
+
+</form>
+
+
+<form
+	layout 		= "column"
+>
+	<md-input-container
+	>
+		<label>{{key|label}}</label>
+		<md-select 
+			ng-model	= "edit.country"
+			ng-change 	= "update('country', edit.country).then(blur)"
+		>
+			<md-option value="">keine Angabe</md-option>
+			<md-option ng-repeat="country in jhvwConfig.countries" value="{{country.code}}">{{country.name}}</md-option>
+		</md-select>
+
+	</md-input-container>
+
+</form>
+

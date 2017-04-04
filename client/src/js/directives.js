@@ -220,17 +220,33 @@ angular.module('jhvw')
 
 				jhvwUser.ready
 				.then(function(){
-					scope.jhvwUser 		= jhvwUser
-					scope.displayName 	= jhvwUser.data.displayName
+					scope.jhvwUser 		= 	jhvwUser
+
+					scope.edit			= 	{
+												displayName:	jhvwUser.data.displayName,
+												city:			jhvwUser.data.city,
+												zip:			jhvwUser.data.zip,
+												country:		jhvwUser.data.country,
+											}
 				})
 
 				scope.blur = function(){
 					document.activeElement.blur()
 				}
 
-				scope.updateDisplayName = function(displayName){
-					return jhvwUser.update({ displayName: 	displayName	})
+				scope.update = function(key, value){		
+
+					var u = {}
+
+					if(typeof key != "string"){
+						u = key
+					} else {
+						u[key] = value
+					}
+
+					return jhvwUser.update(u)
 				}
+
 
 				scope.updateAvatar = function(id){					
 					jhvwUser.updateAvatar(avatarInput.files[0])					
@@ -247,6 +263,61 @@ angular.module('jhvw')
 ])
 
 
+.directive('jhvwWeather', [
+
+	'$http',
+	'jhvwConfig',
+
+	function($http, jhvwConfig){
+		return {
+			
+			template:	'<img ng-src ="http://openweathermap.org/img/w/{{weatherData.icon}}.png" title = "{{weatherData.description}}"" alt = "{{weatherData.description}}"></img>',
+			scope:	 	{
+							city:		'<',
+							zip:		'<',
+							country:	'<'
+						},
+
+			link: function(scope, element){
+				var basis 	=	"http://api.openweathermap.org/data/2.5/weather",
+					land 	= 	scope.country,
+					stadt 	= 	scope.city,
+					zip		= 	scope.zip
+
+					scope.weatherData = {}
+
+					scope.$watch(
+						function(){
+							return [scope.city, scope.zip, scope.country]
+						},
+						function(){
+							console.log(scope.city)
+							if(!scope.city && ! scope.zip){
+								scope.weatherData = {}
+								return null	
+							} 
+							$http.get(basis, {
+								params:	{	
+									q: 		(scope.zip || scope.stadt) + scope.country ? ','+scope.country : '',
+									mode:	'json',
+									units:	'metric',
+									lang:	'de',
+									APPID:	jhvwConfig.openWeatherMapApiKey
+								}
+							})
+							.then(function(result){
+								scope.weatherData = result.data.weather[0]	
+							})
+						},
+						true
+					)
+			}
+		}
+	}
+
+])
+
+
 .filter('jhvwDate',[
 
 	function(){
@@ -256,4 +327,32 @@ angular.module('jhvw')
 	}
 ])
 
+.filter('countryName',[
+
+	'jhvwConfig',
+
+	function(jhvwConfig){
+		return function(code){
+			var country = jhvwConfig.countries.filter(function(country){ return country.code == code })[0]
+			console.log(code, country)
+			return (country && country.name) || code
+		}
+	}
+])
+
+
+.filter('label', [
+
+	function(){	
+		var map = 	{
+						city:		'Stadt',
+						zip:		'Postleitzahl',
+						country:	'Land',
+					}
+
+		return function(key){
+			return map[key]||key
+		}
+	}
+])
 

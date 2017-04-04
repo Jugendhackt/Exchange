@@ -40,13 +40,17 @@
 		flex				= "none"
 		class				= "participant-list"
 	>
-		<md-list flex>
+		<md-list 
+			class ="md-dense"
+			flex
+		>
 			<md-list-item
+				class		= "md-2-line"
 				ng-repeat 	= "participant in room.participants"
 			>
 				<img
 					ng-if	= "participant.avatar" 
-					ng-src	= "/dpd-exchange/public/avatars/{{participant.avatar}}" 
+					ng-src	= "{{jhvwConfig.backendLocation}}/images/{{participant.avatar}}" 
 					class	= "md-avatar"
 				/>
 
@@ -63,7 +67,21 @@
 					layout	= "column"
 					flex	= "grow"
 				>
-					{{participant.displayName}}
+					<h3>{{participant.displayName}}</h3>
+					<p>
+						<span ng-if ="participant.zip">		 {{participant.zip}}</span><!--
+					 --><span ng-if ="participant.city">	 {{participant.city}}</span><!--
+					 --><span ng-if ="participant.country">, {{participant.country | countryName}}</span>
+					</p>
+				</div>
+				<div 
+					class ="md-secondary-container"
+				>
+					<jhvw-weather
+						zip 	= "participant.zip"
+						city	= "participant.city"
+						country	= "participant.country"
+					></jhvw-weather>
 				</div>
 			</md-list-item>
 		</md-list>

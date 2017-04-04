@@ -11,6 +11,11 @@ angular.module('jhvw')
 			for(key in result.data) self[key] = result.data[key]
 		})
 
+		$http.get('countries_de.json')
+		.then(function(result){
+			self.countries = result.data
+		})
+
 		return self
 	}
 ])
@@ -45,8 +50,6 @@ angular.module('jhvw')
 			}
 
 			self.signIn = function(){
-				console.log('signing in', self.room, self.signinId)
-
 
 				return 	self.signinId
 						?	$q.when(dpd.signins.put(self.signinId))
@@ -59,6 +62,8 @@ angular.module('jhvw')
 															self.signIn()
 														}, 60000) 
 
+								updateParticipantsList()
+								
 								dpd.signins.on(		'updated', updateParticipantsList)
 								dpd.users.on(		'updated', updateParticipant)
 								dpd.messages.on(	'created', addMessage)
@@ -87,7 +92,6 @@ angular.module('jhvw')
 				$q.when(dpd.users.get({room : self.room}))
 				.then(function(participants){				
 					self.participants 	= 	participants
-					console.dir(participants)
 				})
 			}
 
