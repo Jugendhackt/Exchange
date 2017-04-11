@@ -138,8 +138,9 @@ angular.module('jhvw')
 	'jhvwUser',
 	'jhvwChat',
 	'$mdToast',
+	'$mdMedia', 
 
-	function(jhvwConfig, jhvwUser, jhvwChat, $mdToast){
+	function(jhvwConfig, jhvwUser, jhvwChat, $mdToast, $mdMedia){
 		return{
 			templateUrl:	'partials/chat.html',
 			scope:			{
@@ -173,7 +174,7 @@ angular.module('jhvw')
 					scope.jhvwRoom.post(scope.message.content)
 					.then(function(){
 						scope.message.content = ''
-						document.activeElement.blur()	
+						if($mdMedia('xs')) document.activeElement.blur()	
 					})
 				}
 

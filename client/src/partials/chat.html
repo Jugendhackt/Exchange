@@ -1,32 +1,30 @@
 <!-- chat messages -->
+<div
+	flex			= "grow"
+	ng-show			= "!jhvwRoom || !jhvwRoom.messages ||!jhvwRoom.messages.length"
+	layout 			= "column"
+	layout-align	= "center center"
+>
+	<md-progress-circular 
+		md-mode	= "indeterminate"
+	></md-progress-circular>
+</div>
 
 <md-content
-	layout			= "column"
 	flex			= "grow"
 >
 
-	<div
-		ng-show			= "!jhvwRoom"
-		layout 			= "column"
-		layout-align	= "center center"
-		flex			= "grow"
-	>
-		<md-progress-circular 
-			md-mode	= "indeterminate"
-		></md-progress-circular>
-	</div>
 
 	<div
+		class			= ""
 		ng-show			= "jhvwRoom.messages && jhvwRoom.messages.length && !noMoreItems"
 		layout 			= "column"
 		layout-align	= "center center"
-		flex			= "none"
 	>		
 		<md-button ng-click = "batchCount = batchCount +1"> ältere Nachrichten anzeigen </md-button>
 	</div>
 
 	<md-list-item 
-		flex			= "none"
 		class			= "md-3-line md-long-text"
 		ng-repeat   	= "message in jhvwRoom.messages | orderBy: 'timestamp' | limitTo: -1*limit"
 		md-colors		= "{background: message.from.id == jhvwUser.data.id ? 'accent-200' : 'primary-200'}"
