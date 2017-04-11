@@ -112,11 +112,14 @@ angular.module('jhvw')
 			}
 
 			function addMessage(message){
-				dpd.messages.get({id: message.id})
-				.then(function(message){
-					self.messages.push(message)
-					$rootScope.$apply()
-				})
+				console.log(message)
+				if(message.room == self.room){
+					dpd.messages.get({id: message.id})
+					.then(function(message){
+						self.messages.push(message)
+						$rootScope.$apply()
+					})
+				}
 			}
 	
 			self.ready =	$q.when(dpd.messages.get({
