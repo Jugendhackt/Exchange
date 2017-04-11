@@ -1,9 +1,21 @@
-* user can only change his own messages
-* userlist
-* bild hochladen
-* dateien lokal specihern
-* browserify
-* message timestamp
+* Avatar größe und typ beschränken
+* bahn
+* Anzahl nachrichten beshränken
+* Messages bei bedarf nachladen
+
 
 Done:
 * anmelden erzwingen
+* scrollen wenn ne neue nachricht kommt, aber nur wenn man schon weit unten ist
+* chekc wenn neue nutzer den raum betreten
+* buttons im header abgeschnitten ('registri..')
+* message timestamp
+* browserify
+* bild hochladen
+* dateien lokal specihern
+* user can only change his own messages
+* userlist
+* Benachtichtung bei neuenachrichten, die nicht im scrollbereich sind
+
+
+

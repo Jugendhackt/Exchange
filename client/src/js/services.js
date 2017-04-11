@@ -41,6 +41,7 @@ angular.module('jhvw')
 			self.participants 	= []
 			self.signinId		= undefined
 			self.keepAlive		= undefined
+			self.newMessages	= 0
 
 			self.post = function(content){
 				return $q.when(dpd.messages.post({
@@ -72,8 +73,6 @@ angular.module('jhvw')
 			}
 
 			self.signOut = function(){
-
-				console.log('signing out', self.room)
 
 				self.keepAlive && $interval.cancel(self.keepAlive)
 
@@ -107,7 +106,6 @@ angular.module('jhvw')
 					}) 
 				}
 
-				console.log(updated_participant)
 				self.messages.forEach(function(message){
 					if(message.from.id == updated_participant.id)	message.from = updated_participant
 				})
@@ -121,14 +119,15 @@ angular.module('jhvw')
 				})
 			}
 	
-			$q.when(dpd.messages.get({
-				room: self.room
-			}))
-			.then(function(messages){
-				self.messages = messages
-				// messages = messages || []
-				// ;[].push.apply(self.messages, messages)
-			})
+			self.ready =	$q.when(dpd.messages.get({
+								room: self.room
+							}))
+							.then(function(messages){	
+								return self.messages = messages								
+
+								// messages = messages || []
+								// ;[].push.apply(self.messages, messages)
+							})
 		}
 
 		return jhvwChat

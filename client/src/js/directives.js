@@ -21,6 +21,7 @@ angular.module('jhvw')
 	}
 })
 
+
 .filter('underscores', function(){
 	return function(str){
 		return str.replace(/\s/,'_')
@@ -123,7 +124,7 @@ angular.module('jhvw')
 
 				scope.$watch(
 					function(){ return $routeParams.room},
-					function(){ scope.room = $routeParams.room}
+					function(){ scope.roomName = $routeParams.room}
 				)
 			}
 		}
@@ -136,8 +137,9 @@ angular.module('jhvw')
 	'jhvwConfig',
 	'jhvwUser',
 	'jhvwChat',
+	'$mdToast',
 
-	function(jhvwConfig, jhvwUser, jhvwChat){
+	function(jhvwConfig, jhvwUser, jhvwChat, $mdToast){
 		return{
 			templateUrl:	'partials/chat.html',
 			scope:			{
@@ -146,16 +148,15 @@ angular.module('jhvw')
 
 			link: function(scope, element){
 
-				scope.jhvwConfig	= jhvwConfig
-				scope.message 		= {content:''}
+				scope.jhvwConfig			= jhvwConfig
+				scope.message 				= {content:''}
+				scope.originalMessageCount	= undefined
+				scope.batchCount			= 1
+				scope.batchSize				= 10
+				scope.limit 				= undefined
+				scope.unreadMessages		= 0
 
-				var content_element = undefined,
-					stop_looking_for_content_element = 	scope.$watch(function(){
-															if(content_element = element.find('md-content') ){
-																stop_looking_for_content_element()															
-															}
-														})
-
+				var content_element = element.find('md-content')[0]
 
 				scope.postOrLinebreak = function(e){
 					if(e.keyCode == 10 || e.keyCode == 13){
@@ -172,15 +173,90 @@ angular.module('jhvw')
 					scope.jhvwRoom.post(scope.message.content)
 					.then(function(){
 						scope.message.content = ''
+						document.activeElement.blur()	
 					})
 				}
 
-				scope.scrollToBottom = function(){
-					if(!content_element) return null
-					content_element[0].scrollTop = content_element[0].scrollHeight
+				scope.jhvwUser = jhvwUser
+
+				scope.jhvwRoom.ready
+				.then(function(){
+					scope.originalMessageCount = scope.jhvwRoom.messages.length
+
+					scope.$on('unreadMessage',	function(){ scope.unreadMessages ++ })
+					scope.$on('messageRead',	function(){ scope.unreadMessages -- })
+
+
+					var toast = 	$mdToast.simple()
+									.position('top')
+									.textContent('Neue Nachricht')
+									.action('anzeigen')
+									.highlightAction(true)								
+									.parent(content_element)
+
+					scope.$watch('unreadMessages', function(current_count, previous_count){
+						if(current_count > previous_count){
+							$mdToast.show(toast)
+							.then(function(response){
+								if(response == 'ok') content_element.scrollTop = content_element.scrollHeight
+							})
+						}
+					})
+
+					scope.$watch(
+						function(){ return [scope.jhvwRoom && scope.jhvwRoom.messages.length, scope.batchCount]},
+						function(){
+							var new_messages = scope.jhvwRoom.messages.length - scope.originalMessageCount
+							
+							scope.limit = new_messages + scope.batchCount * scope.batchSize
+							if(scope.limit >= scope.jhvwRoom.messages.length) scope.noMoreItems = true
+						},
+						true
+					)
+				})
+
+			}
+		}
+	}
+])
+
+.directive('jhvwMessage', [
+
+	'jhvwUser',
+
+	function(jhvwUser){
+		return {
+			restrict: 'A',
+
+			link: function(scope, element, attrs){
+
+				var parent = element.parent(),
+					message = scope.$eval(attrs.jhvwMessage)
+
+				if(!message) return null
+
+				if(message.from.id == jhvwUser.data.id){
+					parent[0].scrollTop = parent[0].scrollHeight					
+					return null
 				}
 
-				scope.jhvwUser = jhvwUser
+				if(element[0].offsetTop - parent[0].scrollTop < 1.5*parent[0].clientHeight){
+					parent[0].scrollTop = parent[0].scrollHeight
+					return null						
+				}
+
+
+				scope.$emit('unreadMessage', element)
+
+				function onScroll(){
+					if(element[0].offsetTop - parent[0].scrollTop > parent[0].clientHeight/2) return null
+
+					scope.$emit('messageRead', element)
+					parent.off('scroll', onScroll)
+				}
+
+				parent.on('scroll', onScroll)
+
 			}
 		}
 	}
@@ -291,7 +367,6 @@ angular.module('jhvw')
 							return [scope.city, scope.zip, scope.country]
 						},
 						function(){
-							console.log(scope.city)
 							if(!scope.city && ! scope.zip){
 								scope.weatherData = {}
 								return null	
@@ -322,7 +397,11 @@ angular.module('jhvw')
 
 	function(){
 		return function(timestamp){
-			return new Date(timestamp).toLocaleTimeString('de')
+			var date 		= new Date(timestamp),
+				date_str	= date.toLocaleDateString('de'),
+				time_str 	= date.toLocaleTimeString('de')
+
+			return date_str + ', '+time_str
 		}
 	}
 ])
@@ -334,7 +413,6 @@ angular.module('jhvw')
 	function(jhvwConfig){
 		return function(code){
 			var country = jhvwConfig.countries.filter(function(country){ return country.code == code })[0]
-			console.log(code, country)
 			return (country && country.name) || code
 		}
 	}

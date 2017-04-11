@@ -2,16 +2,17 @@
 	flex = "grow"
 >
 		<md-button
-			ng-if 		= "room"
+			ng-if 		= "roomName"
 			ng-click 	= "gotoRoom()"
 		>
-			#{{room}}
+			#{{roomName}}
 		</md-button>
 </div>
 
 <md-button 
 	ng-if 		= "!jhvwUser.loggedIn()"
 	ng-click	= "register()"
+	flex		= "none"
 >
 	Registrieren
 </md-button>
@@ -19,6 +20,7 @@
 <md-button
 	ng-if 		= "!jhvwUser.loggedIn()"
 	ng-click	= "login()"
+	flex		= "none"
 >
 	Login
 </md-button>
@@ -27,6 +29,7 @@
 <md-button
 	ng-if 		= "jhvwUser.loggedIn()"
 	ng-href		= "/u/{{jhvwUser.data.id}}"
+	flex		= "none"
 >
 	{{jhvwUser.data.username}} 
 </md-button>
@@ -34,6 +37,7 @@
 <md-button
 	ng-if 		= "jhvwUser.loggedIn()"
 	ng-click 	= "logout()" 
+	flex		= "none"
 >
 	Logout
 </md-button>

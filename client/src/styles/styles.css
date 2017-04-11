@@ -1,3 +1,8 @@
+body {
+	overflow-y: 			hidden !important;
+}
+
+
 jhvw-chat form {
 	margin-bottom:			0 !important;
 }
@@ -8,4 +13,12 @@ jhvw-chat form md-input-container {
 
 form {
 	margin:					0 !important;
+}
+
+md-content {
+	scroll-behavior: 		smooth;
+}
+
+md-list-item h3 {
+	max-width:				20em;
 }

@@ -12,6 +12,7 @@ angular.module('jhvw')
 
 	function($rootScope, $scope, $routeParams, $location, jhvwChat, jhvwUser, jhvwConfig){
 
+
 		jhvwUser.ready
 		.then(function(){
 			if(!jhvwUser.loggedIn()){

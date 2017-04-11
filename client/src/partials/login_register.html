@@ -4,8 +4,8 @@
 	>
 	  	<label>Benutzername</label>
 	  	<input 
-	 		ng-model	= "data.username" 
-	 		type		= "text"
+	 		ng-model		= "data.username" 
+	 		type			= "text"
 	 		required
 	 		md-auto-focus
 			focus-me
@@ -60,12 +60,11 @@
 		</div>
 	</div>
 
-	<div layout-xs = "column" layout = "row">
+	<div layout 			= "row" >
 
 		<md-button 
-			layout-align	= "center"
 			class 			= "md-raised" 
-			flex 			= "grow"
+			flex 			= "auto"
 			ng-click		= "back()"
 			ng-if			= "step == 'password' || step == 'error'"
 			focus-me		= "step == 'error'"
@@ -75,30 +74,27 @@
 
 		<md-button 
 			ng-if			= "step == 'username' || step == 'password'"
-			layout-align	= "center"
 			class 			= "md-primary md-raised" 
 			type 			= "submit"
-			flex 			= "grow"
+			flex 			= "auto"
 		>	
 			Weiter
 		</md-button>
 
 		<md-button 
 			ng-if			= "step == 'error'"
-			layout-align	= "center"
 			class 			= "md-raised" 
 			type 			= "submit"
-			flex 			= "grow"
+			flex 			= "auto"
 		>	
 			Abbrechen
 		</md-button>
 
 		<md-button 
 			ng-if			= "step == 'login'"
-			layout-align	= "center"
 			class 			= "md-primary md-raised" 
 			type 			= "submit"
-			flex 			= "grow"
+			flex 			= "auto"
 			focus-me		
 		>	
 			Anmelden

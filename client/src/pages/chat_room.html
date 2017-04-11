@@ -8,8 +8,7 @@
 
 	<md-sidenav
 		ng-if				= "room"
-		md-is-open			= "true"
-		md-is-locked-open 	= "true"
+		md-is-locked-open 	= "$mdMedia('gt-md')"
 		flex				= "none"
 	>
 		<jhvw-profile
@@ -23,6 +22,7 @@
 
 
 	<jhvw-chat 
+		ng-if		= "room"
 		jhvw-room 	= "room"
 		layout		= "column" 
 		flex		= "grow"
@@ -35,8 +35,7 @@
 
 	<md-sidenav
 		ng-if				= "room"
-		md-is-open			= "true"
-		md-is-locked-open 	= "true"
+		md-is-locked-open 	= "$mdMedia('gt-sm')"
 		flex				= "none"
 		class				= "participant-list"
 	>

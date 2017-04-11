@@ -1,41 +1,64 @@
 <!-- chat messages -->
 
 <md-content
-	layout				= "column"
-	flex				= "grow"
+	layout			= "column"
+	flex			= "grow"
+	layout-align	= "space-around stretch"
 >
-	<md-list>
-		<md-list-item 
-			class		= "md-3-line md-long-text"
-			ng-repeat   = "message in jhvwRoom.messages"
-			md-colors	= "{background: message.from.id == jhvwUser.data.id ? 'accent-200' : 'primary-200'}"
-			ng-init		= "($last && message.from.id == jhvwUser.data.id) ? scrollToBottom()  : 'null'"
+
+	<div
+		ng-show			= "!jhvwRoom || !jhvwRoom.messages ||!jhvwRoom.messages.length"
+		layout 			= "column"
+		layout-align	= "center center"
+		flex			= "grow"
+	>
+		<md-progress-circular 
+			md-mode	= "indeterminate"
+		></md-progress-circular>
+	</div>
+
+	<div
+		class			= ""
+		ng-show			= "jhvwRoom.messages && jhvwRoom.messages.length && !noMoreItems"
+		layout 			= "column"
+		layout-align	= "center center"
+		flex			= "none"
+	>		
+		<md-button ng-click = "batchCount = batchCount +1"> ältere Nachrichten anzeigen </md-button>
+	</div>
+
+	<md-list-item 
+		flex			= "none"
+		class			= "md-3-line md-long-text"
+		ng-repeat   	= "message in jhvwRoom.messages | orderBy: 'timestamp' | limitTo: -1*limit"
+		md-colors		= "{background: message.from.id == jhvwUser.data.id ? 'accent-200' : 'primary-200'}"
+		jhvw-message	= "::$last && message"		
+	>
+		<img 
+			ng-src	= "{{jhvwConfig.backendLocation}}/images/{{message.from.avatar}}" 
+			class	= "md-avatar" 
+			alt		= "{{message.from.displayName}}" 
+			ng-show	= "message.from.avatar"
+		/>
+
+		<md-icon 
+			class 	= "md-avatar-icon"
+			ng-show	= "!message.from.avatar"
 		>
-				<img 
-					ng-src	= "{{jhvwConfig.backendLocation}}/images/{{message.from.avatar}}" 
-					class	= "md-avatar" 
-					alt		= "{{message.from.displayName}}" 
-					ng-show	= "message.from.avatar"
-				/>
+			face
+		</md-icon>
 
-				<md-icon 
-					class 	= "md-avatar-icon"
-					ng-show	= "!message.from.avatar"
-				>
-					face
-				</md-icon>
-
-				<div class="md-list-item-text">
-					<h3>{{message.from.displayName}} <span class ="md-caption">({{::message.timestamp | jhvwDate}})</span></h3>
-					<p style = "white-space: pre-wrap">{{::message.content}}</p>
-				</div>
-		</md-list-item>
-	</md-list>
-
-	<br/>
-	<br/>
+		<div class="md-list-item-text">
+			<h3>{{message.from.displayName}}</h3>
+			<p style = "white-space: pre-wrap">{{::message.content}}</p>
+			<div layout = "row" layout-align = "end center"> <span class ="md-caption" flex = "none">({{message.timestamp | jhvwDate}})</span></div>
+		</div>
+	</md-list-item>
 
 </md-content>
+
+
+
 
 
 <!-- new message -->
@@ -49,7 +72,7 @@
 >
 	
 	<md-input-container 
-		flex 		= "grow"
+		flex 		= "auto"
 		class		= "md-primary"
 	>
 			<label>Nachricht</label>
@@ -58,7 +81,6 @@
 				ng-keypress 	= "postOrLinebreak($event)"
 				md-maxlength	= "600"
 				rows			= "1"
-				focus-me
 				md-no-resize
 			></textarea>
 	</md-input-container>
