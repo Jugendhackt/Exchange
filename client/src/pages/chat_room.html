@@ -44,8 +44,9 @@
 			flex
 		>
 			<md-list-item
-				class		= "md-2-line"
-				ng-repeat 	= "participant in room.participants"
+				class			= "md-2-line"
+				ng-repeat-start = "participant in room.participants | up : 'id' : jhvwUser.data.id"
+				ng-click		= "show_info = !show_info"
 			>
 				<img
 					ng-if	= "participant.avatar" 
@@ -73,6 +74,7 @@
 					 --><span ng-if ="participant.country">, {{participant.country | countryName}}</span>
 					</p>
 				</div>
+
 				<div 
 					class ="md-secondary-container"
 				>
@@ -81,6 +83,21 @@
 						city	= "participant.city"
 						country	= "participant.country"
 					></jhvw-weather>
+				</div>
+
+			</md-list-item>
+
+			<md-list-item
+				class		= "md-2-line"
+				ng-show 	= "show_info"
+				ng-repeat-end
+			>
+				<div 
+					class	= "md-list-item-text" 
+					flex	= "grow"
+				>
+					<h3>Und sonst noch:</h3>
+					<p style = "white-space: pre">{{participant.info || 'Nichts weiter...'}}</p>
 				</div>
 			</md-list-item>
 		</md-list>

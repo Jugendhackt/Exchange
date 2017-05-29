@@ -10,4 +10,4 @@ dpd.signins.get({room : this.room, user: me.id})
 this.timestamp = new Date().getTime()
 this.user = me.id
 
-emit(dpd.users, {room: this.room }, 'signins:updated')
+emit('signins:updated')

@@ -10,16 +10,28 @@ angular.module('jhvw', [
 
 	function($routeProvider, $locationProvider){
 		$routeProvider
-		.when('/r/:room?',{
+		.when('/r/:room',{
 			controller:		'ChatCtrl',
 			templateUrl: 	'pages/chat_room.html',
+		})
+		.when('/r',{
+			templateUrl: 	'pages/rooms.html',
+		})
+		.when('/rooms',{
+			templateUrl: 	'pages/rooms.html',
+		})
+		.when('/profile',{
+			templateUrl: 	'pages/profile.html',
 		})
 		.when('/login_or_register',{
 			controller:		'RegisterOrLoginCtrl',
 			templateUrl:	'pages/login_or_register.html',	
 		})
+		.when('/',{
+			templateUrl: 	'pages/home.html',
+		})
 		.otherwise({
-			redirectTo: '/r/'
+			redirectTo: '/'
 		})
 		 
 		$locationProvider
@@ -59,18 +71,9 @@ angular.module('jhvw', [
 
 		$rootScope.gotoRoom = function(name){
 
-			if(name) return $location.path('/r/'+name)
-
-			$mdDialog.show(
-				$mdDialog.prompt()
-				.title('Raum auswählen:')
-				.initialValue($routeParams.room)
-				.ok('Weiter')
-				.cancel('Abbrechen')
-			)
-			.then(function(name){
-				$rootScope.gotoRoom(name)
-			})
+			return	name
+					?	$location.path('/r/'+name)
+					:	$location.path('/rooms')
 			
 
 		}
@@ -107,6 +110,8 @@ angular.module('jhvw', [
 				$location.path('/')
 			})
 		}
+
+		$rootScope.$routeParams = $routeParams
 	}
 ])
 

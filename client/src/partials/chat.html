@@ -1,7 +1,7 @@
 <!-- chat messages -->
 <div
 	flex			= "grow"
-	ng-show			= "!jhvwRoom || !jhvwRoom.messages ||!jhvwRoom.messages.length"
+	ng-show			= "!jhvwRoom.ready"
 	layout 			= "column"
 	layout-align	= "center center"
 >
@@ -23,6 +23,28 @@
 	>		
 		<md-button ng-click = "batchCount = batchCount +1"> ältere Nachrichten anzeigen </md-button>
 	</div>
+
+
+	<md-list-item 
+		class			= "md-3-line md-long-text"
+		md-colors		= "{background: 'primary-A200'}"
+	>
+		<div class="md-list-item-text">
+			<p>Wilkommen in #{{jhvwRoom.name}}</p>
+		</div>
+	</md-list-item>
+
+	<md-list-item 
+		class			= "md-3-line md-long-text"
+		ng-if   		= "!jhvwRoom.messages.length"
+		md-colors		= "{background: 'primary-A200'}"
+	>
+		<div class="md-list-item-text">
+			<p style = "white-space: pre-wrap">Noch keine Nachrichten vorhanden.</p>
+		</div>
+	</md-list-item>
+
+
 
 	<md-list-item 
 		class			= "md-3-line md-long-text"

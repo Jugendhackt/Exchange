@@ -1,13 +1,19 @@
-<div 
-	flex = "grow"
+<a 
+	class 		= "md-icon-button md-button"
+	ng-href		= "/"
 >
-		<md-button
-			ng-if 		= "roomName"
-			ng-click 	= "gotoRoom()"
-		>
-			#{{roomName}}
-		</md-button>
-</div>
+	<md-icon>home</md-icon>
+</a>
+
+<md-button 
+	flex		= "none"
+	ng-click 	= "gotoRoom()"
+>
+	<span ng-if = "!$routeParams.roomName">	Raum wählen</span>
+	<span ng-if = "$routeParams.roomName">	#{{roomName}}</span>
+</md-button>
+
+<div flex 	= "grow"></div>
 
 <md-button 
 	ng-if 		= "!jhvwUser.loggedIn()"
@@ -28,7 +34,7 @@
 
 <md-button
 	ng-if 		= "jhvwUser.loggedIn()"
-	ng-href		= "/u/{{jhvwUser.data.id}}"
+	ng-href		= "/profile"
 	flex		= "none"
 >
 	{{jhvwUser.data.username}} 

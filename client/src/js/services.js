@@ -37,6 +37,7 @@ angular.module('jhvw')
 			var self = this
 
 			self.room 			= room
+			self.name 			= room
 			self.messages 		= []
 			self.participants 	= []
 			self.signinId		= undefined
@@ -54,6 +55,10 @@ angular.module('jhvw')
 
 				return 	self.signinId
 						?	$q.when(dpd.signins.put(self.signinId))
+							.catch(function(){
+									self.signinId = null
+									self.signIn()
+							})
 
 						:	$q.when(dpd.signins.post({ room:	self.room }))
 							.then(function(signin){
@@ -112,7 +117,6 @@ angular.module('jhvw')
 			}
 
 			function addMessage(message){
-				console.log(message)
 				if(message.room == self.room){
 					dpd.messages.get({id: message.id})
 					.then(function(message){

@@ -40,6 +40,14 @@
 			"required": false,
 			"id": "country",
 			"order": 4
+		},
+		"info": {
+			"name": "info",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "info",
+			"order": 5
 		}
 	}
 }

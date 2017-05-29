@@ -22,3 +22,8 @@ md-content {
 md-list-item h3 {
 	max-width:				20em;
 }
+
+
+jhvw-room-list md-list {
+	padding-top:			0;
+}

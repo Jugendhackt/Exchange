@@ -4,6 +4,7 @@
   "description": "",
   "dependencies": {
     "deployd": "^0.8.9",
+    "dpd-event": "0.0.2",
     "dpd-fileupload": "^0.0.17"
   },
   "devDependencies": {},

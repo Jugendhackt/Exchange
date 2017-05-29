@@ -19,3 +19,46 @@ Done:
 
 
 
+Todo:
+
+* Lokale Zeit anzeigen (offset beim signin/login mit einreichen) -> datenschutz
+* Zeitstempel im Chat, lokal oder eigene Zeitzone? Beides? Um Ort ergänzen?
+	-> sehr aufwenig =(
+	-> poster zeit und client zeit ginge (tz-offset mitposten) -> datenschutz
+
+Done:
+* Überschrift L#nderauswahl
+* Alle Größen
+* Städteauswahl bei mehrdeutigkeit mit auswahl? -> zu aufwändig
+* Extra infos...
+* Räume löschen -> nicht sinnvoll bzw. unter welchen Bedingungen?
+* Titel im Tab anzeigen
+* Passwort vergessen? Nutzer löschen? -> zu aufwändig -> datenschutz? -> email angeben? (nutzer verifizieren)
+* Raumliste
+* Raumliste für xs mir raumwahl zusammenpacken
+* messages tauchen im falschen chat auf! .on
+
+
+
+
+Abhängig von:
+
+* openweather map 
+
+* keine Sicherheit
+* Keine Dokumentatiom
+
+* Blindtexte
+* Landingpage:
+
+    Titel: Vernetzte Welten
+
+    Introtext (2/3) und Chat-Login/Registrieren (1/3)
+
+    Abstand oder hrule
+
+    Überschrift weitere Projekte
+
+    1/3-1/3-1/3 Raster (momentan nur im ersten: Hutanleitung)
+
+    Vorschlag: Projektname und quadratisches Bild, bei Mouseover Kurzbeschreibung, bei Klick Link zur Hutanleitung (ähnlich wie hier: https://jugendhackt.org/team/ )

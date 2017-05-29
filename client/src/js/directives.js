@@ -122,10 +122,7 @@ angular.module('jhvw')
 
 			link: function(scope, element){
 
-				scope.$watch(
-					function(){ return $routeParams.room},
-					function(){ scope.roomName = $routeParams.room}
-				)
+				scope.$routeParams = $routeParams
 			}
 		}
 	}
@@ -178,6 +175,10 @@ angular.module('jhvw')
 					})
 				}
 
+				scope.scrollToLastMessage = function(){
+					content_element.scrollTop = content_element.scrollHeight
+				}
+
 				scope.jhvwUser = jhvwUser
 
 				scope.jhvwRoom.ready
@@ -199,7 +200,7 @@ angular.module('jhvw')
 						if(current_count > previous_count){
 							$mdToast.show(toast)
 							.then(function(response){
-								if(response == 'ok') content_element.scrollTop = content_element.scrollHeight
+								if(response == 'ok') scope.scrollToLastMessage()
 							})
 						}
 					})
@@ -304,6 +305,7 @@ angular.module('jhvw')
 												city:			jhvwUser.data.city,
 												zip:			jhvwUser.data.zip,
 												country:		jhvwUser.data.country,
+												info:			jhvwUser.data.info,	
 											}
 				})
 
@@ -344,8 +346,9 @@ angular.module('jhvw')
 
 	'$http',
 	'jhvwConfig',
+	'$interval',
 
-	function($http, jhvwConfig){
+	function($http, jhvwConfig, $interval){
 		return {
 			
 			template:	'<img ng-src ="http://openweathermap.org/img/w/{{weatherData.icon}}.png" title = "{{weatherData.description}}"" alt = "{{weatherData.description}}"></img>',
@@ -359,16 +362,13 @@ angular.module('jhvw')
 				var basis 	=	"http://api.openweathermap.org/data/2.5/weather",
 					land 	= 	scope.country,
 					stadt 	= 	scope.city,
-					zip		= 	scope.zip
+					zip		= 	scope.zip,
+					stop	=	$interval(update, 15*60*1000)
 
 					scope.weatherData = {}
 
-					scope.$watch(
-						function(){
-							return [scope.city, scope.zip, scope.country]
-						},
-						function(){
-							if(!scope.city && ! scope.zip){
+					function update(){
+						if(!scope.city && ! scope.zip){
 								scope.weatherData = {}
 								return null	
 							} 
@@ -384,15 +384,67 @@ angular.module('jhvw')
 							.then(function(result){
 								scope.weatherData = result.data.weather[0]	
 							})
+					}
+
+
+
+					scope.$watch(
+						function(){
+							return [scope.city, scope.zip, scope.country]
 						},
+						update,
 						true
 					)
+
+					scope.$on('$destroy', stop)
 			}
 		}
 	}
 
 ])
 
+
+.directive('jhvwRoomList', [
+
+	function(){
+		return {
+
+			templateUrl: 	'/partials/room_list.html',
+			scope: 			true,
+
+			link: function(scope, element){
+
+				function update(){
+					dpd.rooms.get()
+					.then(function(rooms){
+						console.log(rooms)
+						scope.rooms = rooms
+						scope.$digest()
+					})
+				}
+
+				update()
+
+				dpd.messages.on('created', update)
+
+				scope.$on('$destroy', function(){
+					dpd.messages.off('created', update)
+				})
+			}
+		}
+	}
+])
+
+
+.filter('up', [
+	function(){
+		return function(arr, key, value){
+			return 	arr.sort(function(item_1, item_2){
+						return 	(item_2[key] == value ? 1 : 0) - (item_1[key] == value ? 1 : 0 )
+					})
+		}
+	}
+])
 
 .filter('jhvwDate',[
 

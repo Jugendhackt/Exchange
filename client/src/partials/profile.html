@@ -234,6 +234,7 @@
 		<md-select 
 			ng-model	= "edit.country"
 			ng-change 	= "update('country', edit.country).then(blur)"
+			placeholder	= "Wähle Dein Land"
 		>
 			<md-option value="">keine Angabe</md-option>
 			<md-option ng-repeat="country in jhvwConfig.countries" value="{{country.code}}">{{country.name}}</md-option>
@@ -243,3 +244,44 @@
 
 </form>
 
+
+
+<form
+	layout 		= "column"
+	ng-submit 	= "update('info', edit.info).then(blur)" 
+>
+	<md-input-container
+	>
+		<label>Sonst noch:</label>
+		<textarea 
+			ng-model	= "edit.info" 
+			rows		= "5"
+			type		= "text"
+		></textarea>
+
+	</md-input-container>
+
+	<div
+		layout 	= "row"
+		ng-show	= "edit.info != jhvwUser.data.info"
+	>
+		<md-button 
+			class		= "md-raised" 
+			aria-label	= "undo change to additional info"
+			ng-click	= "edit.info = jhvwUser.data.info"
+			flex		= "grow"
+		>
+			undo
+		</md-button>
+
+		<md-button 
+			class		= "md-primary md-raised" 
+			aria-label	= "update additional info"
+			type		= "submit"
+			flex		= "grow"
+		>
+			übernehmen
+		</md-button>
+	</div>
+
+</form>
