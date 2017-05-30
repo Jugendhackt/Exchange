@@ -1,0 +1,99 @@
+<div
+	layout 			= "row"
+	flex			= "grow"
+>
+	<md-content
+		hide-xs 		
+		flex-gt-xs		= "none"
+		layout			= "row"
+	>
+		<jhvw-room-list></jhvw-room-list>
+	</md-content>
+	<md-content
+		flex			= "grow"
+		layout			= "row"
+		layout-align	= "center"
+	>
+		<div
+			layout-padding
+			flex-xs			= "grow"
+			flex-sm			= "grow"
+			flex-md			= "66"
+			flex-lg			= "66"
+			flex-xl			= "50"
+		>
+			<h2>Vernetzte Welten</h2>
+
+			<p>
+				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+			</p>
+
+			<div
+				layout-padding
+				layout			= "row"
+				layout-align	= "center center"
+			>	
+				<div
+					layout	= "column"
+					flex	= "none"
+				>
+					<md-button
+						href		= ""
+						flex		= "none"
+						ng-click	= "login()"
+					>
+						Login
+					</md-button>
+
+					<md-button
+						href 		= ""
+						flex		= "none"
+						ng-click	= "register()"
+					>
+						Registrieren
+					</md-button>
+				</div>
+			</div>
+
+
+			<md-divider></md-divider>
+
+			<h3>Weitere Projekte</h3>
+
+			<md-grid-list
+				md-cols-xs		= "1" 
+				md-cols-sm		= "2" 
+				md-cols-gt-sm	= "3"
+				md-row-height	= "2:2" 
+				md-gutter		= "12px" 
+				md-gutter-gt-sm	= "8px" 
+			>
+
+				<md-grid-tile 
+					md-colors = "{background: 'primary-100'}"
+				>
+					<md-grid-tile-header>
+						<h3>Hutanleiting</h3>
+					</md-grid-tile-header>
+
+				</md-grid-tile>
+
+				<md-grid-tile 
+					md-colors = "{background: 'accent-100'}"
+				>
+					<md-grid-tile-header>
+						<h3>Project X</h3>
+					</md-grid-tile-header>
+				</md-grid-tile>
+
+			</md-grid-list>
+
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+
+		</div>
+
+	</md-content>
+</div>
