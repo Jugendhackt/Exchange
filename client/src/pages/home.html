@@ -25,7 +25,7 @@
 			<h2>Vernetzte Welten</h2>
 
 			<p>
-				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+				Willkommen bei Vernetzte Welten! Auf dieser Seite kannst Du dich weltweit mit Schülerinnen und Schülern vernetzen, die Deutsch in der Schule lernen, oder aus Deutschland kommen. Registriere dich zuerst, und klicke dann links auf den passenden Raum für deinen Schüleraustausch. Oder erstelle einen neuen Raum zu einem Thema, zum Beispiel #Sport oder #Musik. Viel Spaß!
 			</p>
 
 			<div
@@ -70,21 +70,75 @@
 			>
 
 				<md-grid-tile 
-					md-colors = "{background: 'primary-100'}"
+					md-colors 		= "{background: 'blue-100'}"
+					ng-click		= "goto('https://jugendhackt.github.io/CoolTourHat_Instruction/#')"
+					md-ink-ripple 	= "#000"
 				>
 					<md-grid-tile-header>
-						<h3>Hutanleiting</h3>
-					</md-grid-tile-header>
+						<h3>CoolTourHat</h3>
+					</md-grid-tile-header>		
+					<div
+						class		= "tile-image"
+						style		= "background-image: url(/images/cooltourhat.jpg)"
+					>
+					</div>	
+				</md-grid-tile>
+
+    
+
+				<md-grid-tile 
+					class 			= "md-grid-tile" 
+					md-colors 		= "{background: 'green-100'}"
+					title			= "Eine Anwendung, durch die Schulen leichter eine passende Partnerschule finden."
+					ng-click		= "goto('https://youtu.be/EFd_vqyePLU?t=33m12s')"
+					md-ink-ripple 	= "#000"
+				>
+					<md-grid-tile-header>
+						<h3>Stairs</h3>
+					</md-grid-tile-header>	
 
 				</md-grid-tile>
 
 				<md-grid-tile 
-					md-colors = "{background: 'accent-100'}"
+					class 			= "md-grid-tile" 
+					md-colors 		= "{background: 'red-100'}"
+					title			= "Ausgehend von dem Problem, dass Lerner oft nicht wissen, was in der Fremdsprache als höflich oder unhöflich gilt, wurde von diesem Team eine Anwendung, entwickelt, die in deutschen und koreanischen Texten automatisch unhöfliche durch höfliche Ausdrücke ersetzt."
+					ng-click		= "goto('https://youtu.be/EFd_vqyePLU?t=46m5s')"
+					md-ink-ripple 	= "#000"
 				>
 					<md-grid-tile-header>
-						<h3>Project X</h3>
+						<h3>Bee Polite</h3>
 					</md-grid-tile-header>
+
 				</md-grid-tile>
+	
+				<md-grid-tile 
+					class 			= "md-grid-tile" 
+					md-colors 		= "{background: 'orange-100'}"
+					title			= "Informationen zu deutscher Kultur, abgestimmt auf die Interessen von Jugendlichen."
+					ng-click		= "goto('https://youtu.be/EFd_vqyePLU?t=1h4m29s')"
+					md-ink-ripple 	= "#000"
+				>
+					<md-grid-tile-header>
+						<h3>Kultur für euch – Austausch weltweit</h3>
+					</md-grid-tile-header>
+
+				</md-grid-tile>							
+
+				<md-grid-tile 
+					class 			= "md-grid-tile" 
+					md-colors 		= "{background: 'blue-100'}"
+					href			= "https://youtu.be/EFd_vqyePLU?t=1h10m30s"
+					title			= "Eine Reise-Organisationswebsite, die die Recherche für Schulklassen erheblich erleichtern soll."
+					ng-click		= "goto('https://youtu.be/EFd_vqyePLU?t=1h10m30s')"
+					md-ink-ripple 	= "#000"
+				>
+					<md-grid-tile-header>
+						<h3>Buchst du noch oder reist du schon?</h3>
+					</md-grid-tile-header>
+
+				</md-grid-tile>		
+   
 
 			</md-grid-list>
 
@@ -92,6 +146,7 @@
 			<br/>
 			<br/>
 			<br/>
+			<a href = "/impressum" class = "md-button">Impressum</a>
 
 		</div>
 

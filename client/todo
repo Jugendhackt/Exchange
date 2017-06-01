@@ -20,13 +20,16 @@ Done:
 
 
 Todo:
-
-* Lokale Zeit anzeigen (offset beim signin/login mit einreichen) -> datenschutz
 * Zeitstempel im Chat, lokal oder eigene Zeitzone? Beides? Um Ort ergänzen?
 	-> sehr aufwenig =(
 	-> poster zeit und client zeit ginge (tz-offset mitposten) -> datenschutz
 
 Done:
+* Zeit zone auswählen lassen +10 -10..
+* Lokale Zeit anzeigen (offset beim signin/login mit einreichen) -> datenschutz
+* Impressum
+* Länderauswahl nach oben
+* CoolTourHat
 * Überschrift L#nderauswahl
 * Alle Größen
 * Städteauswahl bei mehrdeutigkeit mit auswahl? -> zu aufwändig
@@ -36,17 +39,6 @@ Done:
 * Passwort vergessen? Nutzer löschen? -> zu aufwändig -> datenschutz? -> email angeben? (nutzer verifizieren)
 * Raumliste
 * Raumliste für xs mir raumwahl zusammenpacken
-* messages tauchen im falschen chat auf! .on
-
-
-
-
-Abhängig von:
-
-* openweather map 
-
-* keine Sicherheit
-* Keine Dokumentatiom
 
 * Blindtexte
 * Landingpage:
@@ -62,3 +54,18 @@ Abhängig von:
     1/3-1/3-1/3 Raster (momentan nur im ersten: Hutanleitung)
 
     Vorschlag: Projektname und quadratisches Bild, bei Mouseover Kurzbeschreibung, bei Klick Link zur Hutanleitung (ähnlich wie hier: https://jugendhackt.org/team/ )
+* messages tauchen im falschen chat auf! .on
+
+
+
+
+Abhängig von:
+
+* openweather map 
+
+* keine Sicherheit
+* Keine Dokumentatiom
+
+Brauche noch:
+
+*Impressumstext

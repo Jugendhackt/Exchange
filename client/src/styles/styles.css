@@ -27,3 +27,30 @@ md-list-item h3 {
 jhvw-room-list md-list {
 	padding-top:			0;
 }
+
+[ng-click] {
+	cursor:					pointer;
+}
+
+md-grid-tile-header {
+	z-index:				10;
+	-webkit-touch-callout: 	none; /* iOS Safari */
+    -webkit-user-select: 	none; /* Safari */
+     -khtml-user-select: 	none; /* Konqueror HTML */
+       -moz-user-select: 	none; /* Firefox */
+        -ms-user-select: 	none; /* Internet Explorer/Edge */
+            user-select: 	none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+md-grid-tile .tile-image {
+	position:				absolute;
+	top:					0;
+	left:					0;
+	right:					0;
+	bottom:					0;
+	background-size:		cover;
+	background-repeat:		no_repeat;
+	background-position:	50% 50%;
+	z-index:				0;
+}

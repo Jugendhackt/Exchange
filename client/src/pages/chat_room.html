@@ -73,6 +73,13 @@
 					 --><span ng-if ="participant.city">	 {{participant.city}}</span><!--
 					 --><span ng-if ="participant.country">, {{participant.country | countryName}}</span>
 					</p>
+					<p ng-if = "participant.tzOffset !== undefined">
+						lokale Zeit: {{participant.time | jhvwDate : true}} 
+					</p>
+					<p ng-if = "participant.tzOffset === undefined">
+						Zeitzone unbekannt
+					</p>
+
 				</div>
 
 				<div 

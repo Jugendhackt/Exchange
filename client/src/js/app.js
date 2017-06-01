@@ -27,6 +27,9 @@ angular.module('jhvw', [
 			controller:		'RegisterOrLoginCtrl',
 			templateUrl:	'pages/login_or_register.html',	
 		})
+		.when('/impressum',{
+			templateUrl: 	'pages/impressum.html',
+		})
 		.when('/',{
 			templateUrl: 	'pages/home.html',
 		})
@@ -109,6 +112,10 @@ angular.module('jhvw', [
 			.then(function(){
 				$location.path('/')
 			})
+		}
+
+		$rootScope.goto = function(url){
+			window.open(url,'_blank');
 		}
 
 		$rootScope.$routeParams = $routeParams

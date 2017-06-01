@@ -48,6 +48,14 @@
 			"required": false,
 			"id": "info",
 			"order": 5
+		},		
+		"tzOffset": {
+			"name": "tzOffset",
+			"type": "number",
+			"typeLabel": "string",
+			"required": false,
+			"id": "tzOffset",
+			"order": 6
 		}
 	}
 }

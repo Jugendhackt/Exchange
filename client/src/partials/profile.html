@@ -165,6 +165,28 @@
 
 
 
+<!--country -->
+
+<form
+	layout 		= "column"
+>
+	<md-input-container
+	>
+		<label>{{key|label}}</label>
+		<md-select 
+			ng-model	= "edit.country"
+			ng-change 	= "update('country', edit.country).then(blur)"
+			placeholder	= "Wähle Dein Land"
+		>
+			<md-option value="">keine Angabe</md-option>
+			<md-option ng-repeat="country in jhvwConfig.countries" value="{{country.code}}">{{country.name}}</md-option>
+		</md-select>
+
+	</md-input-container>
+
+</form>
+
+
 
 
 <!-- city, zip -->
@@ -225,19 +247,25 @@
 </form>
 
 
+
+<!-- timezone -->
 <form
 	layout 		= "column"
 >
+
 	<md-input-container
 	>
 		<label>{{key|label}}</label>
 		<md-select 
-			ng-model	= "edit.country"
-			ng-change 	= "update('country', edit.country).then(blur)"
-			placeholder	= "Wähle Dein Land"
+			ng-model	= "edit.tzOffset"
+			ng-change 	= "update('tzOffset', edit.tzOffset).then(blur)"
+			placeholder	= "Wähle Deine Zeitzone"
 		>
 			<md-option value="">keine Angabe</md-option>
-			<md-option ng-repeat="country in jhvwConfig.countries" value="{{country.code}}">{{country.name}}</md-option>
+			<md-option ng-repeat="tz_offset in jhvwConfig.tzOffsets" value="{{tz_offset}}">
+				UTC {{tz_offset < 0 ? '+'+(-1*tz_offset): -1*tz_offset}} 
+				<span ng-if = "browserTimeZoneOffset == tz_offset"> -- Browserzeitzone</span>
+			</md-option>
 		</md-select>
 
 	</md-input-container>
@@ -246,13 +274,16 @@
 
 
 
+
+<!-- extra info -->
+
 <form
 	layout 		= "column"
 	ng-submit 	= "update('info', edit.info).then(blur)" 
 >
 	<md-input-container
 	>
-		<label>Sonst noch:</label>
+		<label>Und sonst noch:</label>
 		<textarea 
 			ng-model	= "edit.info" 
 			rows		= "5"

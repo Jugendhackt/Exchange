@@ -9,6 +9,7 @@ copy("src/js/**/*.js", "dev/js", function(){})
 copy("src/pages/**/*.html", "dev/pages", function(){})
 copy("src/partials/**/*.html", "dev/partials", function(){})
 copy("src/styles/**/*.css", "dev/styles", function(){})
+copy("src/images/**/*", "dev/images", function(){})
 
 copy("vendor.js", "dev/js", function(){})
 copy("config.json", "dev", function(){})

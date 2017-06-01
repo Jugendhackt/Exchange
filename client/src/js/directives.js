@@ -276,9 +276,10 @@ angular.module('jhvw')
 
 			link : function(scope, element){
 
-				scope.jhvwConfig		= jhvwConfig
-				scope.avatarInputId 	= 'avatarInput'
-				scope.avatarFilename	= undefined
+				scope.jhvwConfig			= jhvwConfig
+				scope.avatarInputId 		= 'avatarInput'
+				scope.avatarFilename		= undefined
+				scope.browserTimeZoneOffset = new Date().getTimezoneOffset()/60
 
 				var avatarInput = undefined,
 					stop_looking_for_avatar_input = 	scope.$watch(function(){	
@@ -306,6 +307,7 @@ angular.module('jhvw')
 												zip:			jhvwUser.data.zip,
 												country:		jhvwUser.data.country,
 												info:			jhvwUser.data.info,	
+												tzOffset:		jhvwUser.data.tzOffset,	
 											}
 				})
 
@@ -449,12 +451,12 @@ angular.module('jhvw')
 .filter('jhvwDate',[
 
 	function(){
-		return function(timestamp){
+		return function(timestamp, time_only, minutes_only){
 			var date 		= new Date(timestamp),
-				date_str	= date.toLocaleDateString('de'),
-				time_str 	= date.toLocaleTimeString('de')
+				date_str	= date.toLocaleDateString(),
+				time_str 	= date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
 
-			return date_str + ', '+time_str
+			return (time_only ? '' : date_str +', ')+time_str
 		}
 	}
 ])

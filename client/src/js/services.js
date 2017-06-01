@@ -16,6 +16,8 @@ angular.module('jhvw')
 			self.countries = result.data
 		})
 
+		self.tzOffsets = [-12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2 ,-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
 		return self
 	}
 ])
@@ -64,8 +66,9 @@ angular.module('jhvw')
 							.then(function(signin){
 								self.signinId = signin.id
 
-								self.keepAlive	= 	$interval(function(){
+								self.keepAlive	= 		$interval(function(){
 															self.signIn()
+															updateParticipantTime()
 														}, 60000) 
 
 								updateParticipantsList()
@@ -76,6 +79,7 @@ angular.module('jhvw')
 								return signin.id
 							})
 			}
+
 
 			self.signOut = function(){
 
@@ -96,6 +100,17 @@ angular.module('jhvw')
 				$q.when(dpd.users.get({room : self.room}))
 				.then(function(participants){				
 					self.participants 	= 	participants
+					updateParticipantTime()
+				})
+			}
+
+			function updateParticipantTime(){
+				var date 	= new Date(),
+					time 	= date.getTime(9) ,
+					offset 	= date.getTimezoneOffset()/60  
+
+				self.participants.forEach(function(participant){
+					participant.time = time + (offset-participant.tzOffset)*60*60*1000
 				})
 			}
 
@@ -107,6 +122,7 @@ angular.module('jhvw')
 					.then(function(user){
 						for(key in user){
 							updated_participant[key] = user[key]
+							updateParticipantTime()
 						}						
 					}) 
 				}
@@ -114,6 +130,7 @@ angular.module('jhvw')
 				self.messages.forEach(function(message){
 					if(message.from.id == updated_participant.id)	message.from = updated_participant
 				})
+
 			}
 
 			function addMessage(message){
@@ -125,6 +142,8 @@ angular.module('jhvw')
 					})
 				}
 			}
+
+
 	
 			self.ready =	$q.when(dpd.messages.get({
 								room: self.room
