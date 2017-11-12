@@ -33,8 +33,8 @@ angular.module('jhvw')
 
 
 			$scope.$on('$destroy', function(){
-				console.log('destroy!')
 				$scope.room && $scope.room.signOut()			
+				console.log('destroy!')
 			})
 
 		})

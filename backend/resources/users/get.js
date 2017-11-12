@@ -1,3 +1,5 @@
+cancelUnless(me, "Not logged in", 401)
+
 var self = this
 
 if(query.room){

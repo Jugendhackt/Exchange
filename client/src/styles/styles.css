@@ -43,6 +43,10 @@ md-grid-tile-header {
                                   supported by Chrome and Opera */
 }
 
+md-grid-tile {
+	overflow:				hidden;
+}
+
 md-grid-tile .tile-image {
 	position:				absolute;
 	top:					0;
@@ -50,7 +54,35 @@ md-grid-tile .tile-image {
 	right:					0;
 	bottom:					0;
 	background-size:		cover;
-	background-repeat:		no_repeat;
+	background-repeat:		no-repeat;
 	background-position:	50% 50%;
 	z-index:				0;
+}
+
+md-grid-tile .description {
+	position:				absolute;
+	left:					0;
+	right:					0;
+	bottom:					0;
+
+	max-height:				60%;
+	oveflow:				hidden;
+	text-overflow:			ellipsis;
+
+	padding:				1rem;
+
+	font-size:				0.9rem;
+	color:					#000;
+	background-color:		rgba(255,255,255,0.7);
+
+	transform:				translateY(100%);
+
+	transition:				transform 200ms ease-out;
+
+	z-index:				2;
+}
+
+
+md-grid-tile:hover .description{
+	transform:				translateY(0);
 }

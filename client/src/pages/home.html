@@ -2,13 +2,19 @@
 	layout 			= "row"
 	flex			= "grow"
 >
+
 	<md-content
 		hide-xs 		
 		flex-gt-xs		= "none"
 		layout			= "row"
 	>
-		<jhvw-room-list></jhvw-room-list>
+	
+	<jhvw-room-list></jhvw-room-list>
+	
 	</md-content>
+
+
+
 	<md-content
 		flex			= "grow"
 		layout			= "row"
@@ -25,7 +31,15 @@
 			<h2>Vernetzte Welten</h2>
 
 			<p>
-				Willkommen bei Vernetzte Welten! Auf dieser Seite kannst Du dich weltweit mit Schülerinnen und Schülern vernetzen, die Deutsch in der Schule lernen, oder aus Deutschland kommen. Registriere dich zuerst, und klicke dann links auf den passenden Raum für deinen Schüleraustausch. Oder erstelle einen neuen Raum zu einem Thema, zum Beispiel #Sport oder #Musik. Viel Spaß!
+				Willkommen bei Vernetzte Welten! Auf dieser Plattform können sich Schülerinnen und Schüler aus unterschiedlichen Ländern Ostasiens mit Unterrichtsfach Deutsch, und Schülerinnen und Schüler aus Deutschland vernetzen. Vor und nach einem Schüleraustausch können Gruppen sich kennenlernen und weiter Kontakt halten. In Form eines Chats kann man hier Sprache und Verständnis trainieren, sich über Interessen wie Musik und Sport austauschen, und die Gemeinsamkeiten und Unterschiede unserer Kulturen herausfinden.
+			</p>
+
+			<p>
+				Unter „Registrieren/Login“ kannst du dich zu dem Chat anmelden. Von deiner Lehrerin oder Gruppenleiter solltest du den Link zu eurem Chatraum bekommen haben. Wenn du den Namen des Raumes weißt, kannst du ihn auch nach dem Login eingeben. Viel Spaß beim chatten mit anderen Jugendlichen aus deinem Austauschprojekt!
+			</p>
+
+			<p>
+				Unter „Prototypen“ findest du alle Projekte die bei Jugend hackt Vernetze Welten entstanden sind. In nur zwei Tagen haben Schülerinnen und Schüler aus Südkorea, Japan, Taiwan und Hongkong gemeinsam mit Jugendlichen aus  Deutschland Webseiten, Apps und Hardwareprojekte zum Thema „Schüleraustausch der Zukunft“ entwickelt. Viel Spaß beim ansehen!
 			</p>
 
 			<div
@@ -58,89 +72,74 @@
 
 			<md-divider></md-divider>
 
-			<h3>Weitere Projekte</h3>
+			<h3>Projekte</h3>
+			
+			<p>
+				Hier findest du alle Projekte die bei Jugend hackt Vernetze Welten entstanden sind. In nur zwei Tagen haben Schülerinnen und Schüler aus Südkorea, Japan, Taiwan und Hongkong gemeinsam mit Jugendlichen aus  Deutschland Webseiten, Apps und Hardwareprojekte zum Thema „Schüleraustausch der Zukunft“ entwickelt. Was dabei herauskam, kannst du hier als Video sehen. Die Abschlusspräsentationen wurden auf Deutsch gehalten, und parallel in die Landessprache übersetzt. Viel Spaß beim ansehen!
+			</p>
 
-			<md-grid-list
-				md-cols-xs		= "1" 
-				md-cols-sm		= "2" 
-				md-cols-gt-sm	= "3"
-				md-row-height	= "2:2" 
-				md-gutter		= "12px" 
-				md-gutter-gt-sm	= "8px" 
-			>
+			<div jhvw-projects-as 	= "projects">
 
-				<md-grid-tile 
-					md-colors 		= "{background: 'blue-100'}"
-					ng-click		= "goto('https://jugendhackt.github.io/CoolTourHat_Instruction/#')"
-					md-ink-ripple 	= "#000"
-				>
-					<md-grid-tile-header>
-						<h3>CoolTourHat</h3>
-					</md-grid-tile-header>		
-					<div
-						class		= "tile-image"
-						style		= "background-image: url(/images/cooltourhat.jpg)"
-					>
-					</div>	
-				</md-grid-tile>
+				<div ng-repeat = "event in (projects | groupProjectsByEvent)">
+					<h4>{{event.name}}</h4>
+					<jhvw-project-list>
 
-    
+							<md-grid-tile 
+								ng-repeat		= "jhvwProject in event.projects"
+								ng-if			= "!jhvwProject.prototype"
+								md-colors 		= "{background: 'blue-100'}"
+								ng-click		= "goto(jhvwProject.link)"
+								md-ink-ripple 	= "#000"
+								title			= "{{jhvwProject.description}}"
+							>
+								<md-grid-tile-header>
+									<h3>{{jhvwProject.name}}</h3>
+								</md-grid-tile-header>		
+								<div
+									class		= "tile-image"
+									style		= "background-image: url({{jhvwProject.image}})"
+								>
+								</div>	
+								<div 
+									ng-if = "jhvwProject.description"
+									class = "description"
+								>
+									{{jhvwProject.description}}
+								</div>
+							</md-grid-tile>
 
-				<md-grid-tile 
-					class 			= "md-grid-tile" 
-					md-colors 		= "{background: 'green-100'}"
-					title			= "Eine Anwendung, durch die Schulen leichter eine passende Partnerschule finden."
-					ng-click		= "goto('https://youtu.be/EFd_vqyePLU?t=33m12s')"
-					md-ink-ripple 	= "#000"
-				>
-					<md-grid-tile-header>
-						<h3>Stairs</h3>
-					</md-grid-tile-header>	
+					</jhvw-project-list>
 
-				</md-grid-tile>
+					<h5>Prototypen</h5>
 
-				<md-grid-tile 
-					class 			= "md-grid-tile" 
-					md-colors 		= "{background: 'red-100'}"
-					title			= "Ausgehend von dem Problem, dass Lerner oft nicht wissen, was in der Fremdsprache als höflich oder unhöflich gilt, wurde von diesem Team eine Anwendung, entwickelt, die in deutschen und koreanischen Texten automatisch unhöfliche durch höfliche Ausdrücke ersetzt."
-					ng-click		= "goto('https://youtu.be/EFd_vqyePLU?t=46m5s')"
-					md-ink-ripple 	= "#000"
-				>
-					<md-grid-tile-header>
-						<h3>Bee Polite</h3>
-					</md-grid-tile-header>
 
-				</md-grid-tile>
-	
-				<md-grid-tile 
-					class 			= "md-grid-tile" 
-					md-colors 		= "{background: 'orange-100'}"
-					title			= "Informationen zu deutscher Kultur, abgestimmt auf die Interessen von Jugendlichen."
-					ng-click		= "goto('https://youtu.be/EFd_vqyePLU?t=1h4m29s')"
-					md-ink-ripple 	= "#000"
-				>
-					<md-grid-tile-header>
-						<h3>Kultur für euch – Austausch weltweit</h3>
-					</md-grid-tile-header>
+					<jhvw-project-list>
+						<md-grid-tile 
+							ng-repeat		= "jhvwProject in event.projects"
+							ng-if			= "jhvwProject.prototype"
+							md-colors 		= "{background: 'blue-100'}"
+							ng-click		= "goto(jhvwProject.link)"
+							md-ink-ripple 	= "#000"
+						>
+							<md-grid-tile-header>
+								<h3>{{jhvwProject.name}}</h3>
+							</md-grid-tile-header>		
+							<div
+								class		= "tile-image"
+								style		= "background-image: url({{jhvwProject.image}})"
+							>
+							</div>	
+							<div 
+								ng-if = "jhvwProject.description"
+								class = "description"
+							>
+								{{jhvwProject.description}}
+							</div>
+						</md-grid-tile>
+					</jhvw-project-list>
 
-				</md-grid-tile>							
-
-				<md-grid-tile 
-					class 			= "md-grid-tile" 
-					md-colors 		= "{background: 'blue-100'}"
-					href			= "https://youtu.be/EFd_vqyePLU?t=1h10m30s"
-					title			= "Eine Reise-Organisationswebsite, die die Recherche für Schulklassen erheblich erleichtern soll."
-					ng-click		= "goto('https://youtu.be/EFd_vqyePLU?t=1h10m30s')"
-					md-ink-ripple 	= "#000"
-				>
-					<md-grid-tile-header>
-						<h3>Buchst du noch oder reist du schon?</h3>
-					</md-grid-tile-header>
-
-				</md-grid-tile>		
-   
-
-			</md-grid-list>
+				</div>
+			</div>
 
 			<br/>
 			<br/>

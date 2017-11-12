@@ -2,7 +2,8 @@ client/config.json
 client/node_modules
 client/dev
 client/vendor.js
+backend/dpd/node_modules/
 backend/data
 backend/node_modules/
 backend/.dpd
-
+backend/config.json

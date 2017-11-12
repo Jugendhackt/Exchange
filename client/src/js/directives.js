@@ -365,7 +365,7 @@ angular.module('jhvw')
 					land 	= 	scope.country,
 					stadt 	= 	scope.city,
 					zip		= 	scope.zip,
-					stop	=	$interval(update, 15*60*1000)
+					promise	=	$interval(update, 15*60*1000)
 
 					scope.weatherData = {}
 
@@ -398,7 +398,9 @@ angular.module('jhvw')
 						true
 					)
 
-					scope.$on('$destroy', stop)
+					scope.$on('$destroy', function(){
+						$interval.cancel(promise)
+					})
 			}
 		}
 	}
@@ -408,7 +410,9 @@ angular.module('jhvw')
 
 .directive('jhvwRoomList', [
 
-	function(){
+	'jhvwUser',
+
+	function(jhvwUser){
 		return {
 
 			templateUrl: 	'/partials/room_list.html',
@@ -417,22 +421,61 @@ angular.module('jhvw')
 			link: function(scope, element){
 
 				function update(){
+					jhvwUser.data && jhvwUser.data.username
 					dpd.rooms.get()
-					.then(function(rooms){
-						console.log(rooms)
-						scope.rooms = rooms
-						scope.$digest()
-					})
+					.then(
+						function(rooms){
+							scope.rooms = rooms
+							scope.$digest()
+						},
+						function(){
+							scope.rooms = []
+							scope.$digest()
+						}
+					)
 				}
 
 				update()
 
 				dpd.messages.on('created', update)
 
+				scope.$watch(
+					function(){ return jhvwUser.data && jhvwUser.data.username },
+					update
+				)
+
 				scope.$on('$destroy', function(){
 					dpd.messages.off('created', update)
 				})
 			}
+		}
+	}
+])
+
+.directive('jhvwProjectsAs',[
+	function(){
+		return {
+			link: function(scope, element, attrs){
+
+				var local = attrs.jhvwProjectsAs 
+
+				dpd.projects.get()
+				.then(function(projects){
+					scope[local] = projects
+					scope.$digest()
+				})
+
+			}
+		}
+	}
+])
+
+.directive('jhvwProjectList', [
+
+	function(){
+		return {
+			templateUrl:	'/partials/project_list.html',
+			transclude: 	true,
 		}
 	}
 ])
@@ -489,3 +532,53 @@ angular.module('jhvw')
 	}
 ])
 
+
+.filter('groupProjectsByEvent', [
+
+	function(){
+		var result  = []
+
+		return function(projects){
+			projects = projects || []
+			
+			if(projects.result) return projects.result
+
+
+			var r = []
+
+			while(result.length) result.pop()
+		
+			projects.forEach(function(project){
+				project.year 		= project.year || ''
+				project.location 	= project.location || ''
+
+				r[project.year] = r[project.year] || {}
+				r[project.year][project.location] = r[project.year][project.location] || []
+				r[project.year][project.location].push(project)
+			})
+
+			var years = 	Object.keys(r).sort(function(a,b){
+								var x = parseInt(a),
+									y = parseInt(b)
+
+								if(x>y) return 1
+								if(x<y) return -1
+								return 0
+							})
+
+			years.forEach(function(year){
+				for(var location in r[year]){
+					result.push({
+						name:   	location + ' '+ year,
+						projects:	r[year][location]
+					})					
+				}
+			})
+
+			projects.result = result
+
+			return result
+
+		}
+	}
+])

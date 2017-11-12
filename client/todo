@@ -1,64 +1,3 @@
-* Avatar größe und typ beschränken
-* bahn
-* Anzahl nachrichten beshränken
-* Messages bei bedarf nachladen
-
-
-Done:
-* anmelden erzwingen
-* scrollen wenn ne neue nachricht kommt, aber nur wenn man schon weit unten ist
-* chekc wenn neue nutzer den raum betreten
-* buttons im header abgeschnitten ('registri..')
-* message timestamp
-* browserify
-* bild hochladen
-* dateien lokal specihern
-* user can only change his own messages
-* userlist
-* Benachtichtung bei neuenachrichten, die nicht im scrollbereich sind
-
-
-
-Todo:
-* Zeitstempel im Chat, lokal oder eigene Zeitzone? Beides? Um Ort ergänzen?
-	-> sehr aufwenig =(
-	-> poster zeit und client zeit ginge (tz-offset mitposten) -> datenschutz
-
-Done:
-* Zeit zone auswählen lassen +10 -10..
-* Lokale Zeit anzeigen (offset beim signin/login mit einreichen) -> datenschutz
-* Impressum
-* Länderauswahl nach oben
-* CoolTourHat
-* Überschrift L#nderauswahl
-* Alle Größen
-* Städteauswahl bei mehrdeutigkeit mit auswahl? -> zu aufwändig
-* Extra infos...
-* Räume löschen -> nicht sinnvoll bzw. unter welchen Bedingungen?
-* Titel im Tab anzeigen
-* Passwort vergessen? Nutzer löschen? -> zu aufwändig -> datenschutz? -> email angeben? (nutzer verifizieren)
-* Raumliste
-* Raumliste für xs mir raumwahl zusammenpacken
-
-* Blindtexte
-* Landingpage:
-
-    Titel: Vernetzte Welten
-
-    Introtext (2/3) und Chat-Login/Registrieren (1/3)
-
-    Abstand oder hrule
-
-    Überschrift weitere Projekte
-
-    1/3-1/3-1/3 Raster (momentan nur im ersten: Hutanleitung)
-
-    Vorschlag: Projektname und quadratisches Bild, bei Mouseover Kurzbeschreibung, bei Klick Link zur Hutanleitung (ähnlich wie hier: https://jugendhackt.org/team/ )
-* messages tauchen im falschen chat auf! .on
-
-
-
-
 Abhängig von:
 
 * openweather map 
@@ -69,3 +8,22 @@ Abhängig von:
 Brauche noch:
 
 *Impressumstext
+
+TODO:
+
+* Backend Key setzen
+* cancel in Events für projects und co
+
+Done:
+* Räume weg
+* Projekte / Prototypen
+* Projekte konfiguroerbar machen
+* Räume, in denen ich schonmal was gesagt habe
+
+
+
+* Lange texte vermeiden!!
+* kann räume nicht verbergen, wer eingeloggt ist, kann im Zweifel alles sehen
+
+
+

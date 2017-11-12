@@ -5,12 +5,16 @@
   "dependencies": {
     "deployd": "^0.8.9",
     "dpd-event": "0.0.2",
-    "dpd-fileupload": "^0.0.17"
+    "dpd-fileupload": "^0.0.17",
+    "dpd-rooms": "file:./dpd-rooms",
+    "forever": "^0.15.3"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "mongod --dbpath=data --auth --port $(node config.js db.port) --fork --logpath /dev/null",
+    "start": "forever start production.js",
+    "stop": "forever stop production.js; mongod --dbpath data --shutdown"
   },
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }

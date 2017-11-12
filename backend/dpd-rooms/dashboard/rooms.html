@@ -1,0 +1,37 @@
+<style>
+	
+	#item-list{
+		width:			30rem;
+	}
+
+	.message-count{
+		display:		inline-block; 
+		min-width: 		4rem; 
+		text-align:		right; 
+		padding:		0 1rem;
+	}
+
+	.confirm,
+	.cancel {
+		display:		none;
+		margin-right:	1rem;
+	}
+
+	.confirm-deletion .confirm,
+	.confirm-deletion .cancel {
+		display:		inline-block;
+	}
+</style>
+
+<div id="Data">
+	<div class="panel well">
+		<h3>
+			Rooms
+		</h3>
+		 <div id="item-list">
+			<ul class="component-list" data-bind="sortable: items">
+				<!-- filled by jQuery -->
+			</ul>
+		</div>
+	</div>
+</div>

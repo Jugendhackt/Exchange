@@ -1,1 +1,1 @@
-cancelif(this.id != me.id, "Can only edit your own profile.", 401)
+cancelIf(this.id != me.id, "Can only edit your own profile.", 401)
