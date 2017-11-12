@@ -7,3 +7,4 @@ backend/data
 backend/node_modules/
 backend/.dpd
 backend/config.json
+backend/public
