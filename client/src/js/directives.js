@@ -481,6 +481,37 @@ angular.module('jhvw')
 ])
 
 
+.filter('jhvwContent',[
+
+	'$q', 
+	'$sce',
+
+	function($q, $sce){
+
+		var cache 	= {},
+			called 	= {}
+
+		function getContent(name){
+
+			if(!called[name]){
+				called[name] = true
+				$q.resolve(dpd.content.get({"name": name}))
+				.then(function(content){
+					cache[name] = $sce.trustAsHtml( (content[0] && content[0].html) || 'missing content: '+name )
+
+				})
+			}
+
+			return cache[name]
+		}
+
+		getContent.$stateful = true
+
+		return getContent
+	}
+])
+
+
 .filter('up', [
 	function(){
 		return function(arr, key, value){
