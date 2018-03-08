@@ -1,0 +1,86 @@
+<section
+	layout 			= "column"
+	flex-xs			= "grow"
+	flex-sm			= "grow"
+	flex-md			= "70"
+	flex-lg			= "70"
+	flex-xl			= "50"
+	layout-margin
+>
+	<article
+		id				= "impressum"
+		layout-gt-xs	= "row"
+		layout-xs		= "column"
+		md-colors 		= "{background: 'jhvw-primary-A100'}" 
+		layout-padding
+		layout-wrap
+	>
+		<div
+			flex-gt-xs 			= "45"
+			flex-order-xs 		= "3"
+			class 				= "logos col" 
+			layout				= "column"
+			layout-align 		= "start center" 
+			layout-padding
+		>
+			<a href = "https://okfn.de" 				style = "background-image: url(/images/okf_de_black.svg)"></a>
+			<a href = "http://www.medialepfade.org/" 	style = "background-image: url(/images/logo_mediale_pfade.png)"></a>
+			<img src = "/images/alpaka.png"/>
+		</div>
+
+		<div
+			flex-gt-xs 			= "55"
+			flex-order-xs 		= "2"
+			ng-bind-html 		= "'impressum' | jhvwContent"
+		>
+		</div>
+		
+		<footer 
+			flex-gt-xs 			= "100"
+			flex-order-xs 		= "1"
+		>
+			IMPRESSUM
+		</footer>
+
+	</article>
+
+
+	<article
+		id				= "about"
+
+		layout-gt-xs	= "row"
+		layout-xs		= "column"
+
+		md-colors 		= "{background: 'jhvw-accent-400'}" 
+		layout-padding
+		layout-wrap
+	>
+
+		<div
+			flex-gt-xs 		= "55"
+			flex-order-xs 	= "2"
+			ng-bind-html 	= "'about' | jhvwContent"
+		>
+		</div>
+		
+		<div
+			flex-gt-xs 		= "45"
+			flex-order-xs 	= "3"
+			layout			= "column" 
+			layout-align 	= "start center"
+		>
+			<img src = "/images/alpaka.png"/>
+		</div>
+
+		<footer 
+			flex-gt-xs 		= "100"
+			flex-order-xs 	= "1"
+		>
+			ABOUT
+		</footer>
+
+	</article>
+
+	<ng-include src = "'/partials/footer.html'">
+	</ng-include>
+</section>

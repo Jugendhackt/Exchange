@@ -1,0 +1,28 @@
+<section 
+	class				= "project-list"
+	jhvw-projects-as 	= "projects"
+	md-colors			= "{background: 'jhvw-primary-A100'}" 
+	layout-padding
+>
+	<div ng-repeat = "event in (projects | groupProjectsByEvent)">
+
+		<jhvw-project-list>
+			<md-grid-tile 
+				ng-repeat		= "jhvwProject in event.projects"
+				ng-if			= "jhvwProject.prototype"
+				md-colors 		= "{background: 'jhvw-primary-400'}"
+				ng-click		= "path('prototype/'+jhvwProject.id)"
+				md-ink-ripple 	= "#000"
+				class			= "md-whiteframe-4dp"
+			>
+				<h3>{{jhvwProject.name}}</h3>
+				<div
+					class		= "tile-image"
+					style		= "background-image: url({{jhvwProject.image}})"
+				>
+				</div>	
+			</md-grid-tile>
+		</jhvw-project-list>
+	</div>
+	<img src ="/images/prototypen.svg"/>
+</section>

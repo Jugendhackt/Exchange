@@ -1,0 +1,44 @@
+<section 
+	class				= "project-list"
+	jhvw-projects-as 	= "projects"
+	md-colors			= "{background: 'jhvw-accent-400'}" 
+	layout-padding
+>
+
+	<!--
+		<p>
+			Hier findest du alle Projekte die bei Jugend hackt Vernetze Welten entstanden sind. In nur zwei Tagen haben Schülerinnen und Schüler aus Südkorea, Japan, Taiwan und Hongkong gemeinsam mit Jugendlichen aus  Deutschland Webseiten, Apps und Hardwareprojekte zum Thema „Schüleraustausch der Zukunft“ entwickelt. Was dabei herauskam, kannst du hier als Video sehen. Die Abschlusspräsentationen wurden auf Deutsch gehalten, und parallel in die Landessprache übersetzt. Viel Spaß beim ansehen!
+		</p>
+	-->
+
+	<div 
+		ng-repeat 	= "event in (projects | groupProjectsByEvent)"
+	>
+		<!--
+		<h4>{{event.name}}</h4>
+		-->
+		<jhvw-project-list>
+			<md-grid-tile 
+				ng-repeat		= "jhvwProject in event.projects"
+				ng-if			= "!jhvwProject.prototype"
+				md-colors 		= "{background: 'jhvw-primary-400'}"
+				ng-click		= "path('/project/'+jhvwProject.id)"
+				md-ink-ripple 	= "#000"
+				title			= "{{jhvwProject.description}}"
+				class			= "md-whiteframe-4dp"
+			>
+				<h3>{{jhvwProject.name}}</h3>
+				<div
+					class		= "tile-image"
+					style		= "background-image: url({{jhvwProject.image}})"
+				>
+				</div>	
+			</md-grid-tile>
+		</jhvw-project-list>
+
+		<div>
+		</div>
+	</div>
+	<img src ="/images/projekte.svg"/>
+
+</section>
