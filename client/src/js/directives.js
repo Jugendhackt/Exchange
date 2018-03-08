@@ -453,17 +453,15 @@ angular.module('jhvw')
 ])
 
 .directive('jhvwProjectsAs',[
-	function(){
+	'jhvwProjects',
+
+	function(jhvwProjects){
 		return {
 			link: function(scope, element, attrs){
 
 				var local = attrs.jhvwProjectsAs 
-
-				dpd.projects.get()
-				.then(function(projects){
-					scope[local] = projects
-					scope.$digest()
-				})
+				
+				scope[local] = jhvwProjects
 
 			}
 		}

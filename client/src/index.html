@@ -3,6 +3,7 @@
 	lang			= "de" 
 	ng-app			= "jhvw" 
 	ng-controller 	= "AppCtrl"
+	ng-class		= "{xs: $mdMedia('xs'), 'gt-xs': $mdMedia('gt-xs'), sm: $mdMedia('sm'), 'gt-sm': $mdMedia('gt-sm'), md: $mdMedia('md'), 'gt-md': $mdMedia('gt-md'), lg: $mdMedia('lg'), 'gt-lg': $mdMedia('gt-lg'), xl: $mdMedia('xl'), landscape: $mdMedia('landscape'), portrait: $mdMedia('portrait'), print: $mdMedia('print')}"
 >
 <head>
 
@@ -34,7 +35,6 @@
 	<script src="/js/controllers.js">			</script>
 
 		
-</head>
 
 <body 
 	layout 			= "column"
@@ -58,8 +58,5 @@
 		ng-view
 	>		
 	</md-content>
-
-
-
 
 </body>

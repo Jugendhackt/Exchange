@@ -68,3 +68,16 @@ angular.module('jhvw')
 
 	}
 ])
+
+
+.controller('ProjectCtrl', [
+
+	'$scope',
+	'$routeParams',
+	'jhvwProjects',
+
+	function($scope, $routeParams, jhvwProjects){
+		$scope.project = jhvwProjects.filter(function(project){ return project.id == $routeParams.id})[0]
+	}
+
+])

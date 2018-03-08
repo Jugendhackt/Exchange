@@ -3,6 +3,177 @@ body {
 }
 
 
+a, 
+a:active, 
+a:focus,
+md-grid-tile {
+	outline: 				none;
+}
+
+
+[ng-bind-html] {
+	white-space: 			pre-line;
+}
+
+
+#hero {
+	position:				relative;
+	display:				flex;
+	background-image:		url(/images/hero.jpg);
+	background-size:		cover;
+	background-position:	50% 50%;
+	background-repeat:		no-repeat;
+	min-height:				33vh;
+	align-items: 			center;
+}
+
+#hero h1 {
+	display:				block;
+	margin:					auto;
+	opacity:				0.6;
+	text-transform: 		uppercase;
+	font-weight:			600;
+	margin:					1em auto;
+	line-height:			1;
+	font-size:				10vw;
+}
+
+
+#impressum footer,
+#about footer {
+	opacity:				0.1;
+	font-size:				10vw;
+	font-weight:			800;
+	line-height:			1;
+}
+
+/*
+.xs #hero h1{ font-size:	3.5rem; }
+.sm #hero h1{ font-size:	5rem; }
+.md #hero h1{ font-size:	6rem; }
+.lg #hero h1{ font-size:	7rem; }
+.xl #hero h1{ font-size:	8rem; }
+*/
+
+
+.layout-padding, 
+.layout-padding-gt-sm, 
+.layout-padding-gt-sm > *, 
+.layout-padding-md, 
+.layout-padding-md > *, 
+.layout-padding > *, 
+.layout-padding > .flex, 
+.layout-padding > .flex-gt-sm, 
+.layout-padding > .flex-md {
+	padding:				0.5rem;
+}
+
+
+.md .layout-padding, 
+.md .layout-padding-gt-sm, 
+.md .layout-padding-gt-sm > *, 
+.md .layout-padding-md, 
+.md .layout-padding-md > *, 
+.md .layout-padding > *, 
+.md .layout-padding > .flex, 
+.md .layout-padding > .flex-gt-sm, 
+.md .layout-padding > .flex-md {
+	padding:				0.75rem;
+}
+
+.lg .layout-padding, 
+.lg .layout-padding-gt-sm, 
+.lg .layout-padding-gt-sm > *, 
+.lg .layout-padding-md, 
+.lg .layout-padding-md > *, 
+.lg .layout-padding > *, 
+.lg .layout-padding > .flex, 
+.lg .layout-padding > .flex-gt-sm, 
+.lg .layout-padding > .flex-md {
+	padding:				1rem;
+}
+
+.xl .layout-padding, 
+.xl .layout-padding-gt-sm, 
+.xl .layout-padding-gt-sm > *, 
+.xl .layout-padding-md, 
+.xl .layout-padding-md > *, 
+.xl .layout-padding > *, 
+.xl .layout-padding > .flex, 
+.xl .layout-padding > .flex-gt-sm, 
+.xl .layout-padding > .flex-md {
+	padding:				1.25rem ;
+}
+
+
+
+.layout-margin, 
+.layout-margin-gt-sm, 
+.layout-margin-gt-sm > *, 
+.layout-margin-md, 
+.layout-margin-md > *, 
+.layout-margin > *, 
+.layout-margin > .flex, 
+.layout-margin > .flex-gt-sm, 
+.layout-margin > .flex-md {
+	margin:					0.5rem;
+}
+
+
+.md .layout-margin, 
+.md .layout-margin-gt-sm, 
+.md .layout-margin-gt-sm > *, 
+.md .layout-margin-md, 
+.md .layout-margin-md > *, 
+.md .layout-margin > *, 
+.md .layout-margin > .flex, 
+.md .layout-margin > .flex-gt-sm, 
+.md .layout-margin > .flex-md {
+	margin:					0.75rem;
+}
+
+
+.lg .layout-margin, 
+.lg .layout-margin-gt-sm, 
+.lg .layout-margin-gt-sm > *, 
+.lg .layout-margin-md, 
+.lg .layout-margin-md > *, 
+.lg .layout-margin > *, 
+.lg .layout-margin > .flex, 
+.lg .layout-margin > .flex-gt-sm, 
+.lg .layout-margin > .flex-md {
+	margin:					1rem;
+}
+
+.xl .layout-margin, 
+.xl .layout-margin-gt-sm, 
+.xl .layout-margin-gt-sm > *, 
+.xl .layout-margin-md, 
+.xl .layout-margin-md > *, 
+.xl .layout-margin > *, 
+.xl .layout-margin > .flex, 
+.xl .layout-margin > .flex-gt-sm, 
+.xl .layout-margin > .flex-md {
+	margin:					1.25rem;
+}
+
+
+
+
+.project-list{
+	position:				relative;
+}
+
+.project-list > img {
+	box-sizing:				border-box;
+	width:					100%;
+	opacity:				0.1;
+	padding-top:			0 !important;
+	padding-bottom:			0 !important;
+}
+
+
+
 jhvw-chat form {
 	margin-bottom:			0 !important;
 }
@@ -47,6 +218,16 @@ md-grid-tile {
 	overflow:				hidden;
 }
 
+md-grid-tile h3{
+	margin:					0;
+	z-index:				100;
+	font-size:				4vh;
+	text-transform: 		uppercase;
+	text-align:				center;
+	overflow-wrap: 			break-word;
+	max-width:				95%;
+}
+
 md-grid-tile .tile-image {
 	position:				absolute;
 	top:					0;
@@ -57,6 +238,7 @@ md-grid-tile .tile-image {
 	background-repeat:		no-repeat;
 	background-position:	50% 50%;
 	z-index:				0;
+	filter:					grayscale(100%) contrast(50%) brightness(80%);
 }
 
 md-grid-tile .description {
@@ -85,4 +267,20 @@ md-grid-tile .description {
 
 md-grid-tile:hover .description{
 	transform:				translateY(0);
+}
+
+
+.logos > a {
+	background-size:		contain;
+	background-repeat:		no-repeat;
+	background-position:	50% 50%;
+
+	min-height:				4rem;
+	filter:					contrast(0);
+}
+
+.logos.col > a {
+	min-height:			6rem;
+	width:				15rem;
+	max-width:			90%;
 }

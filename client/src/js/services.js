@@ -22,6 +22,24 @@ angular.module('jhvw')
 	}
 ])
 
+.service('jhvwProjects' ,[
+
+	'$rootScope',
+
+	function($rootScope){
+		var self = []
+
+		dpd.projects.get()
+		.then(function(projects){
+			projects.forEach(function(project){
+				self.push(project)
+			})
+			$rootScope.$digest()
+		})
+
+		return self
+	}
+])
 
 .service('jhvwChat', [
 
