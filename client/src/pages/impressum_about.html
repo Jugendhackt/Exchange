@@ -1,17 +1,18 @@
 <section
 	layout 			= "column"
-	flex-xs			= "grow"
-	flex-sm			= "grow"
-	flex-md			= "70"
-	flex-lg			= "70"
-	flex-xl			= "50"
 	layout-margin
 >
 	<article
-		id				= "impressum"
-		layout-gt-xs	= "row"
-		layout-xs		= "column"
-		md-colors 		= "{background: 'jhvw-primary-A100'}" 
+		id					= "impressum"
+
+		flex				= "none"
+		layout				= "column"
+		layout-align 		= "start stretch" 
+
+		layout-gt-xs		= "row"
+		layout-align-gt-xs 	= "start stretch" 
+
+		md-colors 			= "{background: 'jhvw-primary-A100'}" 
 		layout-padding
 		layout-wrap
 	>
@@ -35,23 +36,27 @@
 		>
 		</div>
 		
-		<footer 
+		<h2 
 			flex-gt-xs 			= "100"
 			flex-order-xs 		= "1"
 		>
 			IMPRESSUM
-		</footer>
+		</h2>
 
 	</article>
 
 
 	<article
-		id				= "about"
+		id					= "about"
 
-		layout-gt-xs	= "row"
-		layout-xs		= "column"
+		flex				= "none"
 
-		md-colors 		= "{background: 'jhvw-accent-400'}" 
+		layout-gt-xs		= "row"
+		layout-xs			= "column"
+		layout-align-gt-xs 	= "start stretch" 
+
+		md-colors 			= "{background: 'jhvw-accent-400'}"
+
 		layout-padding
 		layout-wrap
 	>
@@ -72,12 +77,12 @@
 			<img src = "/images/alpaka.png"/>
 		</div>
 
-		<footer 
+		<h2 
 			flex-gt-xs 		= "100"
 			flex-order-xs 	= "1"
 		>
 			ABOUT
-		</footer>
+		</h2>
 
 	</article>
 

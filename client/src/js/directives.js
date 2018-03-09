@@ -463,6 +463,8 @@ angular.module('jhvw')
 				
 				scope[local] = jhvwProjects
 
+				console.log('jhvwProjectsAs', jhvwProjects)
+
 			}
 		}
 	}
@@ -570,7 +572,7 @@ angular.module('jhvw')
 		return function(projects){
 			projects = projects || []
 			
-			if(projects.result) return projects.result
+			if(projects.result && projects.result.length) return projects.result
 
 
 			var r = []

@@ -77,7 +77,9 @@ angular.module('jhvw')
 	'jhvwProjects',
 
 	function($scope, $routeParams, jhvwProjects){
-		$scope.project = jhvwProjects.filter(function(project){ return project.id == $routeParams.id})[0]
+		$scope.$watch(function(){
+			$scope.project = jhvwProjects.filter(function(project){ return project.id == $routeParams.id})[0]			
+		})
 	}
 
 ])

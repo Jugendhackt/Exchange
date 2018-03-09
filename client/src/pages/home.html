@@ -97,21 +97,23 @@
 				layout-padding
 			>
 				<article
-					ng-show		= "project"
-					class		= "project-preview"
-					layout		= "row"
-					md-colors	= "{background: project.prototype ? 'jhvw-primary-400' : 'jhvw-primary-400'}" 
+					ng-show				= "project"
+					class				= "project-preview"
+					layout-xs			= "column"
+					layout-gt-xs		= "row"
+					md-colors			= "{background: project.prototype ? 'jhvw-primary-400' : 'jhvw-primary-400'}" 
+					layout-align-xs 	= "start stretch"
+					layout-align-gt-xs 	= "center start"
 					layout-padding
 					layout-margin
 				>
 					<div
-						flex	= "45"
-						layout	= "row"
-						style	= "background: top left / contain no-repeat url({{project.image}})"
+						flex-gt-xs	= "45"
 					>
+						<img src = "{{project.image}}"	/>
 					</div>
 					<div
-						flex	= "55"
+						flex-gt-xs	= "55"
 					>
 						<h3 
 							md-colors 	= "{color: 'jhvw-accent-400'}"
