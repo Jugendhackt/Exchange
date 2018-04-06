@@ -7,6 +7,11 @@ a:active,
 a:focus,
 md-grid-tile {
 	outline: 				none;
+	text-decoration:		none;
+}
+
+.tac {
+	text-align:				center;
 }
 
 
@@ -24,6 +29,7 @@ md-grid-tile {
 	background-repeat:		no-repeat;
 	min-height:				33vh;
 	align-items: 			center;
+	flex-direction:			column;
 }
 
 #hero h1 {
@@ -35,6 +41,11 @@ md-grid-tile {
 	margin:					1em auto;
 	line-height:			1;
 	font-size:				calc((3vmax + 1vw) * 2);
+	text-shadow:			0 0 1rem #000
+}
+
+#hero h2 {
+	text-shadow:			0 0 0.5rem #000
 }
 
 
@@ -165,14 +176,23 @@ md-grid-tile {
 	position:				relative;
 }
 
-.project-list > img {
+.project-list > footer > img {
+	opacity:				0.1;
 	box-sizing:				border-box;
 	width:					100%;
-	opacity:				0.1;
 	padding-top:			0 !important;
 	padding-bottom:			0 !important;
 }
 
+.project-list > footer > .controls {
+	position:				absolute;
+	right:					1rem;
+	bottom:					1rem;
+}
+
+.project-list > footer > .controls > *{
+	font-size:				2rem !important;
+}
 
 .project-preview img {
 	width:					100%;

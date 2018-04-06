@@ -2,8 +2,53 @@
 	layout 			= "column"
 	layout-margin
 >
+
+	<article
+		id					= "about"
+
+		flex				= "none"
+
+		flex-order			= "{{$location.path() == '/about' ? 0 : 1}}"
+
+		layout-gt-xs		= "row"
+		layout-xs			= "column"
+		layout-align-gt-xs 	= "start stretch" 
+
+		md-colors 			= "{background: 'jhvw-accent-400'}"
+
+		layout-padding
+		layout-wrap
+	>
+
+		<div
+			flex-gt-xs 		= "55"
+			flex-order-xs 	= "2"
+			ng-bind-html 	= "'about' | jhvwContent"
+		>
+		</div>
+		
+		<div
+			flex-gt-xs 		= "45"
+			flex-order-xs 	= "3"
+			layout			= "column" 
+			layout-align 	= "start center"
+		>
+			<img src = "/images/alpaka.png"/>
+		</div>
+
+		<h2 
+			flex-gt-xs 		= "100"
+			flex-order-xs 	= "1"
+		>
+			ABOUT
+		</h2>
+
+	</article>
+
 	<article
 		id					= "impressum"
+
+		flex-order			= "{{$location.path() == '/impressum' ? 0 : 1}}"
 
 		flex				= "none"
 		layout				= "column"
@@ -45,47 +90,9 @@
 
 	</article>
 
-
-	<article
-		id					= "about"
-
-		flex				= "none"
-
-		layout-gt-xs		= "row"
-		layout-xs			= "column"
-		layout-align-gt-xs 	= "start stretch" 
-
-		md-colors 			= "{background: 'jhvw-accent-400'}"
-
-		layout-padding
-		layout-wrap
+	<ng-include 
+		flex-order 	= "20"
+		src 		= "'/partials/footer.html'"
 	>
-
-		<div
-			flex-gt-xs 		= "55"
-			flex-order-xs 	= "2"
-			ng-bind-html 	= "'about' | jhvwContent"
-		>
-		</div>
-		
-		<div
-			flex-gt-xs 		= "45"
-			flex-order-xs 	= "3"
-			layout			= "column" 
-			layout-align 	= "start center"
-		>
-			<img src = "/images/alpaka.png"/>
-		</div>
-
-		<h2 
-			flex-gt-xs 		= "100"
-			flex-order-xs 	= "1"
-		>
-			ABOUT
-		</h2>
-
-	</article>
-
-	<ng-include src = "'/partials/footer.html'">
 	</ng-include>
 </section>

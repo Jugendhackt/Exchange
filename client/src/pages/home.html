@@ -36,6 +36,7 @@
 
 				<div id = "hero" layout-margin>
 					<h1>Vernetzte <br/> Welten</h1>
+					<h2>Konzepte und Tools für den Schüler*innen-Austausch der Zukunft</h2>
 				</div>
 
 				<!--
@@ -126,21 +127,24 @@
 							{{project.description}}
 						</p>
 
-						<br/>
-						<br/>
-						<br/>
-						<a ng-if = "show.project.link" href = "show.project.link">Projektseite</a>
+						<a 
+							ng-if 		= "project.link" 
+							md-colors 	= "{color: 'jhvw-accent-400'}"
+							ng-href 	= "{{project.link}}"
+						>
+							Projektseite
+						</a>
 					</div>
 				</article>
 			</section>
 			
 			<ng-include 
-				ng-if 	= "!project || !project.prototype" 
+				ng-show 	= "!project || !project.prototype" 
 				src 	= "'/partials/projects.html'"
 			></ng-include>
 
 			<ng-include 
-				ng-if 	= "!project || project.prototype" 
+				ng-show 	= "!project || project.prototype" 
 				src = "'/partials/prototypes.html'"></ng-include>
 
 			<ng-include src = "'/partials/footer.html'"></ng-include>

@@ -475,7 +475,7 @@ angular.module('jhvw')
 	function(){
 		return {
 			templateUrl:	'/partials/project_list.html',
-			transclude: 	true,
+			transclude: 	true
 		}
 	}
 ])
@@ -563,6 +563,31 @@ angular.module('jhvw')
 	}
 ])
 
+.filter('projectYears', [
+
+	function(){
+
+		return function(projects){
+			var years = []
+
+			projects.forEach(function(project){ 
+				if(project.year && (years.indexOf(project.year) == -1)) years.push(project.year) 
+			})
+
+
+			if(projects.years && angular.equals(years, projects.years)) return projects.years
+
+			years.sort()
+			years.reverse()
+
+			projects.years = years	
+				
+
+			return projects.years
+		}
+	}
+
+])
 
 .filter('groupProjectsByEvent', [
 
@@ -601,7 +626,9 @@ angular.module('jhvw')
 				for(var location in r[year]){
 					result.push({
 						name:   	location + ' '+ year,
-						projects:	r[year][location]
+						projects:	r[year][location],
+						year:		year,
+						location:	location
 					})					
 				}
 			})
@@ -613,3 +640,9 @@ angular.module('jhvw')
 		}
 	}
 ])
+
+.filter('console', function(){
+	return function(x){
+		console.log(x)
+	}
+})

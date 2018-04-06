@@ -28,9 +28,11 @@ angular.module('jhvw', [
 			templateUrl:	'pages/login_or_register.html',	
 		})
 		.when('/impressum',{
+			controller:		['$scope', '$location', function($scope, $location){ $scope.$location = $location; $scope.console = console}],
 			templateUrl: 	'pages/impressum_about.html',
 		})
 		.when('/about',{
+			controller:		['$scope', '$location', function($scope, $location){ $scope.$location = $location }],
 			templateUrl: 	'pages/impressum_about.html',
 		})
 		.when('/project/:id',{
@@ -87,7 +89,7 @@ angular.module('jhvw', [
 			'200': 	'ffaa03',
 			'300': 	'ffaa04',
 			'400': 	'8caf0b',
-			'500': 	'ffaa06',
+			'500': 	'cbeb57',
 			'600': 	'ffaa07',
 			'700': 	'ffaa08',
 			'800': 	'ffaa09',
@@ -95,10 +97,10 @@ angular.module('jhvw', [
 			'A100':	'ffaa0b',
 			'A200': 'ffaa0c',
 			'A400': 'ffaa0d',
-			'A700': 'ffaa0e',
+			'A700': '9cc30c',
 			'contrastDefaultColor': 'light',    
 			                                    
-			// 'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+			'contrastDarkColors': ['500'] //hues which contrast should be 'dark' by default
 			//  '200', '300', '400', 'A100'],
 			// 'contrastLightColors': undefined    // could also specify this if default was 'dark'
 		})

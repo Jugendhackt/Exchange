@@ -3,13 +3,14 @@
 	ng-href		= "/"
 >
 	<md-icon>home</md-icon>
+	<a href = "/about" 		class = "md-button">Über uns</a>
 </a>
 
 <md-button 
 	flex		= "none"
 	ng-click 	= "gotoRoom()"
 >
-	<span ng-if = "!$routeParams.roomName">	Raum wählen</span>
+	<span ng-if = "!$routeParams.roomName">	Chat betreten</span>
 	<span ng-if = "$routeParams.roomName">	#{{roomName}}</span>
 </md-button>
 
