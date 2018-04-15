@@ -1,23 +1,28 @@
 <md-list
-	class = "md-dense"
 	ng-if = "rooms && rooms.length"
 >
-	<md-subheader style = "white-space: nowrap;" >Aktuelle Räume:</md-subheader>
-	<md-list-item 
-
-		ng-repeat  	= "room in rooms"
-		ng-click	= "gotoRoom(room.name)"
-		class		= "md-3-line"
-		flex		= "none"
+	<h3
+		style 		= "white-space: nowrap;" 
+		class		= "md-title"
+		layout-padding
 	>
-		<div class="md-list-item-text" layout="column">
-			<h3>#{{room.name}}</h3>
-			<p>
-				letzte Nachricht:
-			</p>	
-			<p style= "white-space: nowrap;">
-				{{room.latest |jhvwDate}}
-			</p>
-		</div>
+		Deine Chats
+	</h3>
+
+	<md-list-item 
+		ng-repeat  	= "room_i in rooms"
+		ng-click	= "gotoRoom(room_i.name)"
+		flex		= "none"
+		md-colors	= "room_i.name == room.name ? {background: 'jhvw-primary-500', color: 'jhvw-accent-300'} : {}"
+	>
+		<span>#{{room_i.name}} {{}}</span>
 	</md-list-item>
+
+	<md-list-item
+		flex		= "none"
+		ng-if		= "rooms.length == 0"
+	>
+		<span>Du hast Dich noch an keinem chat beteiligt</span>
+	</md-list-item>
+
 </md-list>

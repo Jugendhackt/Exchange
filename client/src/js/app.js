@@ -65,7 +65,7 @@ angular.module('jhvw', [
 		$mdThemingProvider.definePalette('jhvw-grey', {
 			'50': 	'222222',
 			'100': 	'ff0002',
-			'200': 	'303539',
+			'200': 	'd0d4d6',
 			'300': 	'ff0004',
 			'400': 	'31363a',
 			'500': 	'383d41',
@@ -73,21 +73,21 @@ angular.module('jhvw', [
 			'700': 	'ff0008',
 			'800': 	'888888',
 			'900': 	'000000',
-			'A100':	'ffffff',
+			'A100':	'f5f5f5',
 			'A200': 'aaaaaa',
 			'A400': '222222',
 			'A700': 'ff000e',
 			'contrastDefaultColor': 'light',    
 			                                    
-			'contrastDarkColors': 	['A100'],
+			'contrastDarkColors': 	['200', 'A100'],
 			//'contrastLightColors':	['50']// could also specify this if default was 'dark'
 		})
 
 		$mdThemingProvider.definePalette('jhvw-green', {
 			'50': 	'ffaa01',
 			'100': 	'ffaa02',
-			'200': 	'ffaa03',
-			'300': 	'ffaa04',
+			'200': 	'bdd87a',
+			'300': 	'80bb00',
 			'400': 	'8caf0b',
 			'500': 	'cbeb57',
 			'600': 	'ffaa07',
@@ -100,7 +100,7 @@ angular.module('jhvw', [
 			'A700': '9cc30c',
 			'contrastDefaultColor': 'light',    
 			                                    
-			'contrastDarkColors': ['500'] //hues which contrast should be 'dark' by default
+			'contrastDarkColors': ['200', '500'] //hues which contrast should be 'dark' by default
 			//  '200', '300', '400', 'A100'],
 			// 'contrastLightColors': undefined    // could also specify this if default was 'dark'
 		})
@@ -112,19 +112,19 @@ angular.module('jhvw', [
 			'200': 	'00ff03',
 			'300': 	'00ff04',
 			'400': 	'00ff05', 
-			'500': 	'cccccc', //hover verlay
+			'500': 	'cccccc', //hover overlay
 			'600': 	'00ff07',
 			'700': 	'00ff08',
-			'800': 	'aaaaaa', ///dialog
-			'900': 	'000000', //backdrop
+			'800': 	'abb3b7', ///dialog
+			'900': 	'f5f5f5', //backdrop
 			'A100':	'00ff0b',
 			'A200': '00ff0c',
-			'A400': '444444',
+			'A400': '444444', //inputs?
 			'A700': '00ff0e',
 			'contrastDefaultColor': 'light',    
 			                                    
-			'contrastDarkColors': 	['800'],
-			//'contrastLightColors':	['50']// could also specify this if default was 'dark'
+			'contrastDarkColors': 	['800', '900'],
+			//'contrastLightColors':	['800']// could also specify this if default was 'dark'
 		})
 
 
@@ -133,7 +133,7 @@ angular.module('jhvw', [
 		.accentPalette('jhvw-green') 
 		.warnPalette('red')
 		.backgroundPalette('jhvw-background')
-		.dark()
+		//.light()
 		
 		$mdThemingProvider
 		.setDefaultTheme('jhvw')
@@ -156,6 +156,8 @@ angular.module('jhvw', [
 		$rootScope.$mdMedia = $mdMedia
 
 		$rootScope.gotoRoom = function(name){
+
+			console.log(name)
 
 			return	name
 					?	$location.path('/r/'+name)

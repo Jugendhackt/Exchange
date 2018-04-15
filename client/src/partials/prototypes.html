@@ -5,7 +5,7 @@
 	layout-padding
 >
 	<div 
-		ng-init		= "show.year = show.year === undefined ? (projects | projectYears)[0] : show.year"
+		ng-init		= "show.year = (show.year === undefined) ? (projects | projectYears)[0] : show.year"
 		ng-repeat 	= "event in (projects | groupProjectsByEvent)"
 		ng-if		= "!show.year || (event.year == show.year) "	
 	>

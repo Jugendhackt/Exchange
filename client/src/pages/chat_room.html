@@ -11,10 +11,18 @@
 		ng-if				= "room"
 		md-is-locked-open 	= "$mdMedia('gt-md')"
 		flex				= "none"
+		md-colors			= "{background: 'jhvw-background-800'}"
+		layout				= "column"
 	>
+		<jhvw-room-list
+			flex			= "25"
+		>
+		</jhvw-room-list>
+
+		<md-divider></md-divider>
+
 		<jhvw-profile
-			layout		= "column"
-			layout-padding
+			flex			= "grow"
 		>
 		</jhvw-profile>
 	</md-sidenav>
@@ -39,6 +47,7 @@
 		md-is-locked-open 	= "$mdMedia('gt-sm')"
 		flex				= "none"
 		class				= "participant-list"
+		md-colors			= "{background: 'jhvw-background-900'}"
 	>
 		<md-list 
 			class ="md-dense"

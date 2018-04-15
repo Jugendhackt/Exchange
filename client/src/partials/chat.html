@@ -11,7 +11,8 @@
 </div>
 
 <md-content
-	flex			= "grow"
+	flex		= "grow"
+	md-colors	= "{background: 'jhvw-background-900'}"
 >
 
 
@@ -26,7 +27,7 @@
 
 
 	<md-list-item 
-		class			= "md-3-line md-long-text"
+		class			= "md-3-line md-long-text message system"
 		md-colors		= "{background: 'primary-A200'}"
 	>
 		<div class="md-list-item-text">
@@ -34,10 +35,11 @@
 		</div>
 	</md-list-item>
 
+
 	<md-list-item 
-		class			= "md-3-line md-long-text"
+		class			= "md-3-line md-long-text message system"
 		ng-if   		= "!jhvwRoom.messages.length"
-		md-colors		= "{background: 'primary-A200'}"
+		md-colors		= "{background: 'jhvw-primary-A200'}"
 	>
 		<div class="md-list-item-text">
 			<p style = "white-space: pre-wrap">Noch keine Nachrichten vorhanden.</p>
@@ -45,32 +47,36 @@
 	</md-list-item>
 
 
-
 	<md-list-item 
-		class			= "md-3-line md-long-text"
+		class			= "md-3-line md-long-text message {{message.from.id == jhvwUser.data.id ? 'own': 'other'}}"
 		ng-repeat   	= "message in jhvwRoom.messages | orderBy: 'timestamp' | limitTo: -1*limit"
-		md-colors		= "{background: message.from.id == jhvwUser.data.id ? 'accent-200' : 'primary-200'}"
+		md-colors		= "{background: message.from.id == jhvwUser.data.id ? 'jhvw-accent-200' : 'jhvw-primary-200'}"
 		jhvw-message	= "::$last && message"		
 	>
 		<img 
 			ng-src	= "{{jhvwConfig.backendLocation}}/images/{{message.from.avatar}}" 
 			class	= "md-avatar" 
 			alt		= "{{message.from.displayName}}" 
-			ng-show	= "message.from.avatar"
+			ng-show	= "message.from.avatar && message.from.id != jhvwUser.data.id"
 		/>
 
 		<md-icon 
 			class 	= "md-avatar-icon"
-			ng-show	= "!message.from.avatar"
+			ng-show	= "!message.from.avatar && message.from.id != jhvwUser.data.id"
 		>
 			face
 		</md-icon>
 
 		<div class="md-list-item-text">
-			<h3>{{message.from.displayName}}</h3>
+			<h3 ng-if = "message.from.id != jhvwUser.data.id">{{message.from.displayName}}</h3>
 			<p style = "white-space: pre-wrap">{{::message.content}}</p>
 			<div layout = "row" layout-align = "end center"> <span class ="md-caption" flex = "none">({{message.timestamp | jhvwDate}})</span></div>
 		</div>
+
+		<div 
+			class 		= "lobe"
+			md-colors	= "{'border-color': message.from.id == jhvwUser.data.id ? 'accent-200' : 'primary-200'}"
+		></div>
 	</md-list-item>
 
 </md-content>
@@ -87,6 +93,7 @@
 	layout		= "row"
 	flex		= "none"
 	class		= "chat-input"
+	md-colors	= "{background: 'jhvw-background-900'}"
 >
 	
 	<md-input-container 

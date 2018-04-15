@@ -1,318 +1,338 @@
 <!-- displayName -->
 
-<form
-	layout 		= "column"
-	ng-submit 	= "update('displayName', edit.displayName).then(blur)" 
->
-	<md-input-container
-	>
-		<label>Angezeigter Name</label>
-		<input 
-			ng-model		= "edit.displayName" 
-			md-maxlength	= "60" 
-			type			= "text"
-			required
-		/>
+<h3
+	style 		= "white-space: nowrap;" 
+	class		= "md-title"
+	ng-click 	= "toggle.profile = !toggle.profile"
+	layout-padding
+> 
+	Profil 
+</h3>
 
-	</md-input-container>
+<md-list ng-show = "toggle.profile">
 
-	<div
-		layout 	= "row"
-		ng-show	= "edit.displayName != jhvwUser.data.displayName"
-	>
-		<md-button 
-			class		= "md-raised" 
-			aria-label	= "undo change to display name"
-			ng-click	= "edit.displayName = jhvwUser.data.displayName"
-			flex		= "grow"
+	<md-list-item>
+		<form
+			layout 		= "column"
+			ng-submit 	= "update('displayName', edit.displayName).then(blur)" 
 		>
-			undo
-		</md-button>
 
-		<md-button 
-			class		= "md-primary md-raised" 
-			aria-label	= "update display name"
-			type		= "submit"
-			flex		= "grow"
-		>
-			übernehmen
-		</md-button>
-	</div>
+			<md-input-container>
+				<label>Angezeigter Name</label>
+				<input 
+					ng-model		= "edit.displayName" 
+					md-maxlength	= "60" 
+					type			= "text"
+					required
+				/>
 
-</form>
+			</md-input-container>
 
+			<div
+				layout 	= "row"
+				ng-show	= "edit.displayName != jhvwUser.data.displayName"
+			>
+				<md-button 
+					class		= "md-raised" 
+					aria-label	= "undo change to display name"
+					ng-click	= "edit.displayName = jhvwUser.data.displayName"
+					flex		= "grow"
+				>
+					undo
+				</md-button>
+
+				<md-button 
+					class		= "md-primary md-raised" 
+					aria-label	= "update display name"
+					type		= "submit"
+					flex		= "grow"
+				>
+					übernehmen
+				</md-button>
+			</div>
+
+		</form>
+	</md-list-item>
 
 
 <!-- profilePic -->
 
-<div
-	layout 		= "column"
->
 
-	<md-list>
-		<md-list-item>
-			<img
-				ng-if	= "jhvwUser.data.avatar" 
-				ng-src	= "{{jhvwConfig.backendLocation}}/images/{{jhvwUser.data.avatar}}"
-				class	= "md-avatar"
-			/>
 
-			<md-icon 
-				class 	= "md-avatar-icon"
-				ng-if	= "!jhvwUser.data.avatar"
-			>
-				face
-			</md-icon>
+	<md-list-item>
+		<img
+			ng-if	= "jhvwUser.data.avatar" 
+			ng-src	= "{{jhvwConfig.backendLocation}}/images/{{jhvwUser.data.avatar}}"
+			class	= "md-avatar"
+		/>
+
+		<md-icon 
+			class 	= "md-avatar-icon"
+			ng-if	= "!jhvwUser.data.avatar"
+		>
+			face
+		</md-icon>
 
 
 
-			<label
-				for			= "{{avatarInputId}}"
-				class		= "md-button md-raised md-jhvw-theme"
-				ng-class	= "{'md-warn': avatarFilename}"
-				md-colors	= "{'background': avatarFilename ? 'warn' : 'background'}"
-				flex		= "grow"
-				ng-click	= "confirmDeletion ? $event.preventDefault() : null"
-				ng-disabled = "confirmDeletion"
-			>
-				ändern
-			</label>
+		<label
+			for			= "{{avatarInputId}}"
+			class		= "md-button md-raised md-jhvw-theme"
+			ng-class	= "{'md-warn': avatarFilename}"
+			md-colors	= "{'background': avatarFilename ? 'warn' : 'background'}"
+			flex		= "grow"
+			ng-click	= "confirmDeletion ? $event.preventDefault() : null"
+			ng-disabled = "confirmDeletion"
+		>
+			ändern
+		</label>
 
-			<md-button 
-				class 		= "md-raised"
-				ng-show		= "jhvwUser.data.avatar"
-				ng-class	= "{'md-warn': confirmDeletion}"
-				ng-click 	= "confirmDeletion = !confirmDeletion" 
-				flex		= "grow"
-				ng-disabled = "avatarFilename"
-			>
-				löschen
-			</md-button>
+		<md-button 
+			class 		= "md-raised"
+			ng-show		= "jhvwUser.data.avatar"
+			ng-class	= "{'md-warn': confirmDeletion}"
+			ng-click 	= "confirmDeletion = !confirmDeletion" 
+			flex		= "grow"
+			ng-disabled = "avatarFilename"
+		>
+			löschen
+		</md-button>
 
-		</md-list-item>
-	</md-list>
+	</md-list-item>
 
-	<input 
-		id				= "{{avatarInputId}}"
-		type			= "file"
-		class			= "ng-hide"
-		required
-	/>
+	<md-list-item class	= "ng-hide">
+
+		<input 
+			id				= "{{avatarInputId}}"
+			type			= "file"
+			required
+		/>
+	</md-list-item>
 
 
 
 
 	<!-- confirm deletetion -->
+	<md-list-item ng-show	= "confirmDeletion">
 
-	<div
-		layout	= "row"
-		layout-align = "center center"
-		ng-show	= "confirmDeletion"
-	>
-		<md-button
-			class		= "md-raised"
-			ng-click	= "confirmDeletion = false"
-			flex		= "grow"
+		<div
+			layout	= "row"
+			layout-align = "center center"
+			
 		>
-			abbrechen
-		</md-button>
+			<md-button
+				class		= "md-raised"
+				ng-click	= "confirmDeletion = false"
+				flex		= "grow"
+			>
+				abbrechen
+			</md-button>
 
-		<md-button
-			class		= "md-primary md-raised"
-			flex		= "grow"
-			ng-click	= "deleteAvatar(); confirmDeletion = false"
-		>
-			bestätigen
-		</md-button>
-	</div>
+			<md-button
+				class		= "md-primary md-raised"
+				flex		= "grow"
+				ng-click	= "deleteAvatar(); confirmDeletion = false"
+			>
+				bestätigen
+			</md-button>
+		</div>
+	</md-list-item>
 
 
 
 
 	<!-- filename -->
-
-	<div
-		class 	= "md-button md-disabled"
-		ng-show = "avatarFilename"	
-	>
-		{{avatarFilename}}
-	</div>
-
-
-	<div
-		layout 	= "row"
-		ng-show = "avatarFilename"
-	>
-		<md-button
-			class		= "md-raised"
-			ng-click	= "avatarFilename = ''"
-			flex		= "grow"
+	<md-list-item ng-show = "avatarFilename"	>
+		<div
+			class 	= "md-button md-disabled"
+			
 		>
-			abbrechen
-		</md-button>
-
-		<md-button
-			class		= "md-primary md-raised"
-			flex		= "grow"
-			ng-click 	= "updateAvatar(); avatarFilename = ''"
-		>
-			hochladen
-		</md-button>
-	</div>
+			{{avatarFilename}}
+		</div>
+	</md-list-item>
 
 
-</div>
+	<md-list-item ng-show = "avatarFilename">
+		<div layout 	= "row"	>
+			<md-button
+				class		= "md-raised"
+				ng-click	= "avatarFilename = ''"
+				flex		= "grow"
+			>
+				abbrechen
+			</md-button>
+
+			<md-button
+				class		= "md-primary md-raised"
+				flex		= "grow"
+				ng-click 	= "updateAvatar(); avatarFilename = ''"
+			>
+				hochladen
+			</md-button>
+		</div>
+	</md-list-item>
+
 
 
 
 <!--country -->
+	<md-list-item>
 
-<form
-	layout 		= "column"
->
-	<md-input-container
-	>
-		<label>{{key|label}}</label>
-		<md-select 
-			ng-model	= "edit.country"
-			ng-change 	= "update('country', edit.country).then(blur)"
-			placeholder	= "Wähle Dein Land"
-		>
-			<md-option value="">keine Angabe</md-option>
-			<md-option ng-repeat="country in jhvwConfig.countries" value="{{country.code}}">{{country.name}}</md-option>
-		</md-select>
+		<form layout = "column"	>
+			<md-input-container
+			>
+				<label>{{key|label}}</label>
+				<md-select 
+					ng-model	= "edit.country"
+					ng-change 	= "update('country', edit.country).then(blur)"
+					placeholder	= "Wähle Dein Land"
+				>
+					<md-option value="">keine Angabe</md-option>
+					<md-option ng-repeat="country in jhvwConfig.countries" value="{{country.code}}">{{country.name}}</md-option>
+				</md-select>
 
-	</md-input-container>
+			</md-input-container>
 
-</form>
+		</form>
+
+	</md-list-item>
 
 
 
 
 <!-- city, zip -->
+	<md-list-item>
 
-<form
-	layout 		= "column"
-	ng-submit 	= "update({zip: edit.zip, city: edit.city}).then(blur)" 
->
-	<div layout = "row">
-		<md-input-container	
-			flex = "33"
+		<form
+			layout 		= "column"
+			ng-submit 	= "update({zip: edit.zip, city: edit.city}).then(blur)" 
 		>
-			<label>{{'zip'|label}}</label>
-			<input 
-				ng-model		= "edit.zip" 
-				md-maxlength	= "5" 
-				type			= "text"
-			/>
+			<div layout = "row">
+				<md-input-container	
+					flex = "33"
+				>
+					<label>{{'zip'|label}}</label>
+					<input 
+						ng-model		= "edit.zip" 
+						md-maxlength	= "5" 
+						type			= "text"
+					/>
 
-		</md-input-container>
+				</md-input-container>
 
-		<md-input-container
-			flex = "66"
-		>
-			<label>{{'city'|label}}</label>
-			<input 
-				ng-model		= "edit.city" 
-				md-maxlength	= "60" 
-				type			= "text"
-			/>
+				<md-input-container
+					flex = "66"
+				>
+					<label>{{'city'|label}}</label>
+					<input 
+						ng-model		= "edit.city" 
+						md-maxlength	= "60" 
+						type			= "text"
+					/>
 
-		</md-input-container>
-	</div>
+				</md-input-container>
+			</div>
 
-	<div
-		layout 	= "row"
-		ng-show	= "(edit.zip != jhvwUser.data.zip) || (edit.city != jhvwUser.data.city)"
-	>
-		<md-button 
-			class		= "md-raised" 
-			aria-label	= "undo changes"
-			ng-click	= "edit.zip = jhvwUser.data.zip; edit.city = jhvwUser.data.city"
-			flex		= "grow"
-		>
-			undo
-		</md-button>
+			<div
+				layout 	= "row"
+				ng-show	= "(edit.zip != jhvwUser.data.zip) || (edit.city != jhvwUser.data.city)"
+			>
+				<md-button 
+					class		= "md-raised" 
+					aria-label	= "undo changes"
+					ng-click	= "edit.zip = jhvwUser.data.zip; edit.city = jhvwUser.data.city"
+					flex		= "grow"
+				>
+					undo
+				</md-button>
 
-		<md-button 
-			class		= "md-primary md-raised" 
-			aria-label	= "update zip/city"
-			type		= "submit"
-			flex		= "grow"
-		>
-			übernehmen
-		</md-button>
-	</div>
+				<md-button 
+					class		= "md-primary md-raised" 
+					aria-label	= "update zip/city"
+					type		= "submit"
+					flex		= "grow"
+				>
+					übernehmen
+				</md-button>
+			</div>
 
-</form>
+		</form>
+	</md-list-item>
 
 
 
 <!-- timezone -->
-<form
-	layout 		= "column"
->
+	<md-list-item>
 
-	<md-input-container
-	>
-		<label>{{key|label}}</label>
-		<md-select 
-			ng-model	= "edit.tzOffset"
-			ng-change 	= "update('tzOffset', edit.tzOffset).then(blur)"
-			placeholder	= "Wähle Deine Zeitzone"
+		<form
+			layout 		= "column"
 		>
-			<md-option value="">keine Angabe</md-option>
-			<md-option ng-repeat="tz_offset in jhvwConfig.tzOffsets" value="{{tz_offset}}">
-				UTC {{tz_offset < 0 ? '+'+(-1*tz_offset): -1*tz_offset}} 
-				<span ng-if = "browserTimeZoneOffset == tz_offset"> -- Browserzeitzone</span>
-			</md-option>
-		</md-select>
 
-	</md-input-container>
+			<md-input-container
+			>
+				<label>{{key|label}}</label>
+				<md-select 
+					ng-model	= "edit.tzOffset"
+					ng-change 	= "update('tzOffset', edit.tzOffset).then(blur)"
+					placeholder	= "Wähle Deine Zeitzone"
+				>
+					<md-option value="">keine Angabe</md-option>
+					<md-option ng-repeat="tz_offset in jhvwConfig.tzOffsets" value="{{tz_offset}}">
+						UTC {{tz_offset < 0 ? '+'+(-1*tz_offset): -1*tz_offset}} 
+						<span ng-if = "browserTimeZoneOffset == tz_offset"> -- Browserzeitzone</span>
+					</md-option>
+				</md-select>
 
-</form>
+			</md-input-container>
+
+		</form>
+	</md-list-item>
 
 
 
 
 <!-- extra info -->
 
-<form
-	layout 		= "column"
-	ng-submit 	= "update('info', edit.info).then(blur)" 
->
-	<md-input-container
-	>
-		<label>Und sonst noch:</label>
-		<textarea 
-			ng-model	= "edit.info" 
-			rows		= "5"
-			type		= "text"
-		></textarea>
-
-	</md-input-container>
-
-	<div
-		layout 	= "row"
-		ng-show	= "edit.info != jhvwUser.data.info"
-	>
-		<md-button 
-			class		= "md-raised" 
-			aria-label	= "undo change to additional info"
-			ng-click	= "edit.info = jhvwUser.data.info"
-			flex		= "grow"
+	<md-list-item>
+		
+		<form
+			layout 		= "column"
+			ng-submit 	= "update('info', edit.info).then(blur)" 
 		>
-			undo
-		</md-button>
+			<md-input-container
+			>
+				<label>Und sonst noch:</label>
+				<textarea 
+					ng-model	= "edit.info" 
+					rows		= "5"
+					type		= "text"
+				></textarea>
 
-		<md-button 
-			class		= "md-primary md-raised" 
-			aria-label	= "update additional info"
-			type		= "submit"
-			flex		= "grow"
-		>
-			übernehmen
-		</md-button>
-	</div>
+			</md-input-container>
 
-</form>
+			<div
+				layout 	= "row"
+				ng-show	= "edit.info != jhvwUser.data.info"
+			>
+				<md-button 
+					class		= "md-raised" 
+					aria-label	= "undo change to additional info"
+					ng-click	= "edit.info = jhvwUser.data.info"
+					flex		= "grow"
+				>
+					undo
+				</md-button>
+
+				<md-button 
+					class		= "md-primary md-raised" 
+					aria-label	= "update additional info"
+					type		= "submit"
+					flex		= "grow"
+				>
+					übernehmen
+				</md-button>
+			</div>
+
+		</form>
+	</md-list-item>
+</md-list-item>
