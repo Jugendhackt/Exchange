@@ -63,7 +63,7 @@
 	<div layout 			= "row" >
 
 		<md-button 
-			class 			= "md-raised" 
+			class 			= "md-raised md-primary" 
 			flex 			= "auto"
 			ng-click		= "back()"
 			ng-if			= "step == 'password' || step == 'error'"
@@ -74,7 +74,7 @@
 
 		<md-button 
 			ng-if			= "step == 'username' || step == 'password'"
-			class 			= "md-primary md-raised" 
+			class 			= "md-accent md-raised" 
 			type 			= "submit"
 			flex 			= "auto"
 		>	
@@ -83,7 +83,7 @@
 
 		<md-button 
 			ng-if			= "step == 'error'"
-			class 			= "md-raised" 
+			class 			= "md-raised md-primary" 
 			type 			= "submit"
 			flex 			= "auto"
 		>	
@@ -92,7 +92,7 @@
 
 		<md-button 
 			ng-if			= "step == 'login'"
-			class 			= "md-primary md-raised" 
+			class 			= "md-accent md-raised" 
 			type 			= "submit"
 			flex 			= "auto"
 			focus-me		
