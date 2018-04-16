@@ -3,7 +3,7 @@ var copy 	= require('copy'),
 
 config = JSON.parse(fs.readFileSync('config.json', 'utf8'))
 
-if(!fs.existsSync('dev')) fs.mkdir('dev')
+if(!fs.existsSync('dev')) fs.mkdirSync('dev')
 
 copy("src/js/**/*.js", "dev/js", function(){})
 copy("src/pages/**/*.html", "dev/pages", function(){})

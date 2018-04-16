@@ -1,155 +1,149 @@
 
-	<md-content
-		hide-xs 		
-		flex-gt-xs		= "none"
-		layout			= "row"
-	>
-	
-		<jhvw-room-list></jhvw-room-list>
-	
-	</md-content>
-
-
-
-	<md-content
-		flex			= "grow"
-		layout			= "row"
-		layout-align	= "center"
+	<div
+		flex-xs			= "grow"
+		flex-sm			= "grow"
+		flex-md			= "grow"
+		flex-lg			= "70"
+		flex-xl			= "66"
 		ng-init			= "show = show || {}"
+
 	>
 
-
-		<div
-			flex-xs			= "grow"
-			flex-sm			= "grow"
-			flex-md			= "grow"
-			flex-lg			= "70"
-			flex-xl			= "66"
-
+		<section 
+			ng-show		= "!project"
+			md-colors	= "{background: 'jhvw-primary-400'}" 
+			layout-padding
 		>
 
-			<section 
-				ng-show		= "!project"
-				md-colors	= "{background: 'jhvw-primary-400'}" 
-				layout-padding
-			>
-
-				<div id = "hero" layout-margin>
-					<h1>Vernetzte <br/> Welten</h1>
-					<h2>Konzepte und Tools für den Schüler*innen-Austausch der Zukunft</h2>
-				</div>
-
-				<!--
-				<article ng-bind-html = "'intro' | jhvwContent"></article>
-				-->
-
-			</section>
-
-
-			<!--
-			<p>
-				Willkommen bei Vernetzte Welten! Auf dieser Plattform können sich Schülerinnen und Schüler aus unterschiedlichen Ländern Ostasiens mit Unterrichtsfach Deutsch, und Schülerinnen und Schüler aus Deutschland vernetzen. Vor und nach einem Schüleraustausch können Gruppen sich kennenlernen und weiter Kontakt halten. In Form eines Chats kann man hier Sprache und Verständnis trainieren, sich über Interessen wie Musik und Sport austauschen, und die Gemeinsamkeiten und Unterschiede unserer Kulturen herausfinden.
-			</p>
-
-			<p>
-				Unter „Registrieren/Login“ kannst du dich zu dem Chat anmelden. Von deiner Lehrerin oder Gruppenleiter solltest du den Link zu eurem Chatraum bekommen haben. Wenn du den Namen des Raumes weißt, kannst du ihn auch nach dem Login eingeben. Viel Spaß beim chatten mit anderen Jugendlichen aus deinem Austauschprojekt!
-			</p>
-
-			<p>
-				Unter „Prototypen“ findest du alle Projekte die bei Jugend hackt Vernetze Welten entstanden sind. In nur zwei Tagen haben Schülerinnen und Schüler aus Südkorea, Japan, Taiwan und Hongkong gemeinsam mit Jugendlichen aus  Deutschland Webseiten, Apps und Hardwareprojekte zum Thema „Schüleraustausch der Zukunft“ entwickelt. Viel Spaß beim ansehen!
-			</p>
-			-->
-
-			<!--
-			<section
-				layout			= "row"
-				layout-align	= "center center"
-				layout-padding
-			>	
-				<div
-					layout	= "column"
-					flex	= "none"
-				>
-					<md-button
-						href		= ""
-						flex		= "none"
-						ng-click	= "login()"
-					>
-						Login
-					</md-button>
-
-					<md-button
-						href 		= ""
-						flex		= "none"
-						ng-click	= "register()"
-					>
-						Registrieren
-					</md-button>
-				</div>
+			<div id = "hero" layout-margin>
+				<h1>Vernetzte <br/> Welten</h1>
+				<h2>Konzepte und Tools für den Schüler*innen-Austausch der Zukunft</h2>
 			</div>
-			-->
 
 			<!--
-			<md-divider></md-divider>
+			<article ng-bind-html = "'intro' | jhvwContent"></article>
 			-->
 
-			<section
-				md-colors	= "{background: project.prototype ? 'jhvw-primary-A100' : 'jhvw-accent-400'}" 
+		</section>
+
+
+		<!--
+		<p>
+			Willkommen bei Vernetzte Welten! Auf dieser Plattform können sich Schülerinnen und Schüler aus unterschiedlichen Ländern Ostasiens mit Unterrichtsfach Deutsch, und Schülerinnen und Schüler aus Deutschland vernetzen. Vor und nach einem Schüleraustausch können Gruppen sich kennenlernen und weiter Kontakt halten. In Form eines Chats kann man hier Sprache und Verständnis trainieren, sich über Interessen wie Musik und Sport austauschen, und die Gemeinsamkeiten und Unterschiede unserer Kulturen herausfinden.
+		</p>
+
+		<p>
+			Unter „Registrieren/Login“ kannst du dich zu dem Chat anmelden. Von deiner Lehrerin oder Gruppenleiter solltest du den Link zu eurem Chatraum bekommen haben. Wenn du den Namen des Raumes weißt, kannst du ihn auch nach dem Login eingeben. Viel Spaß beim chatten mit anderen Jugendlichen aus deinem Austauschprojekt!
+		</p>
+
+		<p>
+			Unter „Prototypen“ findest du alle Projekte die bei Jugend hackt Vernetze Welten entstanden sind. In nur zwei Tagen haben Schülerinnen und Schüler aus Südkorea, Japan, Taiwan und Hongkong gemeinsam mit Jugendlichen aus  Deutschland Webseiten, Apps und Hardwareprojekte zum Thema „Schüleraustausch der Zukunft“ entwickelt. Viel Spaß beim ansehen!
+		</p>
+		-->
+
+		<!--
+		<section
+			layout			= "row"
+			layout-align	= "center center"
+			layout-padding
+		>	
+			<div
+				layout	= "column"
+				flex	= "none"
+			>
+				<md-button
+					href		= ""
+					flex		= "none"
+					ng-click	= "login()"
+				>
+					Login
+				</md-button>
+
+				<md-button
+					href 		= ""
+					flex		= "none"
+					ng-click	= "register()"
+				>
+					Registrieren
+				</md-button>
+			</div>
+		</div>
+		-->
+
+		<!--
+		<md-divider></md-divider>
+		-->
+
+		<section
+			md-colors	= "{background: project.prototype ? 'jhvw-primary-A100' : 'jhvw-accent-400'}" 
+			ng-show		= "project"
+			layout-padding
+		>
+			
+
+			<article
+				ng-show				= "project"
+				class				= "project-preview"
+				layout-xs			= "column"
+				layout-gt-xs		= "row"
+				md-colors			= "{background: project.prototype ? 'jhvw-primary-400' : 'jhvw-primary-400'}" 
+				layout-align-xs 	= "start stretch"
+				layout-align-gt-xs 	= "center start"
 				layout-padding
 			>
-				<article
-					ng-show				= "project"
-					class				= "project-preview"
-					layout-xs			= "column"
-					layout-gt-xs		= "row"
-					md-colors			= "{background: project.prototype ? 'jhvw-primary-400' : 'jhvw-primary-400'}" 
-					layout-align-xs 	= "start stretch"
-					layout-align-gt-xs 	= "center start"
-					layout-padding
-					layout-margin
+				
+				<div
+					flex-gt-xs	= "45"
 				>
-					<div
-						flex-gt-xs	= "45"
+					<img src = "{{project.image}}"	/>
+				</div>
+				<div
+					flex-gt-xs	= "55"
+				>
+
+					 <md-toolbar md-colors 		= "{color: 'jhvw-accent-400'}">
+
+					    <div class="md-toolbar-tools">
+							<h2 class = "md-headline" md-truncate flex>{{project.name}}</h2>
+
+							<a
+								class	= "md-icon-button"
+								ng-href	= "/" 
+							>
+								<md-icon> clear	</md-icon>
+							</a>
+					    </div>
+
+				  	</md-toolbar>
+
+					
+					<p layout-padding>
+						{{project.description}}
+					</p>
+
+					<a 
+						ng-if 		= "project.link" 
+						md-colors 	= "{color: 'jhvw-accent-400'}"
+						ng-href 	= "{{project.link}}"
+						layout-padding
 					>
-						<img src = "{{project.image}}"	/>
-					</div>
-					<div
-						flex-gt-xs	= "55"
-					>
-						<h3 
-							md-colors 	= "{color: 'jhvw-accent-400'}"
-							class		= "md-headline"
-						>
-							{{project.name}}
-						</h3>
-						
-						<p>
-							{{project.description}}
-						</p>
+						Projektseite
+					</a>
+				</div>
+			</article>
+		</section>
+		
+		<ng-include 
+			ng-show 	= "!project || !project.prototype" 
+			src 	= "'/partials/projects.html'"
+		></ng-include>
 
-						<a 
-							ng-if 		= "project.link" 
-							md-colors 	= "{color: 'jhvw-accent-400'}"
-							ng-href 	= "{{project.link}}"
-						>
-							Projektseite
-						</a>
-					</div>
-				</article>
-			</section>
-			
-			<ng-include 
-				ng-show 	= "!project || !project.prototype" 
-				src 	= "'/partials/projects.html'"
-			></ng-include>
+		<ng-include 
+			ng-show 	= "!project || project.prototype" 
+			src = "'/partials/prototypes.html'"></ng-include>
 
-			<ng-include 
-				ng-show 	= "!project || project.prototype" 
-				src = "'/partials/prototypes.html'"></ng-include>
-
-			<ng-include src = "'/partials/footer.html'"></ng-include>
+		<ng-include src = "'/partials/footer.html'"></ng-include>
 
 
-		</div>
+	</div>
 
-	</md-content>

@@ -6,11 +6,12 @@ angular.module('jhvw')
 	'$scope',
 	'$routeParams',
 	'$location',
+	'$mdSidenav',
 	'jhvwChat',
 	'jhvwUser',
 	'jhvwConfig',
 
-	function($rootScope, $scope, $routeParams, $location, jhvwChat, jhvwUser, jhvwConfig){
+	function($rootScope, $scope, $routeParams, $location, $mdSidenav, jhvwChat, jhvwUser, jhvwConfig){
 
 
 		jhvwUser.ready
@@ -22,6 +23,8 @@ angular.module('jhvw')
 
 			$scope.jhvwUser 	= jhvwUser
 			$scope.jhvwConfig	= jhvwConfig
+			$scope.$mdSidenav	= $mdSidenav
+
 
 
 			if($routeParams.room){

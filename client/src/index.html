@@ -48,15 +48,83 @@
 		flex			= "none"
 		jhvw-header
 	>
-
 	</md-toolbar>
 
 	<md-content 
 		layout			= "row"
 		flex			= "grow"
 		layout-align	= "center stretch"
+		md-colors		= "{background: 'jhvw-background-100'}"
 		ng-view
 	>		
 	</md-content>
+
+
+
+	<md-sidenav
+		class			= "md-sidenav-right"
+		md-component-id	= "menu"
+		layout			= "column"
+		layout-align	= "start stretch"
+	>
+		<md-toolbar md-colors 		= "{color: 'jhvw-accent-400'}">
+
+		    <div class="md-toolbar-tools">
+				<h2 class = "md-headline" md-truncate flex>Vernetzte Welten</h2>
+
+				<md-button
+					class		= "md-icon-button"
+					ng-click 	= "$mdSidenav('menu').close()"  
+				>
+					<md-icon> clear	</md-icon>
+				</md-button>
+		    </div>
+
+	  	</md-toolbar>
+
+		<md-list
+			ng-click	= "$mdSidenav('menu').close()"
+		>
+
+			<md-list-item ng-click 	= "gotoRoom()">
+				<span ng-if = "!$routeParams.room">	Chat {{$media('gt-xs') ? betreten : '' }}</span>
+				<span ng-if = "$routeParams.room">	#{{$routeParams.room}}</span>
+			</md-list-item>
+
+
+			<md-list-item
+				ng-if 		= "!jhvwUser.loggedIn()"
+				ng-click	= "register()"
+			>
+				Registrieren
+			</md-list-item>
+
+
+			<md-list-item
+				ng-if 		= "!jhvwUser.loggedIn()"
+				ng-click	= "login()"
+			>
+				Login
+			</md-list-item>
+
+			<md-list-item ng-click = "path('/about')">
+				Über uns
+			</md-list-item>
+
+				
+			<md-list-item ng-click = "path('/impressum')">
+				Impressum
+			</md-list-item>
+
+			<md-list-item
+					ng-if 		= "jhvwUser.loggedIn()"
+					ng-click 	= "logout()" 
+			>
+				Logout
+			<md-list-item>
+
+		</md-list-item>
+
+	</md-sidenav>	
 
 </body>

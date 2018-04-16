@@ -115,14 +115,18 @@ angular.module('jhvw')
 .directive('jhvwHeader', [
 
 	'$routeParams',
+	'$mdMedia',
+	'$mdSidenav',
 	
-	function($routeParams){
+	function($routeParams, $mdMedia, $mdSidenav){
 		return {
 			templateUrl: 	'partials/header.html',
 
 			link: function(scope, element){
 
-				scope.$routeParams = $routeParams
+				scope.$routeParams	= $routeParams
+				scope.$mdMedia		= $mdMedia
+				scope.$mdSidenav	= $mdSidenav
 			}
 		}
 	}

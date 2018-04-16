@@ -1,50 +1,75 @@
 <div
 	layout-xs 		= "column"
 	layout-gt-xs	= "row"
-	layout-align	= "stretch"
+	layout-align	= "stretch center"
 	flex			= "grow"
+	md-colors		= "{background: 'jhvw-background-A100'}"
 >
 
-<!-- 
-	<md-content
-		flex-xs 		= "100"
-		flex-gt-xs		= "none"
-		flex-order-xs	= "2"
-		layout			= "row"
-		md-colors 		= "{background: 'background-A100'}"
+	<jhvw-room-list
+		flex-xs				= "grow"
+		flex-gt-xs			= "30"
+		flex-order			= "2"
+		flex-order-gt-xs	= "1"
+		md-colors			= "{background: 'jhvw-background-800'}"
+		layout				= "column"
 	>
-		<jhvw-room-list></jhvw-room-list>
-	</md-content>
+	</jhvw-room-list>
 
- -->
+
 	<div
-		flex			= "grow"
-		layout			= "row"
-		layout-align 	= "center start"
-
-		layout-padding
+		flex-xs				= "none"
+		flex-gt-xs			= "grow"
+		layout				= "column"
+		layout-align 		= "start stretch"
+		flex-order			= "1"
+		flex-order-gt-xs	= "2"
 	>
-		<form
-			flex		= "33"
-			layout		= "column"
-			ng-submit	= "gotoRoom(room_name)"
-		>
-			<md-input-container>
-				<label>Raum wählen</label>
-				<input 
-					ng-model		= "room_name" 
-					md-maxlength	= "60" 
-					type			= "text"
-					required
-				/>
-			</md-input-container>
-			<md-button
-				flex 		= "100"
-				class		= "md-primary md-raised"
-				type 		= "submit"
+
+			<div 
+				flex 	= "50"
+				layout  = "column"
+				layout-align 	= "center center" 
 			>
-				Okay
-			</md-button>
-		</form>
+				<form
+					layout			= "column"
+					ng-submit		= "gotoRoom(room_name)"
+				>
+					<md-input-container>
+						<label>Raum wählen</label>
+						<input 
+							ng-model		= "room_name" 
+							md-maxlength	= "60" 
+							type			= "text"
+							required
+						/>
+					</md-input-container>
+					<md-button
+						flex 		= "none"
+						class		= "md-primary md-raised"
+						type 		= "submit"
+					>
+						Okay
+					</md-button>
+				</form>
+			</div>
+
+			<div 
+				flex			= "50"
+				md-whiteframe	= "2"
+				md-colors		= "{background: 'jhvw-primary-400'}"
+				layout			= "column"
+				layout-padding
+			>
+				<div
+					style			= "max-width: 30rem;" 
+					ng-bind-html 	= "'chat' | jhvwContent">
+				</div>
+
+			</div>
+			
 	</div>
+
+
+
 </div>

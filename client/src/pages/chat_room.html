@@ -10,117 +10,123 @@
 	<md-sidenav
 		ng-if				= "room"
 		md-is-locked-open 	= "$mdMedia('gt-md')"
-		flex				= "none"
+		flex				= "25"
 		md-colors			= "{background: 'jhvw-background-800'}"
 		layout				= "column"
 	>
-		<jhvw-room-list
-			flex			= "25"
-		>
+
+		<jhvw-room-list>
 		</jhvw-room-list>
 
 		<md-divider></md-divider>
 
 		<jhvw-profile
-			flex			= "grow"
+			layout-padding
 		>
 		</jhvw-profile>
+
 	</md-sidenav>
 
 
-
-
-	<jhvw-chat 
+	<div
 		ng-if		= "room"
-		jhvw-room 	= "room"
-		layout		= "column" 
 		flex		= "grow"
+		layout		= "row"
 	>
-	</jhvw-chat>
 
-
-
-	<!-- list of participants -->
-
-	<md-sidenav
-		ng-if				= "room"
-		md-is-locked-open 	= "$mdMedia('gt-sm')"
-		flex				= "none"
-		class				= "participant-list"
-		md-colors			= "{background: 'jhvw-background-900'}"
-	>
-		<md-list 
-			class ="md-dense"
-			flex
+		<jhvw-chat 
+			jhvw-room 	= "room"
+			layout		= "column" 
+			flex		= "grow"
+			flex-gt-sm	= "60"
 		>
-			<md-list-item
-				class			= "md-2-line"
-				ng-repeat-start = "participant in room.participants | up : 'id' : jhvwUser.data.id"
-				ng-click		= "show_info = !show_info"
+		</jhvw-chat>
+
+
+
+		<!-- list of participants -->
+
+		<md-sidenav
+			ng-if				= "room"
+			md-is-locked-open 	= "$mdMedia('gt-sm')"
+			flex				= "40"
+			class				= "participant-list md-sidenav-right"
+			md-colors			= "{background: 'jhvw-background-A100'}"
+			md-component-id		= "chat-details"
+		>
+			<md-list 
+				class ="md-dense"
+				flex
 			>
-				<img
-					ng-if	= "participant.avatar" 
-					ng-src	= "{{jhvwConfig.backendLocation}}/images/{{participant.avatar}}" 
-					class	= "md-avatar"
-				/>
-
-
-				<md-icon 
-					class 	= "md-avatar-icon"
-					ng-if	= "!participant.avatar"
+				<md-list-item
+					class			= "md-2-line"
+					ng-repeat-start = "participant in room.participants | up : 'id' : jhvwUser.data.id"
+					ng-click		= "show_info = !show_info"
+					md-colors		= "{background: 'jhvw-background-A100'}"
 				>
-					face
-				</md-icon>
+					<img
+						ng-if	= "participant.avatar" 
+						ng-src	= "{{jhvwConfig.backendLocation}}/images/{{participant.avatar}}" 
+						class	= "md-avatar"
+					/>
 
-				<div 
-					class	= "md-list-item-text" 
-					layout	= "column"
-					flex	= "grow"
+
+					<md-icon 
+						class 	= "md-avatar-icon"
+						ng-if	= "!participant.avatar"
+					>
+						face
+					</md-icon>
+
+					<div 
+						class	= "md-list-item-text" 
+						layout	= "column"
+						flex	= "grow"
+					>
+						<h3>{{participant.displayName}}</h3>
+						<p>
+							<span ng-if ="participant.zip">		 {{participant.zip}}</span><!--
+						 --><span ng-if ="participant.city">	 {{participant.city}}</span><!--
+						 --><span ng-if ="participant.country">, {{participant.country | countryName}}</span>
+						</p>
+						<p ng-if = "participant.tzOffset !== undefined">
+							lokale Zeit: {{participant.time | jhvwDate : true}} 
+						</p>
+						<p ng-if = "participant.tzOffset === undefined">
+							Zeitzone unbekannt
+						</p>
+
+					</div>
+
+					<div 
+						class ="md-secondary-container"
+					>
+						<jhvw-weather
+							zip 	= "participant.zip"
+							city	= "participant.city"
+							country	= "participant.country"
+						></jhvw-weather>
+					</div>
+
+				</md-list-item>
+
+				<md-list-item
+					class		= "md-2-line"
+					ng-show 	= "show_info"
+					ng-repeat-end
 				>
-					<h3>{{participant.displayName}}</h3>
-					<p>
-						<span ng-if ="participant.zip">		 {{participant.zip}}</span><!--
-					 --><span ng-if ="participant.city">	 {{participant.city}}</span><!--
-					 --><span ng-if ="participant.country">, {{participant.country | countryName}}</span>
-					</p>
-					<p ng-if = "participant.tzOffset !== undefined">
-						lokale Zeit: {{participant.time | jhvwDate : true}} 
-					</p>
-					<p ng-if = "participant.tzOffset === undefined">
-						Zeitzone unbekannt
-					</p>
+					<div 
+						class	= "md-list-item-text" 
+						flex	= "grow"
+					>
+						<h3>Und sonst noch:</h3>
+						<p style = "white-space: pre">{{participant.info || 'Nichts weiter...'}}</p>
+					</div>
+				</md-list-item>
+			</md-list>
+		</md-sidenav>
 
-				</div>
 
-				<div 
-					class ="md-secondary-container"
-				>
-					<jhvw-weather
-						zip 	= "participant.zip"
-						city	= "participant.city"
-						country	= "participant.country"
-					></jhvw-weather>
-				</div>
-
-			</md-list-item>
-
-			<md-list-item
-				class		= "md-2-line"
-				ng-show 	= "show_info"
-				ng-repeat-end
-			>
-				<div 
-					class	= "md-list-item-text" 
-					flex	= "grow"
-				>
-					<h3>Und sonst noch:</h3>
-					<p style = "white-space: pre">{{participant.info || 'Nichts weiter...'}}</p>
-				</div>
-			</md-list-item>
-		</md-list>
-	</md-sidenav>
-
+	</div>
 
 </div>
-
-

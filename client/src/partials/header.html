@@ -1,33 +1,66 @@
 <a 
 	class 		= "md-icon-button md-button"
 	ng-href		= "/"
+	flex		= "none"
 >
 	<md-icon>home</md-icon>
-	<a href = "/about" 		class = "md-button">Über uns</a>
 </a>
+
+<h2 
+	class = "md-headline" 
+	md-truncate 
+	hide-xs
+	flex
+>
+	Vernetzte Welten
+</h2>
+
+<a 
+	href = "/about" 	
+	class = "md-button"
+	hide-xs
+>
+	Über uns
+</a>
+
 
 <md-button 
 	flex		= "none"
 	ng-click 	= "gotoRoom()"
 >
-	<span ng-if = "!$routeParams.roomName">	Chat betreten</span>
-	<span ng-if = "$routeParams.roomName">	#{{roomName}}</span>
+	<span ng-if = "!$routeParams.room">	Chat betreten</span>
+	<span ng-if = "$routeParams.room">	#{{$routeParams.room}}</span>
 </md-button>
 
+
+
 <div flex 	= "grow"></div>
+
+<md-button
+	class		= "md-icon-button"
+	flex		= "none"
+	ng-click	= "$mdSidenav('chat-details').toggle()" 
+	ng-if		= "$routeParams.room && !$mdMedia('gt-sm')"
+>
+	<md-icon>people</md-icon>
+</md-button>
+
 
 <md-button 
 	ng-if 		= "!jhvwUser.loggedIn()"
 	ng-click	= "register()"
 	flex		= "none"
+	hide-xs
 >
 	Registrieren
 </md-button>
+
 
 <md-button
 	ng-if 		= "!jhvwUser.loggedIn()"
 	ng-click	= "login()"
 	flex		= "none"
+	hide-xs
 >
 	Login
 </md-button>
@@ -45,6 +78,16 @@
 	ng-if 		= "jhvwUser.loggedIn()"
 	ng-click 	= "logout()" 
 	flex		= "none"
+	hide-xs
 >
 	Logout
+</md-button>
+
+
+<md-button
+	flex		= "none"
+	class		= "md-icon-button"	
+	ng-click	= "$mdSidenav('menu').toggle()"
+>
+	<md-icon>menu</md-icon>
 </md-button>

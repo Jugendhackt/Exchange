@@ -95,7 +95,7 @@ angular.module('jhvw', [
 			'800': 	'ffaa09',
 			'900': 	'ffaa0a',
 			'A100':	'ffaa0b',
-			'A200': 'ffaa0c',
+			'A200': '7c912e', //primary button background
 			'A400': 'ffaa0d',
 			'A700': '9cc30c',
 			'contrastDefaultColor': 'light',    
@@ -107,24 +107,24 @@ angular.module('jhvw', [
 
 
 		$mdThemingProvider.definePalette('jhvw-background', {
-			'50': 	'888888', //button raised
-			'100': 	'00ff02',
-			'200': 	'00ff03',
+			'50': 	'000000', //button raised
+			'100': 	'222222',
+			'200': 	'888888', //hover backgroundpull down
 			'300': 	'00ff04',
 			'400': 	'00ff05', 
 			'500': 	'cccccc', //hover overlay
 			'600': 	'00ff07',
 			'700': 	'00ff08',
 			'800': 	'abb3b7', ///dialog
-			'900': 	'f5f5f5', //backdrop
-			'A100':	'00ff0b',
+			'900': 	'000000', //backdrop
+			'A100':	'f5f5f5',
 			'A200': '00ff0c',
 			'A400': '444444', //inputs?
 			'A700': '00ff0e',
 			'contrastDefaultColor': 'light',    
 			                                    
-			'contrastDarkColors': 	['800', '900'],
-			//'contrastLightColors':	['800']// could also specify this if default was 'dark'
+			'contrastDarkColors': 	['800','A100'],
+			'contrastLightColors':	['50']// could also specify this if default was 'dark'
 		})
 
 
