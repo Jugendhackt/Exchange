@@ -117,9 +117,12 @@
 				  	</md-toolbar>
 
 					
-					<p layout-padding>
-						{{project.description}}
-					</p>
+
+					<div 
+						ng-bind-html = "project.description | trustAsHtml"
+						layout-padding
+					>
+					</div>
 
 					<a 
 						ng-if 		= "project.link" 
@@ -134,12 +137,12 @@
 		</section>
 		
 		<ng-include 
-			ng-show 	= "!project || !project.prototype" 
+			ng-if 	= "!project || !project.prototype" 
 			src 	= "'/partials/projects.html'"
 		></ng-include>
 
 		<ng-include 
-			ng-show 	= "!project || project.prototype" 
+			ng-if 	= "!project || project.prototype" 
 			src = "'/partials/prototypes.html'"></ng-include>
 
 		<ng-include src = "'/partials/footer.html'"></ng-include>

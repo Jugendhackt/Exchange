@@ -188,7 +188,14 @@ md-grid-tile {
 	position:				relative;
 }
 
-.project-list > footer > img {
+.project-list > footer ,
+.project-list > header {
+	position:				relative;
+}
+
+
+.project-list > footer > img,
+.project-list > header > img {
 	opacity:				0.1;
 	box-sizing:				border-box;
 	width:					100%;
@@ -196,13 +203,15 @@ md-grid-tile {
 	padding-bottom:			0 !important;
 }
 
-.project-list > footer > .controls {
+.project-list > footer > .controls,
+.project-list > header > .controls {
 	position:				absolute;
 	right:					1rem;
 	bottom:					1rem;
 }
 
-.project-list > footer > .controls > *{
+.project-list > footer > .controls > *,
+.project-list > header > .controls > * {
 	font-size:				2rem !important;
 }
 
@@ -395,4 +404,5 @@ md-grid-tile:hover .description{
 	min-height:			6rem;
 	width:				15rem;
 	max-width:			90%;
+	margin:				1rem 0;
 }

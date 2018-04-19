@@ -2,37 +2,11 @@
 	class				= "project-list"
 	jhvw-projects-as 	= "projects"
 	md-colors			= "{background: 'jhvw-primary-A100'}" 
+	ng-init				= "show = {}"
 	layout-padding
 >
-	<div 
-		ng-init		= "show.year = (show.year === undefined) ? (projects | projectYears)[0] : show.year"
-		ng-repeat 	= "event in (projects | groupProjectsByEvent)"
-		ng-if		= "!show.year || (event.year == show.year) "	
-	>
-		<jhvw-project-list>
-			<md-grid-tile 
-				ng-repeat		= "jhvwProject in event.projects"
-				ng-if			= "jhvwProject.prototype"
-				md-colors 		= "{background: 'jhvw-primary-400'}"
-				ng-click		= "path('/project/'+jhvwProject.id)"
-				md-ink-ripple 	= "#000"
-				title			= "{{jhvwProject.description}}"
-				class			= "md-whiteframe-4dp"
-			>
-				<h3>{{jhvwProject.name}}</h3>
-				<div
-					class		= "tile-image"
-					style		= "background-image: url({{jhvwProject.image}})"
-				>
-				</div>	
-			</md-grid-tile>
-		</jhvw-project-list>
 
-		<div>
-		</div>
-	</div>
-
-	<footer>
+	<header>
 		<img src ="/images/prototypen.svg"/>
 		<div class = "controls">
 			<md-button 
@@ -45,13 +19,32 @@
 			</md-button>
 			<md-button
 				class		= "md-primary"
-				ng-class	= "{'md-raised': show.year === 0 }" 
-				ng-click	= "show.year = 0"
+				ng-class	= "{'md-raised': !show.year}" 
+				ng-click	= "show.year = undefined"
 			>
 				alle
 			</md-button>
 		</div>
-	</footer>
+	</header>
+	
+	<jhvw-project-list>
+		<md-grid-tile 
+			ng-repeat		= "jhvwProject in projects"
+			ng-if			= "jhvwProject.prototype && (!show.year || show.year == jhvwProject.year)"
+			md-colors 		= "{background: 'jhvw-primary-400'}"
+			ng-click		= "path('/project/'+jhvwProject.id)"
+			md-ink-ripple 	= "#000"
+			title			= "{{jhvwProject.description}}"
+			class			= "md-whiteframe-4dp"
+		>
+			<h3>{{jhvwProject.name}}</h3>
+			<div
+				class		= "tile-image"
+				style		= "background-image: url({{jhvwProject.image}})"
+			>
+			</div>	
+		</md-grid-tile>
+	</jhvw-project-list>
 
 </section>
 
